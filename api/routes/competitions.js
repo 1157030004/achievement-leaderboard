@@ -1,17 +1,16 @@
 const router = require("express").Router();
-const CryptoJS = require("crypto-js");
 const verify = require("../verifyToken");
-const Achievement = require("../models/Achievement");
+const Competition = require("../models/Competition");
 const User = require("../models/User");
 const { gpaCount } = require("../calculator");
 
 const upload = require("../middleware/upload");
 
 //!Create
-router.post("/", verify, upload.single("certificate"), async (req, res) => {
-	const { title, level, rank, year, certificate } = req.body;
+router.post("/", verify, upload.single("proof"), async (req, res) => {
+	const { title, level, rank, year, proof } = req.body;
 	const user = await User.findById(req.user.id);
-	const newAchievement = new Achievement({
+	const newCompetition = new Competition({
 		title,
 		level,
 		rank,
@@ -19,35 +18,36 @@ router.post("/", verify, upload.single("certificate"), async (req, res) => {
 		owner: req.user.id,
 	});
 	if (req.file) {
-		newAchievement.certificate = req.file.path;
+		newCompetition.proof = req.file.path;
 	}
 
 	try {
-		console.log(newAchievement);
 		await User.updateOne(
 			{ _id: req.user.id },
 			{
-				$push: { achievements: newAchievement },
+				$push: { competitions: newCompetition },
 			},
 			{ new: true }
 		);
 
-		const savedAchievement = await newAchievement.save();
-		res.status(201).json(savedAchievement);
+		const savedCompetition = await newCompetition.save();
+		res.status(201).json(savedCompetition);
 	} catch (err) {
 		console.log(err);
 		res.status(500).json(err);
 	}
 });
 
-//!Update Achievement
+//!Update Competition
 router.put("/:id", verify, async (req, res) => {
+	const { score, status } = req.body;
 	if (req.user.isAdmin) {
 		try {
-			const updateAchievement = await Achievement.findByIdAndUpdate(
+			const updateCompetition = await Competition.findByIdAndUpdate(
 				req.params.id,
 				{
-					$set: req.body,
+					status,
+					score,
 				},
 				{
 					new: true,
@@ -56,22 +56,26 @@ router.put("/:id", verify, async (req, res) => {
 
 			let total = 0;
 			const user = await User.findByIdAndUpdate(
-				updateAchievement.owner
-			).populate("achievements");
+				updateCompetition.owner
+			).populate("competitions");
 
-			user.achievements.forEach((el) => {
+			user.competitions.forEach((el) => {
 				total += el.score;
 			});
 
-			//*
-			console.log(gpaCount(3.13));
+			//*Add all score to competitionScore
+			if (updateCompetition.score === 0) {
+				await User.findByIdAndUpdate(updateCompetition.owner, [
+					{
+						$set: {
+							competitionScore: { $sum: [score, "$competitionScore"] },
+							totalScore: { $sum: [score, "$totalScore"] },
+						},
+					},
+				]);
+			}
 
-			//*Add all score to totalScore
-			await User.findByIdAndUpdate(updateAchievement.owner, {
-				$set: { totalScore: total },
-			});
-
-			res.status(200).json(updateAchievement);
+			res.status(200).json(updateCompetition);
 		} catch (err) {
 			console.log(err);
 			res.status(500).json(err);
@@ -84,21 +88,21 @@ router.put("/:id", verify, async (req, res) => {
 //!Delete
 router.delete("/:id", verify, async (req, res) => {
 	try {
-		await Achievement.findByIdAndDelete(req.params.id);
-		res.status(200).json("Achievement has been deleted");
+		await Competition.findByIdAndDelete(req.params.id);
+		res.status(200).json("Competition has been deleted");
 	} catch (err) {
 		res.status(500).json(err);
 	}
 });
 
-//!Get User Achievement
+//!Get User Competition
 router.get("/:id", verify, async (req, res) => {
 	if (req.user.id === req.params.id) {
 		try {
-			const achievement = await Achievement.findById(req.params.id);
-			if (!achievement) return res.status(404).json("Not Found");
+			const competition = await Competition.findById(req.params.id);
+			if (!competition) return res.status(404).json("Not Found");
 
-			res.status(200).json(achievement);
+			res.status(200).json(competition);
 		} catch (err) {
 			res.status(500).json(err);
 		}
@@ -107,7 +111,7 @@ router.get("/:id", verify, async (req, res) => {
 	}
 });
 
-//!Get All Achievements
+//!Get All competitions
 router.get("/", verify, async (req, res) => {
 	if (req.user.isAdmin) {
 		try {
@@ -119,17 +123,17 @@ router.get("/", verify, async (req, res) => {
 
 			const pages = Math.ceil(total / pageSize);
 
-			let query = Achievement.find()
+			let query = Competition.find()
 				.skip(skip)
 				.sort({ createdAt: -1 })
 				.limit(pageSize)
-				.populate("owner", "-password -achievements");
+				.populate("owner", "-password -competitions");
 
 			if (page > pages) {
 				return res.status(404).json("No page found");
 			}
 
-			const result = title ? await Achievement.find({ title }) : await query;
+			const result = title ? await Competition.find({ title }) : await query;
 
 			res.status(200).json({
 				count: result.length,

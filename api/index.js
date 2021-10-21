@@ -5,7 +5,8 @@ const cors = require("cors");
 
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
-const achievementRoute = require("./routes/achievements");
+const competitionRoute = require("./routes/competitions");
+const academicRoute = require("./routes/academics");
 
 dotenv.config();
 const app = express();
@@ -22,7 +23,8 @@ mongoose
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
-app.use("/api/achievements", achievementRoute);
+app.use("/api/competitions", competitionRoute);
+app.use("/api/academics", academicRoute);
 
 app.listen(8800, () => {
 	console.log("Backend server is running!");

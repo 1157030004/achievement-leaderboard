@@ -1,37 +1,28 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const AchievementSchema = new Schema(
+const OrganizationSchema = new Schema(
 	{
 		title: { type: String, required: true },
-		level: {
+		activity: {
 			type: String,
 			enum: [
-				"Lokal",
-				"Nasional",
-				"Internasional",
-				"PKM & PMW",
-				"Exchange/Internship/Forum",
+				"Kepanitiaan Lokal",
+				"Kepanitiaan Universitas",
+				"Kepanitiaan Nasional",
+				"Organisasi Lokal",
+				"Organisasi Universitas",
+				"Organisasi Nasional",
 			],
 			required: true,
-			default: "Lokal",
 		},
-		rank: {
+		position: {
 			type: String,
-			enum: [
-				"Juara 1",
-				"Juara 2",
-				"Juara 3",
-				"Lolos Pendanaan",
-				"Medali Emas",
-				"Medali Perak",
-				"Medali Perunggu",
-			],
+			enum: ["Ketua Umum", "Ring 1", "Ring 2"],
 			required: true,
-			default: "Peserta",
 		},
 		year: { type: String, required: true },
-		certificate: { type: String, required: true, default: "" },
+		proof: { type: String, default: "" },
 		score: {
 			type: Number,
 			default: 0,
@@ -45,4 +36,4 @@ const AchievementSchema = new Schema(
 	{ timestamps: true }
 );
 
-module.exports = mongoose.model("Achievement", AchievementSchema);
+module.exports = mongoose.model("Organization", OrganizationSchema);

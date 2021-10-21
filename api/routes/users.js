@@ -74,7 +74,7 @@ router.get("/rank", async (req, res) => {
 			.skip(skip)
 			.sort({ totalScore: 1 })
 			.limit(pageSize)
-			.populate("achievements");
+			.populate("competitions academics");
 
 		// query.aggregate([
 		// 	{ $match: { _id: req.user.id } },
@@ -82,7 +82,7 @@ router.get("/rank", async (req, res) => {
 		// 		$set: {
 		// 			totalScore: {
 		// 				$reduce: {
-		// 					input: "$achievements",
+		// 					input: "$competitions",
 		// 					initialValue: 0,
 		// 					in: { $add: ["$$value", "$$this.score"] },
 		// 				},
@@ -115,8 +115,8 @@ router.get("/", verify, async (req, res) => {
 	if (req.user.isAdmin) {
 		try {
 			const users = query
-				? await User.find().sort({ _id: -1 }).limit(10).select("-achievements")
-				: await User.find().select("-achievements");
+				? await User.find().sort({ _id: -1 }).limit(10).select("-competitions")
+				: await User.find().select("-competitions");
 
 			res.status(200).json(users);
 		} catch (err) {

@@ -9,14 +9,29 @@ const UserSchema = new Schema(
 		password: { type: String, required: true },
 		profilePic: { type: String, default: "" },
 		isAdmin: { type: Boolean, default: false },
-		totalScore: { type: Number, default: 0 },
 		gpa: { type: Number, required: true },
+		academics: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: "Academic",
+			},
+		],
 		competitions: [
 			{
 				type: Schema.Types.ObjectId,
 				ref: "Competition",
 			},
 		],
+		organizations: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: "Organization",
+			},
+		],
+		academicScore: { type: Number, default: 0 },
+		competitionScore: { type: Number, default: 0 },
+		organizationScore: { type: Number, default: 0 },
+		totalScore: { type: Number, default: 0 },
 	},
 	{ timestamps: true }
 );
