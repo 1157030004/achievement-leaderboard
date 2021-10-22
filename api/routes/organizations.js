@@ -1,48 +1,47 @@
 const router = require("express").Router();
 const verify = require("../verifyToken");
-const Competition = require("../models/Competition");
+const Organization = require("../models/Organization");
 const User = require("../models/User");
 
 const upload = require("../middleware/upload");
 
 //!Create
 router.post("/", verify, upload.single("proof"), async (req, res) => {
-	const { title, level, rank, year, proof } = req.body;
-	const user = await User.findById(req.user.id);
-	const newCompetition = new Competition({
+	const { title, activity, position, year } = req.body;
+	const newOrganization = new Organization({
 		title,
-		level,
-		rank,
+		activity,
+		position,
 		year,
 		owner: req.user.id,
 	});
 	if (req.file) {
-		newCompetition.proof = req.file.path;
+		newOrganization.proof = req.file.path;
 	}
 
 	try {
 		await User.updateOne(
 			{ _id: req.user.id },
 			{
-				$push: { competitions: newCompetition },
+				$push: { organizations: newOrganization },
 			},
 			{ new: true }
 		);
 
-		const savedCompetition = await newCompetition.save();
-		res.status(201).json(savedCompetition);
+		const savedOrganization = await newOrganization.save();
+		res.status(201).json(savedOrganization);
 	} catch (err) {
 		console.log(err);
 		res.status(500).json(err);
 	}
 });
 
-//!Update Competition
+//!Update Organization
 router.put("/:id", verify, async (req, res) => {
 	const { score, status } = req.body;
 	if (req.user.isAdmin) {
 		try {
-			const updateCompetition = await Competition.findByIdAndUpdate(
+			const updateOrganization = await Organization.findByIdAndUpdate(
 				req.params.id,
 				{
 					status,
@@ -55,27 +54,27 @@ router.put("/:id", verify, async (req, res) => {
 
 			let total = 0;
 			const user = await User.findByIdAndUpdate(
-				updateCompetition.owner
-			).populate("competitions");
+				updateOrganization.owner
+			).populate("organizations");
 
-			user.competitions.forEach((el) => {
+			user.organizations.forEach((el) => {
 				total += el.score;
 			});
 
-			//*Add all score to competitionScore
+			//*Add all score to organizationScore
 			await User.findByIdAndUpdate(
-				updateCompetition.owner,
+				updateOrganization.owner,
 				[
 					{
 						$set: {
-							competitionScore: total,
+							organizationScore: total,
 						},
 					},
 				],
 				{ new: true }
 			);
 
-			res.status(200).json(updateCompetition);
+			res.status(200).json(updateOrganization);
 		} catch (err) {
 			console.log(err);
 			res.status(500).json(err);
@@ -88,16 +87,16 @@ router.put("/:id", verify, async (req, res) => {
 //!Delete
 router.delete("/:id", verify, async (req, res) => {
 	try {
-		const deletedCompetition = await Competition.findByIdAndDelete(
+		const deletedOrganization = await Organization.findByIdAndDelete(
 			req.params.id
 		);
-		if (deletedCompetition) {
+		if (deletedOrganization) {
 			let total = 0;
-			const user = await User.findById(deletedCompetition.owner).populate(
-				"competitions"
+			const user = await User.findById(deletedOrganization.owner).populate(
+				"organizations"
 			);
 
-			user.competitions.forEach((el) => {
+			user.organizations.forEach((el) => {
 				total += el.score;
 			});
 
@@ -106,7 +105,7 @@ router.delete("/:id", verify, async (req, res) => {
 				[
 					{
 						$set: {
-							competitionScore: total,
+							organizationScore: total,
 						},
 					},
 				],
@@ -118,19 +117,18 @@ router.delete("/:id", verify, async (req, res) => {
 			return res.status(404).json("Not Found");
 		}
 	} catch (err) {
-		console.log(err);
 		res.status(500).json(err);
 	}
 });
 
-//!Get User Competition
+//!Get User Organization
 router.get("/:id", verify, async (req, res) => {
 	if (req.user.id === req.params.id) {
 		try {
-			const competition = await Competition.findById(req.params.id);
-			if (!competition) return res.status(404).json("Not Found");
+			const organization = await Organization.findById(req.params.id);
+			if (!organization) return res.status(404).json("Not Found");
 
-			res.status(200).json(competition);
+			res.status(200).json(organization);
 		} catch (err) {
 			res.status(500).json(err);
 		}
@@ -139,7 +137,7 @@ router.get("/:id", verify, async (req, res) => {
 	}
 });
 
-//!Get All competitions
+//!Get All Organizations
 router.get("/", verify, async (req, res) => {
 	if (req.user.isAdmin) {
 		try {
@@ -151,7 +149,7 @@ router.get("/", verify, async (req, res) => {
 
 			const pages = Math.ceil(total / pageSize);
 
-			let query = Competition.find()
+			let query = Organization.find()
 				.skip(skip)
 				.sort({ createdAt: -1 })
 				.limit(pageSize)
@@ -161,7 +159,7 @@ router.get("/", verify, async (req, res) => {
 				return res.status(404).json("No page found");
 			}
 
-			const result = title ? await Competition.find({ title }) : await query;
+			const result = title ? await Organization.find({ title }) : await query;
 
 			res.status(200).json({
 				count: result.length,

@@ -2,7 +2,6 @@ const router = require("express").Router();
 const verify = require("../verifyToken");
 const Academic = require("../models/Academic");
 const User = require("../models/User");
-const { gpaCount } = require("../calculator");
 
 const upload = require("../middleware/upload");
 
@@ -54,7 +53,7 @@ router.put("/:id", verify, async (req, res) => {
 			);
 
 			let total = 0;
-			const user = await User.findByIdAndUpdate(updateAcademic.owner).populate(
+			const user = await User.findById(updateAcademic.owner).populate(
 				"academics"
 			);
 
@@ -62,24 +61,18 @@ router.put("/:id", verify, async (req, res) => {
 				total += el.score;
 			});
 
-			//*Count GPA
-			console.log(gpaCount(3.13));
-
 			//*Add all score to academicScore
-			if (updateAcademic.score === 0) {
-				await User.findByIdAndUpdate(
-					updateAcademic.owner,
-					[
-						{
-							$set: {
-								academicScore: { $sum: [score, "$academicScore"] },
-								totalScore: { $sum: [score, "$totalScore"] },
-							},
+			await User.findByIdAndUpdate(
+				updateAcademic.owner,
+				[
+					{
+						$set: {
+							academicScore: total,
 						},
-					],
-					{ sum: true }
-				);
-			}
+					},
+				],
+				{ new: true }
+			);
 
 			res.status(200).json(updateAcademic);
 		} catch (err) {
@@ -94,9 +87,35 @@ router.put("/:id", verify, async (req, res) => {
 //!Delete
 router.delete("/:id", verify, async (req, res) => {
 	try {
-		await Academic.findByIdAndDelete(req.params.id);
-		res.status(200).json("Academic has been deleted");
+		const deletedAcademic = await Academic.findByIdAndDelete(req.params.id);
+		if (deletedAcademic) {
+			let total = 0;
+			const user = await User.findById(deletedAcademic.owner).populate(
+				"academics"
+			);
+
+			user.academics.forEach((el) => {
+				total += el.score;
+			});
+
+			await User.findByIdAndUpdate(
+				{ _id: user._id },
+				[
+					{
+						$set: {
+							academicScore: total,
+						},
+					},
+				],
+				{ new: true }
+			);
+
+			res.status(200).json("Academic has been deleted");
+		} else {
+			return res.status(404).json("Not Found");
+		}
 	} catch (err) {
+		console.log(err);
 		res.status(500).json(err);
 	}
 });
@@ -133,7 +152,7 @@ router.get("/", verify, async (req, res) => {
 				.skip(skip)
 				.sort({ createdAt: -1 })
 				.limit(pageSize)
-				.populate("owner", "-password -academics");
+				.populate("owner", "-password -competitions -academics -organizations");
 
 			if (page > pages) {
 				return res.status(404).json("No page found");

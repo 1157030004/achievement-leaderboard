@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/User");
 const CryptoJS = require("crypto-js");
 const verify = require("../verifyToken");
+const { gpaCount } = require("../calculator");
 
 //!UPDATE
 router.put("/:id", verify, async (req, res) => {
@@ -74,22 +75,25 @@ router.get("/rank", async (req, res) => {
 			.skip(skip)
 			.sort({ totalScore: 1 })
 			.limit(pageSize)
-			.populate("competitions academics");
+			.populate("competitions academics organizations");
 
-		// query.aggregate([
-		// 	{ $match: { _id: req.user.id } },
-		// 	{
-		// 		$set: {
-		// 			totalScore: {
-		// 				$reduce: {
-		// 					input: "$competitions",
-		// 					initialValue: 0,
-		// 					in: { $add: ["$$value", "$$this.score"] },
-		// 				},
-		// 			},
-		// 		},
-		// 	},
-		// ]);
+		let fourScores = 0;
+		for (i = 0; i < query.length; i++) {
+			fourScores =
+				gpaCount(query[i].gpa) +
+				query[i].academicScore +
+				query[i].competitionScore +
+				query[i].organizationScore;
+		}
+		await User.updateMany(
+			{
+				gpa: { $gte: 0 },
+			},
+			{
+				$set: { totalScore: fourScores },
+			},
+			{ new: true }
+		);
 
 		if (page > pages) {
 			return res.status(404).json("No page found");
