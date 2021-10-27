@@ -36,8 +36,8 @@ router.post("/", verify, upload.single("proof"), async (req, res) => {
 	}
 });
 
-//!Update Organization
-router.put("/:id", verify, async (req, res) => {
+//!Update Organization Admin
+router.put("/admin/:id", verify, async (req, res) => {
 	const { score, status } = req.body;
 	if (req.user.isAdmin) {
 		try {
@@ -51,36 +51,73 @@ router.put("/:id", verify, async (req, res) => {
 					new: true,
 				}
 			);
+			if (updateOrganization) {
+				let total = 0;
+				const user = await User.findByIdAndUpdate(
+					updateOrganization.owner
+				).populate("organizations");
 
-			let total = 0;
-			const user = await User.findByIdAndUpdate(
-				updateOrganization.owner
-			).populate("organizations");
+				user.organizations.forEach((el) => {
+					total += el.score;
+				});
 
-			user.organizations.forEach((el) => {
-				total += el.score;
-			});
-
-			//*Add all score to organizationScore
-			await User.findByIdAndUpdate(
-				updateOrganization.owner,
-				[
-					{
-						$set: {
-							organizationScore: total,
+				//*Add all score to organizationScore
+				await User.findByIdAndUpdate(
+					updateOrganization.owner,
+					[
+						{
+							$set: {
+								organizationScore: total,
+							},
 						},
-					},
-				],
-				{ new: true }
-			);
+					],
+					{ new: true }
+				);
 
-			res.status(200).json(updateOrganization);
+				res.status(200).json(updateOrganization);
+			} else {
+				return res.status(404).json("Not Found");
+			}
 		} catch (err) {
 			console.log(err);
 			res.status(500).json(err);
 		}
 	} else {
 		res.status(403).json("You are not allowed");
+	}
+});
+
+//!Update Organization User
+router.put("/:id", verify, upload.single("proof"), async (req, res) => {
+	const { title, activity, position, year } = req.body;
+	try {
+		const organization = await Organization.findById(req.params.id);
+
+		if (organization) {
+			const updateOrganization = await Organization.findByIdAndUpdate(
+				req.params.id,
+				{
+					title,
+					activity,
+					position,
+					year,
+				},
+				{
+					new: true,
+				}
+			);
+
+			if (req.file) {
+				updateOrganization.proof = req.file.path;
+			}
+
+			res.status(200).json(updateOrganization);
+		} else {
+			return res.status(404).json("Not Found");
+		}
+	} catch (err) {
+		console.log(err);
+		res.status(500).json(err);
 	}
 });
 

@@ -37,7 +37,7 @@ router.post("/", verify, upload.single("proof"), async (req, res) => {
 });
 
 //!Update Academic
-router.put("/:id", verify, async (req, res) => {
+router.put("/admin/:id", verify, async (req, res) => {
 	const { score, status } = req.body;
 	if (req.user.isAdmin) {
 		try {
@@ -51,36 +51,73 @@ router.put("/:id", verify, async (req, res) => {
 					new: true,
 				}
 			);
+			if (updateAcademic) {
+				let total = 0;
+				const user = await User.findById(updateAcademic.owner).populate(
+					"academics"
+				);
 
-			let total = 0;
-			const user = await User.findById(updateAcademic.owner).populate(
-				"academics"
-			);
+				user.academics.forEach((el) => {
+					total += el.score;
+				});
 
-			user.academics.forEach((el) => {
-				total += el.score;
-			});
-
-			//*Add all score to academicScore
-			await User.findByIdAndUpdate(
-				updateAcademic.owner,
-				[
-					{
-						$set: {
-							academicScore: total,
+				//*Add all score to academicScore
+				await User.findByIdAndUpdate(
+					updateAcademic.owner,
+					[
+						{
+							$set: {
+								academicScore: total,
+							},
 						},
-					},
-				],
-				{ new: true }
-			);
+					],
+					{ new: true }
+				);
 
-			res.status(200).json(updateAcademic);
+				res.status(200).json(updateAcademic);
+			} else {
+				return res.status(404).json("Not Found");
+			}
 		} catch (err) {
 			console.log(err);
 			res.status(500).json(err);
 		}
 	} else {
 		res.status(403).json("You are not allowed");
+	}
+});
+
+//!Update Academic User
+router.put("/:id", verify, upload.single("proof"), async (req, res) => {
+	const { title, activity, level, year } = req.body;
+	try {
+		const academic = await Academic.findById(req.params.id);
+
+		if (academic) {
+			const updateAcademic = await Academic.findByIdAndUpdate(
+				req.params.id,
+				{
+					title,
+					activity,
+					level,
+					year,
+				},
+				{
+					new: true,
+				}
+			);
+
+			if (req.file) {
+				updateAcademic.proof = req.file.path;
+			}
+
+			res.status(200).json(updateAcademic);
+		} else {
+			return res.status(404).json("Not Found");
+		}
+	} catch (err) {
+		console.log(err);
+		res.status(500).json(err);
 	}
 });
 

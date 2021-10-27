@@ -6,20 +6,29 @@ const jwt = require("jsonwebtoken");
 //!Register
 router.post("/register", async (req, res) => {
 	const { email, name, campus, gpa, password } = req.body;
+	const user = await User.findOne({ email });
 
-	const newUser = new User({
-		email,
-		name,
-		campus,
-		gpa,
-		password: CryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString(),
-	});
+	if (!user) {
+		const newUser = new User({
+			email,
+			name,
+			campus,
+			gpa,
+			password: CryptoJS.AES.encrypt(
+				password,
+				process.env.SECRET_KEY
+			).toString(),
+		});
 
-	try {
-		const user = await newUser.save();
-		res.status(201).json(user);
-	} catch (err) {
-		res.status(500).json(err);
+		try {
+			const user = await newUser.save();
+			res.status(201).json(user);
+		} catch (err) {
+			console.log(err);
+			res.status(500).json(err);
+		}
+	} else if (user.email == email) {
+		return res.status(403).json("Email already exist");
 	}
 });
 

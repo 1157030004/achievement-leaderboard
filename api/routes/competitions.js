@@ -37,8 +37,8 @@ router.post("/", verify, upload.single("proof"), async (req, res) => {
 	}
 });
 
-//!Update Competition
-router.put("/:id", verify, async (req, res) => {
+//!Update Competition Admin
+router.put("/admin/:id", verify, async (req, res) => {
 	const { score, status } = req.body;
 	if (req.user.isAdmin) {
 		try {
@@ -52,36 +52,73 @@ router.put("/:id", verify, async (req, res) => {
 					new: true,
 				}
 			);
+			if (updateCompetition) {
+				let total = 0;
+				const user = await User.findByIdAndUpdate(
+					updateCompetition.owner
+				).populate("competitions");
 
-			let total = 0;
-			const user = await User.findByIdAndUpdate(
-				updateCompetition.owner
-			).populate("competitions");
+				user.competitions.forEach((el) => {
+					total += el.score;
+				});
 
-			user.competitions.forEach((el) => {
-				total += el.score;
-			});
-
-			//*Add all score to competitionScore
-			await User.findByIdAndUpdate(
-				updateCompetition.owner,
-				[
-					{
-						$set: {
-							competitionScore: total,
+				//*Add all score to competitionScore
+				await User.findByIdAndUpdate(
+					updateCompetition.owner,
+					[
+						{
+							$set: {
+								competitionScore: total,
+							},
 						},
-					},
-				],
-				{ new: true }
-			);
+					],
+					{ new: true }
+				);
 
-			res.status(200).json(updateCompetition);
+				res.status(200).json(updateCompetition);
+			} else {
+				return res.status(404).json("Not Found");
+			}
 		} catch (err) {
 			console.log(err);
 			res.status(500).json(err);
 		}
 	} else {
 		res.status(403).json("You are not allowed");
+	}
+});
+
+//!Update Competition User
+router.put("/:id", verify, upload.single("proof"), async (req, res) => {
+	const { title, level, rank, year } = req.body;
+	try {
+		const competition = await Competition.findById(req.params.id);
+
+		if (competition) {
+			const updateCompetition = await Competition.findByIdAndUpdate(
+				req.params.id,
+				{
+					title,
+					level,
+					rank,
+					year,
+				},
+				{
+					new: true,
+				}
+			);
+
+			if (req.file) {
+				updateCompetition.proof = req.file.path;
+			}
+
+			res.status(200).json(updateCompetition);
+		} else {
+			return res.status(404).json("Not Found");
+		}
+	} catch (err) {
+		console.log(err);
+		res.status(500).json(err);
 	}
 });
 

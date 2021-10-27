@@ -4,8 +4,10 @@ const CryptoJS = require("crypto-js");
 const verify = require("../verifyToken");
 const { gpaCount } = require("../calculator");
 
+const upload = require("../middleware/upload");
+
 //!UPDATE
-router.put("/:id", verify, async (req, res) => {
+router.put("/:id", verify, upload.single("profilePic"), async (req, res) => {
 	if (req.user.id === req.params.id || req.user.isAdmin) {
 		if (req.body.password) {
 			req.body.password = CryptoJS.AES.encrypt(
@@ -24,8 +26,13 @@ router.put("/:id", verify, async (req, res) => {
 					new: true,
 				}
 			);
+
+			if (req.file) {
+				updatedUser.profilePic = req.file.path;
+			}
 			res.status(200).json(updatedUser);
 		} catch (err) {
+			console.log(err);
 			res.status(500).json(err);
 		}
 	} else {
@@ -48,7 +55,7 @@ router.delete("/:id", verify, async (req, res) => {
 	}
 });
 
-//!GET
+//!GET One User
 router.get("/find/:id", async (req, res) => {
 	try {
 		const user = await User.findById(req.params.id);
