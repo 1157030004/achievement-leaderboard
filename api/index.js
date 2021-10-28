@@ -28,6 +28,8 @@ app.use("/api/competitions", competitionRoute);
 app.use("/api/academics", academicRoute);
 app.use("/api/organizations", organizationRoute);
 
-app.listen(8800, () => {
+const PORT = proces.env.PORT || 3000;
+
+app.listen(PORT, () => {
 	console.log("Backend server is running!");
 });
