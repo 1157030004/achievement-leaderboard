@@ -5,28 +5,8 @@ const AcademicSchema = new Schema(
 	{
 		title: { type: String, required: true },
 		activity: {
-			type: String,
-			enum: [
-				"Menulis Jurnal",
-				"Asisten",
-				"Penghargaan Akademik",
-				"Konferensi",
-				"Mahasiswa Berprestasi",
-			],
-			required: true,
-		},
-		level: {
-			type: String,
-			enum: [
-				"Jurusan",
-				"Fakultas",
-				"Universitas",
-				"Nasional",
-				"Internasional",
-				"Asisten Penelitian/Lab",
-				"Asisten Dosen",
-			],
-			required: true,
+			type: Schema.Types.ObjectId,
+			ref: "AcademicActivity",
 		},
 		year: { type: String, required: true },
 		proof: { type: String, default: "" },

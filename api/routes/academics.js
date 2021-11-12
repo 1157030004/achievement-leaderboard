@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const verify = require("../verifyToken");
 const Academic = require("../models/Academic");
+const AcademicActivity = require("../models/AcademicActivities");
 const User = require("../models/User");
 
 const upload = require("../middleware/upload");
@@ -38,6 +39,8 @@ router.post("/", verify, upload.single("proof"), async (req, res) => {
 
 //!Update Academic
 router.put("/admin/:id", verify, async (req, res) => {
+	console.log("aw");
+
 	const { score, status } = req.body;
 	if (req.user.isAdmin) {
 		try {
@@ -83,7 +86,7 @@ router.put("/admin/:id", verify, async (req, res) => {
 			res.status(500).json(err);
 		}
 	} else {
-		res.status(403).json("You are not allowed");
+		res.status(403).json("You are not allowed /admin");
 	}
 });
 
@@ -169,7 +172,7 @@ router.get("/:id", verify, async (req, res) => {
 			res.status(500).json(err);
 		}
 	} else {
-		res.status(403).json("You are not allowed");
+		res.status(403).json("You are not allowed /:id");
 	}
 });
 
@@ -208,7 +211,7 @@ router.get("/", verify, async (req, res) => {
 			res.status(500).json(err);
 		}
 	} else {
-		res.status(403).json("You are not allowed");
+		res.status(403).json("You are not allowed /academics");
 	}
 });
 
