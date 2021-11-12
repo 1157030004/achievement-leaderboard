@@ -6,19 +6,10 @@ const OrganizationSchema = new Schema(
 		title: { type: String, required: true },
 		activity: {
 			type: String,
-			enum: [
-				"Kepanitiaan Lokal",
-				"Kepanitiaan Universitas",
-				"Kepanitiaan Nasional",
-				"Organisasi Lokal",
-				"Organisasi Universitas",
-				"Organisasi Nasional",
-			],
 			required: true,
 		},
-		position: {
+		level: {
 			type: String,
-			enum: ["Ketua Umum", "Ring 1", "Ring 2"],
 			required: true,
 		},
 		year: { type: String, required: true },
@@ -27,7 +18,7 @@ const OrganizationSchema = new Schema(
 			type: Number,
 			default: 0,
 		},
-		status: { type: String, enum: ["Pending", "Reviewed"], default: "Pending" },
+		status: { type: String, default: "Pending" },
 		owner: {
 			type: Schema.Types.ObjectId,
 			ref: "User",

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const AcademicLevel = new Schema(
+const OrganizationLevels = new Schema(
 	{
 		activity: {
 			type: String,
@@ -17,4 +17,4 @@ const AcademicLevel = new Schema(
 	{ timestamps: true }
 );
 
-module.exports = mongoose.model("AcademicLevel", AcademicLevel);
+module.exports = mongoose.model("OrganizationLevels", OrganizationLevels);

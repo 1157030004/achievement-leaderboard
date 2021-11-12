@@ -4,28 +4,13 @@ const Schema = mongoose.Schema;
 const CompetitionSchema = new Schema(
 	{
 		title: { type: String, required: true },
-		level: {
+		activity: {
 			type: String,
-			enum: [
-				"Lokal",
-				"Nasional",
-				"Internasional",
-				"PKM & PMW",
-				"Exchange/Internship/Forum",
-			],
+
 			required: true,
 		},
-		rank: {
+		level: {
 			type: String,
-			enum: [
-				"Juara 1",
-				"Juara 2",
-				"Juara 3",
-				"Lolos Pendanaan",
-				"Medali Emas",
-				"Medali Perak",
-				"Medali Perunggu",
-			],
 			required: true,
 		},
 		year: { type: String, required: true },
@@ -34,7 +19,7 @@ const CompetitionSchema = new Schema(
 			type: Number,
 			default: 0,
 		},
-		status: { type: String, enum: ["Pending", "Reviewed"], default: "Pending" },
+		status: { type: String, default: "Pending" },
 		owner: {
 			type: Schema.Types.ObjectId,
 			ref: "User",

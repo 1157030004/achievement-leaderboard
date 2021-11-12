@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const verify = require("../verifyToken");
-const AcademicLevels = require("../models/AcademicLevels");
+const OrganizationLevels = require("../models/OrganizationLevels");
 
-//!Create Academic Level
+//!Create Organization Level
 router.post("/", verify, async (req, res) => {
 	if (req.user.isAdmin) {
 		try {
 			const { activity, level } = req.body;
-			const newLevel = new AcademicLevels({
+			const newLevel = new OrganizationLevels({
 				activity,
 				level,
 			});
@@ -22,10 +22,10 @@ router.post("/", verify, async (req, res) => {
 	}
 });
 
-//!Get Academic Level
+//!Get Organization Level
 router.get("/", verify, async (req, res) => {
 	try {
-		const level = await AcademicLevels.find();
+		const level = await OrganizationLevels.find();
 
 		if (level) {
 			res.status(200).json(level);

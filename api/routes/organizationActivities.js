@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const verify = require("../verifyToken");
-const AcademicActivity = require("../models/AcademicActivities");
+const OrganizationActivities = require("../models/OrganizationActivities");
 
-//!Admin Create Academic Activity
+//!Admin Create Organization Activity
 router.post("/", verify, async (req, res) => {
 	if (req.user.isAdmin) {
 		try {
 			const { activity } = req.body;
-			const newActivity = new AcademicActivity({
+			const newActivity = new OrganizationActivities({
 				activity,
 			});
 			const data = await newActivity.save();
@@ -21,19 +21,19 @@ router.post("/", verify, async (req, res) => {
 	}
 });
 
-//!Get Academic Activity
+//!Get Organization Activity
 router.get("/", verify, async (req, res) => {
 	try {
-		const activity = await AcademicActivity.find();
+		const activity = await OrganizationActivities.find();
 
 		if (activity) {
-			const activityLevel = await AcademicActivity.aggregate([
+			const activityLevel = await OrganizationActivities.aggregate([
 				{
 					$lookup: {
-						from: "academiclevels",
+						from: "organizationlevelsss",
 						localField: "activity",
 						foreignField: "activity",
-						as: "academic_level_doc",
+						as: "organization_level_doc",
 					},
 				},
 			]);
