@@ -5,11 +5,11 @@ const User = require("../models/User");
 
 //!Create
 router.post("/", verify, async (req, res) => {
-	const { title, activity, position, year, proof } = req.body;
+	const { title, activity, level, year, proof } = req.body;
 	const newOrganization = new Organization({
 		title,
 		activity,
-		position,
+		level,
 		year,
 		proof,
 		owner: req.user.id,
@@ -85,7 +85,7 @@ router.put("/admin/:id", verify, async (req, res) => {
 
 //!Update Organization User
 router.put("/:id", verify, async (req, res) => {
-	const { title, activity, position, year, proof } = req.body;
+	const { title, activity, level, year, proof } = req.body;
 	try {
 		const organization = await Organization.findById(req.params.id);
 
@@ -95,7 +95,7 @@ router.put("/:id", verify, async (req, res) => {
 				{
 					title,
 					activity,
-					position,
+					level,
 					year,
 					proof,
 				},

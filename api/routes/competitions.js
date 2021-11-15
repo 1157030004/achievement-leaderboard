@@ -5,12 +5,12 @@ const User = require("../models/User");
 
 //!Create
 router.post("/", verify, async (req, res) => {
-	const { title, level, rank, year, proof } = req.body;
+	const { title, activity, level, year, proof } = req.body;
 	const user = await User.findById(req.user.id);
 	const newCompetition = new Competition({
 		title,
+		activity,
 		level,
-		rank,
 		year,
 		proof,
 		owner: req.user.id,
@@ -86,7 +86,7 @@ router.put("/admin/:id", verify, async (req, res) => {
 
 //!Update Competition User
 router.put("/:id", verify, async (req, res) => {
-	const { title, level, rank, year, proof } = req.body;
+	const { title, activity, level, year, proof } = req.body;
 	try {
 		const competition = await Competition.findById(req.params.id);
 
@@ -95,8 +95,8 @@ router.put("/:id", verify, async (req, res) => {
 				req.params.id,
 				{
 					title,
+					activity,
 					level,
-					rank,
 					year,
 					proof,
 				},
