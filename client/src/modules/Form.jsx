@@ -4,6 +4,7 @@ import FormInput from "../components/FormInput";
 import FormSelect from "../components/FormSelect";
 import Uploader from "../components/Uploader";
 import useStore from "../store";
+import storage from "../utils/firebase";
 
 const Form = (props) => {
 	const academicActivities = useStore((state) => state.academicActivities);
@@ -12,15 +13,15 @@ const Form = (props) => {
 		(state) => state.getAcademicActivities
 	);
 	const getAcademicLevels = useStore((state) => state.getAcademicLevels);
-
-	const academics = useStore((state) => state.academics);
 	const addAcademic = useStore((state) => state.addAcademic);
 
 	const [inputs, setInputs] = useState({});
 	const [file, setFile] = useState(null);
-	const [data, setData] = useState([]);
 	const [activities, setActivities] = useState([]);
 	const [levels, setLevels] = useState([]);
+	const [data, setData] = useState([]);
+	const [uploaded, setUploaded] = useState(0);
+	const [percentage, setPercentage] = useState(0);
 
 	useEffect(() => {
 		getAcademicActivities();
@@ -47,21 +48,45 @@ const Form = (props) => {
 
 	const levelOptions = data.map((item) => item.name);
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		if (file) {
-			const data = new FormData();
-			const r = (Math.random() + 1).toString(36).substring(7);
-			const fileName = Date.now() + file.name.replaceAll(" ", "");
-			data.append("name", fileName);
-			data.append("file", file);
-			inputs.proof = fileName;
-		}
-		addAcademic(inputs);
+	const upload = (items) => {
+		items.forEach((item) => {
+			const fileName = new Date().getTime() + item.label + item.file.name;
+			const uploadTask = storage.ref(`/proof/${fileName}`).put(item.file);
+			uploadTask.on(
+				"state_changed",
+				(snapshot) => {
+					const progress = Math.round(
+						(snapshot.bytesTransferred / snapshot.totalBytes) * 100
+					);
+					setPercentage(progress);
+					console.log("Upload is" + progress + "% done");
+				},
+				(err) => {
+					console.log(err);
+				},
+				() => {
+					uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+						setInputs({
+							...inputs,
+							[item.label]: url,
+						});
+						setUploaded((prev) => prev + 1);
+					});
+				}
+			);
+		});
 	};
 
-	const handleServer = (e) => {
-		console.log("Submitted");
+	const handleUpload = (e) => {
+		e.preventDefault();
+		upload([{ file: file, label: "proof" }]);
+		console.log(inputs);
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log(inputs);
+		addAcademic(inputs);
 	};
 
 	return (
@@ -108,21 +133,23 @@ const Form = (props) => {
 					handleServer={handleServer}
 					onUpdateFiles={setFile}
 				/> */}
-				<label className="w-64 flex flex-col items-center px-4 py-6 bg-accent-content text-primary rounded-lg  tracking-wide uppercase border cursor-pointer">
-					<DocumentUpload
-						size="32"
-						color="#70abc7"
-						className="text-secondary"
-					/>
-					<span className="mt-2 text-base leading-normal">Select a file</span>
+				{/* <label className="w-64 flex flex-col items-center px-4 py-6 bg-accent-content text-primary rounded-lg  tracking-wide uppercase border cursor-pointer"> */}
+
+				<div className="">
 					<input
 						type="file"
 						id="file"
-						className="hidden"
+						className="input input-ghost cursor-pointer pt-1"
 						onChange={(e) => setFile(e.target.files[0])}
 					/>
-				</label>
-				<button className="btn btn-primary mt-4">Simpan</button>
+				</div>
+				{uploaded > 0 ? (
+					<button className="btn btn-primary mt-4">Submit</button>
+				) : (
+					<button className="btn btn-secondary mt-4" onClick={handleUpload}>
+						Upload Bukti
+					</button>
+				)}
 			</form>
 		</div>
 	);

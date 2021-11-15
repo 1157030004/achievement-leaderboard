@@ -107,6 +107,7 @@ const createAcademicSlice = (set, get) => ({
 			set((state) => ({
 				academics: { academics: res.data },
 			}));
+			console.log(data.proof);
 		} catch (err) {
 			set({
 				academics: {
