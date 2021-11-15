@@ -4,6 +4,7 @@ import useStore from "../store";
 
 const Home = () => {
 	const getRank = useStore((state) => state.getRank);
+
 	useEffect(() => {
 		getRank();
 	}, []);

@@ -25,6 +25,15 @@ const login = `${rootLink}api/auth/login`;
 const rank = `${rootLink}api/users/rank`;
 
 const createAcademic = `${rootLink}api/academics`;
+const getAcademicActivities = `${rootLink}api/academic-activities`;
+const getAcademicLevels = `${rootLink}api/academic-levels`;
 
 export default instance;
-export { register, login, rank, createAcademic };
+export {
+	register,
+	login,
+	rank,
+	createAcademic,
+	getAcademicActivities,
+	getAcademicLevels,
+};

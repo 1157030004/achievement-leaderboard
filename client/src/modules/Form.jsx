@@ -1,22 +1,51 @@
 import { DocumentUpload } from "iconsax-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormInput from "../components/FormInput";
 import FormSelect from "../components/FormSelect";
 import Uploader from "../components/Uploader";
 import useStore from "../store";
 
 const Form = (props) => {
+	const academicActivities = useStore((state) => state.academicActivities);
+	const academicLevels = useStore((state) => state.academicLevels);
+	const getAcademicActivities = useStore(
+		(state) => state.getAcademicActivities
+	);
+	const getAcademicLevels = useStore((state) => state.getAcademicLevels);
+
 	const academics = useStore((state) => state.academics);
 	const addAcademic = useStore((state) => state.addAcademic);
+
 	const [inputs, setInputs] = useState({});
 	const [file, setFile] = useState(null);
-	const [data, setData] = useState(null);
+	const [data, setData] = useState([]);
+	const [activities, setActivities] = useState([]);
+	const [levels, setLevels] = useState([]);
+
+	useEffect(() => {
+		getAcademicActivities();
+		getAcademicLevels();
+		setActivities(academicActivities);
+		setLevels(academicLevels);
+	}, []);
+
+	const activityOptions = activities.map((item) => item.activity);
+	const activityMatch = levels.map((item) => item.activity);
+	let index;
 
 	const handleChange = (e) => {
-		setInputs((prev) => {
-			return { ...prev, [e.target.name]: e.target.value };
+		setInputs({
+			...inputs,
+			[e.target.name]: e.target.value,
 		});
+
+		if (e.target.name == "activity") {
+			index = activityMatch.lastIndexOf(e.target.value);
+			setData(levels[index].level);
+		}
 	};
+
+	const levelOptions = data.map((item) => item.name);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -53,21 +82,14 @@ const Form = (props) => {
 						label="Kategori Pencapaian"
 						defaultValue="Pilih"
 						onChange={handleChange}
-						options={[
-							"Menulis Jurnal",
-							"Keilmuan",
-							"Penghargaan Akademik",
-							"Conference",
-							"Mahasiswa Berprestasi",
-							"IPK",
-						]}
+						options={activityOptions}
 					/>
 					<FormSelect
 						name="level"
 						label="Skala Pencapaian"
 						defaultValue="Pilih"
 						onChange={handleChange}
-						options={["Regional", "Nasional", "Internasional"]}
+						options={levelOptions}
 					/>
 				</div>
 				<FormInput

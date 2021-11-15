@@ -1,6 +1,13 @@
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import API, { register, login, rank, createAcademic } from "./utils/api";
+import API, {
+	register,
+	login,
+	rank,
+	createAcademic,
+	getAcademicActivities,
+	getAcademicLevels,
+} from "./utils/api";
 
 const createAuthSlice = (set, get) => ({
 	user: {
@@ -48,7 +55,7 @@ const createAuthSlice = (set, get) => ({
 				user: {
 					...get().user,
 					isLoading: false,
-					error: err.response.data.message,
+					error: err,
 				},
 			});
 		}
@@ -78,14 +85,17 @@ const createUserSlice = (set, get) => ({
 		try {
 			const res = await API.get(`${rank}`);
 			set({ users: res.data.data });
-		} catch (err) {}
+		} catch (err) {
+			console.log(err);
+		}
 	},
 });
 
 const createAcademicSlice = (set, get) => ({
 	academics: [],
+	academicActivities: [],
+	academicLevels: [],
 	addAcademic: async (data) => {
-		console.log(data);
 		try {
 			const res = await API.post(`${createAcademic}`, {
 				title: data.title,
@@ -95,8 +105,7 @@ const createAcademicSlice = (set, get) => ({
 				proof: data.proof,
 			});
 			set((state) => ({
-				...state.academics,
-				academics: [...state.academics, res.data.data],
+				academics: { academics: res.data },
 			}));
 		} catch (err) {
 			set({
@@ -106,7 +115,23 @@ const createAcademicSlice = (set, get) => ({
 					error: err,
 				},
 			});
-			console.log(err.response.data.message);
+			console.log(err);
+		}
+	},
+	getAcademicActivities: async () => {
+		try {
+			const res = await API.get(`${getAcademicActivities}`);
+			set({ academicActivities: res.data });
+		} catch (err) {
+			console.log(err);
+		}
+	},
+	getAcademicLevels: async () => {
+		try {
+			const res = await API.get(`${getAcademicLevels}`);
+			set({ academicLevels: res.data });
+		} catch (err) {
+			console.log(err);
 		}
 	},
 	deleteAcademic: (id) => {
