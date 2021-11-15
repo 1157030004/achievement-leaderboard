@@ -3,21 +3,17 @@ const verify = require("../verifyToken");
 const Organization = require("../models/Organization");
 const User = require("../models/User");
 
-const upload = require("../middleware/upload");
-
 //!Create
-router.post("/", verify, upload.single("proof"), async (req, res) => {
-	const { title, activity, position, year } = req.body;
+router.post("/", verify, async (req, res) => {
+	const { title, activity, position, year, proof } = req.body;
 	const newOrganization = new Organization({
 		title,
 		activity,
 		position,
 		year,
+		proof,
 		owner: req.user.id,
 	});
-	if (req.file) {
-		newOrganization.proof = req.file.path;
-	}
 
 	try {
 		await User.updateOne(
@@ -88,8 +84,8 @@ router.put("/admin/:id", verify, async (req, res) => {
 });
 
 //!Update Organization User
-router.put("/:id", verify, upload.single("proof"), async (req, res) => {
-	const { title, activity, position, year } = req.body;
+router.put("/:id", verify, async (req, res) => {
+	const { title, activity, position, year, proof } = req.body;
 	try {
 		const organization = await Organization.findById(req.params.id);
 
@@ -101,15 +97,12 @@ router.put("/:id", verify, upload.single("proof"), async (req, res) => {
 					activity,
 					position,
 					year,
+					proof,
 				},
 				{
 					new: true,
 				}
 			);
-
-			if (req.file) {
-				updateOrganization.proof = req.file.path;
-			}
 
 			res.status(200).json(updateOrganization);
 		} else {

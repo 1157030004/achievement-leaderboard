@@ -3,10 +3,8 @@ const verify = require("../verifyToken");
 const Competition = require("../models/Competition");
 const User = require("../models/User");
 
-const upload = require("../middleware/upload");
-
 //!Create
-router.post("/", verify, upload.single("proof"), async (req, res) => {
+router.post("/", verify, async (req, res) => {
 	const { title, level, rank, year, proof } = req.body;
 	const user = await User.findById(req.user.id);
 	const newCompetition = new Competition({
@@ -14,11 +12,9 @@ router.post("/", verify, upload.single("proof"), async (req, res) => {
 		level,
 		rank,
 		year,
+		proof,
 		owner: req.user.id,
 	});
-	if (req.file) {
-		newCompetition.proof = req.file.path;
-	}
 
 	try {
 		await User.updateOne(
@@ -89,8 +85,8 @@ router.put("/admin/:id", verify, async (req, res) => {
 });
 
 //!Update Competition User
-router.put("/:id", verify, upload.single("proof"), async (req, res) => {
-	const { title, level, rank, year } = req.body;
+router.put("/:id", verify, async (req, res) => {
+	const { title, level, rank, year, proof } = req.body;
 	try {
 		const competition = await Competition.findById(req.params.id);
 
@@ -102,15 +98,12 @@ router.put("/:id", verify, upload.single("proof"), async (req, res) => {
 					level,
 					rank,
 					year,
+					proof,
 				},
 				{
 					new: true,
 				}
 			);
-
-			if (req.file) {
-				updateCompetition.proof = req.file.path;
-			}
 
 			res.status(200).json(updateCompetition);
 		} else {

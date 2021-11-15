@@ -3,21 +3,17 @@ const verify = require("../verifyToken");
 const Academic = require("../models/Academic");
 const User = require("../models/User");
 
-const upload = require("../middleware/upload");
-
 //!Create
-router.post("/", verify, upload.single("proof"), async (req, res) => {
-	const { title, activity, level, year } = req.body;
+router.post("/", verify, async (req, res) => {
+	const { title, activity, level, year, proof } = req.body;
 	const newAcademic = new Academic({
 		title,
 		activity,
 		level,
 		year,
+		proof,
 		owner: req.user.id,
 	});
-	if (req.file) {
-		newAcademic.proof = req.file.path;
-	}
 
 	try {
 		await User.updateOne(
@@ -90,8 +86,8 @@ router.put("/admin/:id", verify, async (req, res) => {
 });
 
 //!Update Academic User
-router.put("/:id", verify, upload.single("proof"), async (req, res) => {
-	const { title, activity, level, year } = req.body;
+router.put("/:id", verify, async (req, res) => {
+	const { title, activity, level, year, proof } = req.body;
 	try {
 		const academic = await Academic.findById(req.params.id);
 
@@ -103,15 +99,12 @@ router.put("/:id", verify, upload.single("proof"), async (req, res) => {
 					activity,
 					level,
 					year,
+					proof,
 				},
 				{
 					new: true,
 				}
 			);
-
-			if (req.file) {
-				updateAcademic.proof = req.file.path;
-			}
 
 			res.status(200).json(updateAcademic);
 		} else {
