@@ -84,16 +84,6 @@ router.get("/rank", async (req, res) => {
 			.limit(pageSize)
 			.populate("competitions academics organizations");
 
-		// User.aggregate([
-			// {
-			// 	$project: {
-			// 		totalScore: {
-			// 			$sum: ["$academicScore", "$competitionScore", "$organizationScore"],
-			// 		},
-			// 	},
-			// },
-		// ]);
-
 		if (page > pages) {
 			return res.status(404).json("No page found");
 		}

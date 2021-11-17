@@ -3,8 +3,11 @@ import { AgGridColumn, AgGridReact } from "ag-grid-react";
 // import "ag-grid-enterprise";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+import useStore from "../store";
 
 const Table = ({ source }) => {
+	const rank = useStore((state) => state.rank);
+	const getRank = useStore((state) => state.getRank);
 	const [data, setData] = useState(null);
 	const [gridApi, setGridApi] = useState(null);
 
@@ -58,38 +61,10 @@ const Table = ({ source }) => {
 			resizeable: true,
 		},
 	];
-	const rowData = [
-		{
-			name: "Toyota",
-			academicScore: 5,
-			organizationScore: 3,
-			competitionScore: 10,
-			totalScore: 18,
-			rank: 3,
-		},
-		{
-			name: "Ford",
-			academicScore: 10,
-			organizationScore: 3,
-			competitionScore: 10,
-			totalScore: 23,
-			rank: 2,
-		},
-		{
-			name: "Porsche",
-			academicScore: 15,
-			organizationScore: 7,
-			competitionScore: 10,
-			totalScore: 32,
-			rank: 1,
-		},
-	];
 
 	useEffect(() => {
-		fetch("https://leaderboard-api.salmanitb.com/api/users/rank")
-			.then((res) => res.json())
-			.then((saus) => setData(saus.data));
-		// setData(rowData);
+		getRank();
+		setData(rank.data);
 	}, []);
 
 	const onGridReady = (params) => {

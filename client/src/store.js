@@ -84,10 +84,11 @@ const createAuthSlice = (set, get) => ({
 
 const createUserSlice = (set, get) => ({
 	users: [],
+	rank: {},
 	getRank: async () => {
 		try {
 			const res = await API.get(`${rank}`);
-			set({ users: res.data.data });
+			set({ rank: res.data });
 		} catch (err) {
 			console.log(err);
 		}
