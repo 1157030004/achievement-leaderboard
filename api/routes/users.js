@@ -76,6 +76,7 @@ router.get("/rank", async (req, res) => {
 		const total = await User.countDocuments();
 
 		const pages = Math.ceil(total / pageSize);
+		let rankArray = [];
 
 		let query = await User.find()
 			.select("-password")
@@ -86,6 +87,17 @@ router.get("/rank", async (req, res) => {
 
 		if (page > pages) {
 			return res.status(404).json("No page found");
+		}
+
+		query.sort((a, b) => b.totalScore - a.totalScore);
+
+		for (let i = 0; i < query.length; i++) {
+			let totalPoints = query[i].totalScore;
+			let userRank = query.filter((r) => r.totalScore === totalPoints);
+			for (let r of userRank) {
+				r.rank = i + 1;
+			}
+			i += userRank.length - 1;
 		}
 
 		const result = name ? await User.find({ name }) : await query;

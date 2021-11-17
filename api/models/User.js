@@ -32,6 +32,7 @@ const UserSchema = new Schema(
 		competitionScore: { type: Number, default: 0 },
 		organizationScore: { type: Number, default: 0 },
 		totalScore: { type: Number, default: 0 },
+		rank: { type: Number },
 	},
 	{ timestamps: true }
 );
