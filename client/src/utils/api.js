@@ -28,6 +28,10 @@ const createAcademic = `${rootLink}api/academics`;
 const getAcademicActivities = `${rootLink}api/academic-activities`;
 const getAcademicLevels = `${rootLink}api/academic-levels`;
 
+const createCompetition = `${rootLink}api/competitions`;
+const getCompetitionActivities = `${rootLink}api/competition-activities`;
+const getCompetitionLevels = `${rootLink}api/competition-levels`;
+
 export default instance;
 export {
 	register,
@@ -36,4 +40,7 @@ export {
 	createAcademic,
 	getAcademicActivities,
 	getAcademicLevels,
+	createCompetition,
+	getCompetitionActivities,
+	getCompetitionLevels,
 };

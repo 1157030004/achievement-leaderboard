@@ -1,28 +1,31 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import useStore from "../store";
 
 const FormCategory = () => {
 	const navigate = useNavigate();
 	const [category, setCategory] = useState("");
+	const addCategory = useStore((state) => state.addCategory);
 
 	const data = [
 		{
-			name: "Academic",
+			name: "academic",
 			content: "Academic content",
 		},
 		{
-			name: "Competition",
+			name: "competition",
 			content: "Competition content",
 		},
 		{
-			name: "Organization",
+			name: "organization",
 			content: "Organization content",
 		},
 	];
 
 	const handleClick = (e) => {
 		setCategory(e);
-		navigate("/achievements/new", { state: { category } });
+		navigate("/achievements/new");
+		addCategory(e);
 	};
 	return (
 		<div className="container ">

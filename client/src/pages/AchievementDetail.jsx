@@ -1,11 +1,11 @@
 import React from "react";
 import { useParams } from "react-router";
-import Form from "../modules/Form";
+import AcademicForm from "../modules/AcademicForm";
 
 const AchievementDetail = (props) => {
 	return (
 		<>
-			<Form />
+			<AcademicForm />
 		</>
 	);
 };

@@ -84,23 +84,15 @@ router.get("/rank", async (req, res) => {
 			.limit(pageSize)
 			.populate("competitions academics organizations");
 
-		let fourScores = 0;
-		for (i = 0; i < query.length; i++) {
-			fourScores =
-				gpaCount(query[i].gpa) +
-				query[i].academicScore +
-				query[i].competitionScore +
-				query[i].organizationScore;
-		}
-		await User.updateMany(
-			{
-				gpa: { $gte: 0 },
-			},
-			{
-				$set: { totalScore: fourScores },
-			},
-			{ new: true }
-		);
+		// User.aggregate([
+			// {
+			// 	$project: {
+			// 		totalScore: {
+			// 			$sum: ["$academicScore", "$competitionScore", "$organizationScore"],
+			// 		},
+			// 	},
+			// },
+		// ]);
 
 		if (page > pages) {
 			return res.status(404).json("No page found");

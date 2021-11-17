@@ -1,12 +1,14 @@
 import { DocumentUpload } from "iconsax-react";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import FormInput from "../components/FormInput";
 import FormSelect from "../components/FormSelect";
 import Uploader from "../components/Uploader";
 import useStore from "../store";
 import storage from "../utils/firebase";
 
-const Form = (props) => {
+const AcademicForm = (props) => {
+	const navigate = useNavigate();
 	const academicActivities = useStore((state) => state.academicActivities);
 	const academicLevels = useStore((state) => state.academicLevels);
 	const getAcademicActivities = useStore(
@@ -85,8 +87,8 @@ const Form = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(inputs);
 		addAcademic(inputs);
+		navigate("/achievements");
 	};
 
 	return (
@@ -155,4 +157,4 @@ const Form = (props) => {
 	);
 };
 
-export default Form;
+export default AcademicForm;

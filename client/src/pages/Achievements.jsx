@@ -4,7 +4,6 @@ import useStore from "../store";
 
 const Achievements = () => {
 	const user = useStore((state) => state.user);
-	console.log(user.isAdmin);
 	const data = [
 		{
 			id: "1",

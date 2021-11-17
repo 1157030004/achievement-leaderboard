@@ -7,6 +7,9 @@ import API, {
 	createAcademic,
 	getAcademicActivities,
 	getAcademicLevels,
+	createCompetition,
+	getCompetitionActivities,
+	getCompetitionLevels,
 } from "./utils/api";
 
 const createAuthSlice = (set, get) => ({
@@ -144,10 +147,69 @@ const createAcademicSlice = (set, get) => ({
 
 const createCompetitionSlice = (set, get) => ({
 	competitions: [],
+	competitionActivities: [],
+	competitionLevels: [],
+	addCompetition: async (data) => {
+		console.log(data);
+		try {
+			const res = await API.post(`${createCompetition}`, {
+				title: data.title,
+				activity: data.activity,
+				level: data.level,
+				year: data.year,
+				proof: data.proof,
+			});
+			set((state) => ({
+				competitions: { competitions: res.data },
+			}));
+			console.log(res.data);
+		} catch (err) {
+			set({
+				competitions: {
+					...get().competitions,
+					isLoading: false,
+					error: err,
+				},
+			});
+			console.log(err);
+		}
+	},
+	getCompetitionActivities: async () => {
+		try {
+			const res = await API.get(`${getCompetitionActivities}`);
+			set({ competitionActivities: res.data });
+		} catch (err) {
+			console.log(err);
+		}
+	},
+	getCompetitionLevels: async () => {
+		try {
+			const res = await API.get(`${getCompetitionLevels}`);
+			set({ competitionLevels: res.data });
+		} catch (err) {
+			console.log(err);
+		}
+	},
+	deleteCompetition: (id) => {
+		set((state) => ({
+			competitions: state.competitions.filter(
+				(competition) => competition.id !== id
+			),
+		}));
+	},
 });
 
 const createOrganizationSlice = (set, get) => ({
 	organizations: [],
+});
+
+const createCategorySlice = (set, get) => ({
+	category: "",
+	addCategory: (category) => {
+		set((state) => ({
+			category: category,
+		}));
+	},
 });
 
 let store = (set, get) => ({
@@ -156,6 +218,7 @@ let store = (set, get) => ({
 	...createAcademicSlice(set, get),
 	...createCompetitionSlice(set, get),
 	...createOrganizationSlice(set, get),
+	...createCategorySlice(set, get),
 });
 
 store = persist(store, { name: "user_settings" });

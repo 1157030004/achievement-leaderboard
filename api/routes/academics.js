@@ -34,8 +34,6 @@ router.post("/", verify, async (req, res) => {
 
 //!Update Academic
 router.put("/admin/:id", verify, async (req, res) => {
-	console.log("aw");
-
 	const { score, status } = req.body;
 	if (req.user.isAdmin) {
 		try {
@@ -153,7 +151,7 @@ router.delete("/:id", verify, async (req, res) => {
 });
 
 //!Get User Academic
-router.get("/:id", verify, async (req, res) => {
+router.get("/", verify, async (req, res) => {
 	if (req.user.id === req.params.id) {
 		try {
 			const academic = await Academic.findById(req.params.id);
@@ -169,42 +167,42 @@ router.get("/:id", verify, async (req, res) => {
 });
 
 //!Get All Academics
-router.get("/", verify, async (req, res) => {
-	if (req.user.isAdmin) {
-		try {
-			const title = req.query.title;
-			const page = parseInt(req.query.page) || 1;
-			const pageSize = parseInt(req.query.limit) || 4;
-			const skip = (page - 1) * pageSize;
-			const total = await User.countDocuments();
+// router.get("/", verify, async (req, res) => {
+// 	if (req.user.isAdmin) {
+// 		try {
+// 			const title = req.query.title;
+// 			const page = parseInt(req.query.page) || 1;
+// 			const pageSize = parseInt(req.query.limit) || 4;
+// 			const skip = (page - 1) * pageSize;
+// 			const total = await User.countDocuments();
 
-			const pages = Math.ceil(total / pageSize);
+// 			const pages = Math.ceil(total / pageSize);
 
-			let query = Academic.find()
-				.skip(skip)
-				.sort({ createdAt: -1 })
-				.limit(pageSize)
-				.populate("owner", "-password -competitions -academics -organizations");
+// 			let query = Academic.find()
+// 				.skip(skip)
+// 				.sort({ createdAt: -1 })
+// 				.limit(pageSize)
+// 				.populate("owner", "-password -competitions -academics -organizations");
 
-			if (page > pages) {
-				return res.status(404).json("No page found");
-			}
+// 			if (page > pages) {
+// 				return res.status(404).json("No page found");
+// 			}
 
-			const result = title ? await Academic.find({ title }) : await query;
+// 			const result = title ? await Academic.find({ title }) : await query;
 
-			res.status(200).json({
-				count: result.length,
-				page,
-				pages,
-				data: result,
-			});
-		} catch (err) {
-			console.log(err);
-			res.status(500).json(err);
-		}
-	} else {
-		res.status(403).json("You are not allowed");
-	}
-});
+// 			res.status(200).json({
+// 				count: result.length,
+// 				page,
+// 				pages,
+// 				data: result,
+// 			});
+// 		} catch (err) {
+// 			console.log(err);
+// 			res.status(500).json(err);
+// 		}
+// 	} else {
+// 		res.status(403).json("You are not allowed");
+// 	}
+// });
 
 module.exports = router;
