@@ -76,7 +76,6 @@ router.get("/rank", async (req, res) => {
 		const total = await User.countDocuments();
 
 		const pages = Math.ceil(total / pageSize);
-		let rankArray = [];
 
 		let query = await User.find()
 			.select("-password")
