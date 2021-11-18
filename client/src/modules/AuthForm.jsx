@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import FormInput from "../components/FormInput";
 import FormSearchSelect from "../components/FormSearchSelect";
-import useStore from "../store";
+import { useStore, useAuthStore } from "../store";
 
 const AuthForm = ({ data }) => {
-	const login = useStore((state) => state.login);
-	const register = useStore((state) => state.register);
+	const login = useAuthStore((state) => state.login);
+	const register = useAuthStore((state) => state.register);
 	const [selected, setSelected] = useState(null);
 	const [inputs, setInputs] = useState({});
 

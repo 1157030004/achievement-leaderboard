@@ -8,11 +8,11 @@ import {
 	Rank,
 	LogoutCurve,
 } from "iconsax-react";
-import useStore from "../store";
+import { useStore, useAuthStore } from "../store";
 
 const Header = () => {
-	const user = useStore((state) => state.user);
-	const logout = useStore((state) => state.logout);
+	const user = useAuthStore((state) => state.user);
+	const logout = useAuthStore((state) => state.logout);
 	const { isLoggedIn } = user;
 
 	const handleLogout = () => {

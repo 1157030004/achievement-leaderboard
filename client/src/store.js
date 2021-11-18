@@ -9,6 +9,7 @@ import API, {
 	getOneAcademic,
 	getAcademicActivities,
 	getAcademicLevels,
+	deleteAcademic,
 	createCompetition,
 	getCompetitions,
 	getOneCompetition,
@@ -21,83 +22,14 @@ import API, {
 	getOrganizationLevels,
 } from "./utils/api";
 
-const createAuthSlice = (set, get) => ({
-	user: {
-		isLoggedIn: false,
-	},
-	register: async (data) => {
-		try {
-			const res = await API.post(`${register}`, {
-				name: data.name,
-				email: data.email,
-				gpa: data.gpa,
-				campus: data.campus,
-				password: data.password,
-			});
-			res.data.isLoggedIn = true;
-			localStorage.setItem("token", res.data.token);
-			set((state) => ({
-				...state.user,
-				user: res.data,
-			}));
-		} catch (err) {
-			set({
-				user: {
-					...get().user,
-					isLoading: false,
-					error: err.response.data.message,
-				},
-			});
-		}
-	},
-	login: async (data) => {
-		try {
-			const res = await API.post(`${login}`, {
-				email: data.email,
-				password: data.password,
-			});
-			res.data.isLoggedIn = true;
-			localStorage.setItem("token", res.data.token);
-			set((state) => ({
-				...state.user,
-				user: res.data,
-			}));
-		} catch (err) {
-			set({
-				user: {
-					...get().user,
-					isLoading: false,
-					error: err,
-				},
-			});
-		}
-	},
-	logout: async () => {
-		try {
-			set(() => ({
-				user: {
-					isLoggedIn: false,
-				},
-			}));
-		} catch (err) {
-			set({
-				user: {
-					...get().user,
-					isLoading: false,
-					error: err.response.data.message,
-				},
-			});
-		}
-	},
-});
-
 const createUserSlice = (set, get) => ({
 	users: [],
 	rank: {},
+	isLoading: true,
 	getRank: async () => {
 		try {
 			const res = await API.get(`${rank}`);
-			set({ rank: res.data });
+			set({ rank: res.data, isLoading: false });
 		} catch (err) {
 			console.log(err);
 		}
@@ -108,11 +40,11 @@ const createAcademicSlice = (set, get) => ({
 	academics: [],
 	academicActivities: [],
 	academicLevels: [],
+	isLoading: true,
 	getAcademics: async () => {
 		try {
 			const res = await API.get(`${getAcademics}`);
-			console.log(res.data);
-			set({ academics: res.data });
+			set({ academics: res.data, isLoading: false });
 		} catch (err) {
 			set({
 				academics: {
@@ -149,9 +81,9 @@ const createAcademicSlice = (set, get) => ({
 				proof: data.proof,
 			});
 			set((state) => ({
-				academics: { academics: res.data },
+				academics: [...state.academics, res.data],
+				isLoading: false,
 			}));
-			console.log(data.proof);
 		} catch (err) {
 			set({
 				academics: {
@@ -179,11 +111,12 @@ const createAcademicSlice = (set, get) => ({
 			console.log(err);
 		}
 	},
-	deleteAcademic: (id) => {
-		console.log(id);
-		// set((state) => ({
-		// 	academics: state.academics.filter((academic) => academic.id !== id),
-		// }));
+	deleteAcademic: async (id) => {
+		try {
+			await API.delete(`${deleteAcademic}/${id}`);
+		} catch (err) {
+			console.log(err);
+		}
 	},
 });
 
@@ -358,8 +291,79 @@ const createCategorySlice = (set, get) => ({
 	},
 });
 
+const createAuthSlice = (set, get) => ({
+	user: {
+		isLoggedIn: false,
+	},
+	register: async (data) => {
+		try {
+			const res = await API.post(`${register}`, {
+				name: data.name,
+				email: data.email,
+				gpa: data.gpa,
+				campus: data.campus,
+				password: data.password,
+			});
+			res.data.isLoggedIn = true;
+			localStorage.setItem("token", res.data.token);
+			set((state) => ({
+				...state.user,
+				user: res.data,
+			}));
+		} catch (err) {
+			set({
+				user: {
+					...get().user,
+					isLoading: false,
+					error: err.response.data.message,
+				},
+			});
+		}
+	},
+	login: async (data) => {
+		try {
+			const res = await API.post(`${login}`, {
+				email: data.email,
+				password: data.password,
+			});
+			localStorage.setItem("token", res.data.token);
+			set((state) => ({
+				user: res.data,
+				user: {
+					...state.user,
+					isLoggedIn: true,
+				},
+			}));
+		} catch (err) {
+			set({
+				user: {
+					...get().user,
+					isLoading: false,
+					error: err,
+				},
+			});
+		}
+	},
+	logout: async () => {
+		try {
+			set(() => ({
+				user: {
+					isLoggedIn: false,
+				},
+			}));
+		} catch (err) {
+			set({
+				user: {
+					...get().user,
+					isLoading: false,
+					error: err.response.data.message,
+				},
+			});
+		}
+	},
+});
+
 let store = (set, get) => ({
-	...createAuthSlice(set, get),
 	...createUserSlice(set, get),
 	...createAcademicSlice(set, get),
 	...createCompetitionSlice(set, get),
@@ -367,9 +371,14 @@ let store = (set, get) => ({
 	...createCategorySlice(set, get),
 });
 
-store = persist(store, { name: "user_settings" });
-store = devtools(store);
+let authStore = (set, get) => ({
+	...createAuthSlice(set, get),
+});
 
-const useStore = create(store);
+store = devtools(store, { name: "achivement" });
+authStore = devtools(authStore, { name: "auth" });
 
-export default useStore;
+authStore = persist(authStore, { name: "auth" });
+
+export const useStore = create(store);
+export const useAuthStore = create(authStore);

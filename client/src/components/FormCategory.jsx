@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import useStore from "../store";
+import { useStore } from "../store";
 
 const FormCategory = () => {
 	const navigate = useNavigate();

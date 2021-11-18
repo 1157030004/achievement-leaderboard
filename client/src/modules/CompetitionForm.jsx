@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import FormInput from "../components/FormInput";
 import FormSelect from "../components/FormSelect";
-import useStore from "../store";
+import { useStore } from "../store";
 import storage from "../utils/firebase";
 
 const CompetitionForm = (props) => {
@@ -20,8 +20,6 @@ const CompetitionForm = (props) => {
 
 	const [inputs, setInputs] = useState({});
 	const [file, setFile] = useState(null);
-	const [activities, setActivities] = useState([]);
-	const [levels, setLevels] = useState([]);
 	const [data, setData] = useState([]);
 	const [uploaded, setUploaded] = useState(0);
 	const [percentage, setPercentage] = useState(0);
@@ -29,12 +27,10 @@ const CompetitionForm = (props) => {
 	useEffect(() => {
 		getCompetitionActivities();
 		getCompetitionLevels();
-		setActivities(competitionActivities);
-		setLevels(competitionLevels);
 	}, []);
 
-	const activityOptions = activities.map((item) => item.activity);
-	const activityMatch = levels.map((item) => item.activity);
+	const activityOptions = competitionActivities.map((item) => item.activity);
+	const activityMatch = competitionLevels.map((item) => item.activity);
 	let index;
 
 	const handleChange = (e) => {
@@ -45,7 +41,7 @@ const CompetitionForm = (props) => {
 
 		if (e.target.name == "activity") {
 			index = activityMatch.lastIndexOf(e.target.value);
-			setData(levels[index].level);
+			setData(competitionLevels[index].level);
 		}
 	};
 

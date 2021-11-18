@@ -1,9 +1,10 @@
 import { Edit, Trash } from "iconsax-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import useStore from "../store";
+import { useStore } from "../store";
+import Popup from "./Popup";
 
-const Card = ({ id, title }) => {
+const Card = ({ id, title, activity, level, score, status, proof }) => {
 	const deleteAcademic = useStore((state) => state.deleteAcademic);
 	const navigate = useNavigate();
 
@@ -11,6 +12,8 @@ const Card = ({ id, title }) => {
 		e.preventDefault();
 		navigate(`/achievements/${id}`);
 	};
+
+	// function render header
 
 	const handleDelete = (e) => {
 		e.preventDefault();
@@ -28,6 +31,7 @@ const Card = ({ id, title }) => {
 						<button className="btn btn-sm btn-accent" onClick={handleDelete}>
 							<Trash size="14" variant="Outline" />
 						</button>
+						{/* <Popup handleDelete={handleDelete} /> */}
 					</div>
 				</div>
 			</div>

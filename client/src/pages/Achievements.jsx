@@ -1,6 +1,6 @@
 import React from "react";
 import WallOfAchivement from "../modules/WallOfAchivement";
-import useStore from "../store";
+import { useStore } from "../store";
 
 const Achievements = () => {
 	const user = useStore((state) => state.user);

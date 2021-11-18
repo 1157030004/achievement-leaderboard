@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Leaderboard from "../modules/Leaderboard";
-import useStore from "../store";
+import { useStore } from "../store";
 
 const Home = () => {
 	const getRank = useStore((state) => state.getRank);

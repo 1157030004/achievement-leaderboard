@@ -4,10 +4,10 @@ import { useNavigate } from "react-router";
 import FormInput from "../components/FormInput";
 import FormSelect from "../components/FormSelect";
 import Uploader from "../components/Uploader";
-import useStore from "../store";
+import { useStore } from "../store";
 import storage from "../utils/firebase";
 
-const AcademicForm = (props) => {
+const AcademicForm = () => {
 	const navigate = useNavigate();
 	const academicActivities = useStore((state) => state.academicActivities);
 	const academicLevels = useStore((state) => state.academicLevels);
@@ -19,8 +19,6 @@ const AcademicForm = (props) => {
 
 	const [inputs, setInputs] = useState({});
 	const [file, setFile] = useState(null);
-	const [activities, setActivities] = useState([]);
-	const [levels, setLevels] = useState([]);
 	const [data, setData] = useState([]);
 	const [uploaded, setUploaded] = useState(0);
 	const [percentage, setPercentage] = useState(0);
@@ -28,12 +26,10 @@ const AcademicForm = (props) => {
 	useEffect(() => {
 		getAcademicActivities();
 		getAcademicLevels();
-		setActivities(academicActivities);
-		setLevels(academicLevels);
 	}, []);
 
-	const activityOptions = activities.map((item) => item.activity);
-	const activityMatch = levels.map((item) => item.activity);
+	const activityOptions = academicActivities.map((item) => item.activity);
+	const activityMatch = academicLevels.map((item) => item.activity);
 	let index;
 
 	const handleChange = (e) => {
@@ -44,7 +40,7 @@ const AcademicForm = (props) => {
 
 		if (e.target.name == "activity") {
 			index = activityMatch.lastIndexOf(e.target.value);
-			setData(levels[index].level);
+			setData(academicLevels[index].level);
 		}
 	};
 
@@ -88,7 +84,7 @@ const AcademicForm = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		addAcademic(inputs);
-		navigate("/achievements");
+		navigate("/welldone");
 	};
 
 	return (

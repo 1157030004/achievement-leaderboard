@@ -3,12 +3,12 @@ import { AgGridColumn, AgGridReact } from "ag-grid-react";
 // import "ag-grid-enterprise";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-import useStore from "../store";
+import { useStore } from "../store";
 
 const Table = ({ source }) => {
+	const state = useStore((state) => state);
 	const rank = useStore((state) => state.rank);
 	const getRank = useStore((state) => state.getRank);
-	const [data, setData] = useState(null);
 	const [gridApi, setGridApi] = useState(null);
 
 	const columnDefs = [
@@ -17,7 +17,7 @@ const Table = ({ source }) => {
 			field: "name",
 			flex: 2,
 			sortable: true,
-			resizeable: true,
+			resizable: true,
 			filter: "agTextColumnFilter",
 			floatingFilter: true,
 			onCellClicked: function (event) {
@@ -29,21 +29,21 @@ const Table = ({ source }) => {
 			field: "academicScore",
 			flex: 1,
 			sortable: true,
-			resizeable: true,
+			resizable: true,
 		},
 		{
 			headerName: "Organization",
 			field: "organizationScore",
 			flex: 1,
 			sortable: true,
-			resizeable: true,
+			resizable: true,
 		},
 		{
 			headerName: "Competition",
 			field: "competitionScore",
 			flex: 1,
 			sortable: true,
-			resizeable: true,
+			resizable: true,
 		},
 		{
 			headerName: "Total",
@@ -51,21 +51,20 @@ const Table = ({ source }) => {
 			flex: 1,
 			sortable: true,
 			sort: "desc",
-			resizeable: true,
+			resizable: true,
 		},
 		{
 			headerName: "Rank",
 			field: "rank",
 			flex: 1,
 			sortable: true,
-			resizeable: true,
+			resizable: true,
 		},
 	];
 
 	useEffect(() => {
 		getRank();
-		setData(rank.data);
-	}, []);
+	}, [rank.data]);
 
 	const onGridReady = (params) => {
 		setGridApi(params.api);
@@ -78,28 +77,37 @@ const Table = ({ source }) => {
 
 	return (
 		<div className="ag-theme-alpine h-96" style={{ width: "100%" }}>
-			<div className="my-2">
-				<button
-					className="btn btn-primary btn-sm px-4 py-2 d hover:pointer"
-					onClick={() => onBtnExport()}>
-					Export to Csv
-				</button>
-			</div>
-			<AgGridReact
-				rowData={data}
-				columnDefs={columnDefs}
-				pagination={true}
-				paginationPageSize={20}
-				onGridReady={onGridReady}>
-				<AgGridColumn field="name" headerName="Name" />
-				<AgGridColumn field="academicScore" headerName="Academic Score" />
-				<AgGridColumn
-					field="organizationScore"
-					headerName="Organization Score"
-				/>
-				<AgGridColumn field="competitionScore" headerName="Competition Score" />
-				<AgGridColumn field="totalScore" headerName="Total Score" />
-			</AgGridReact>
+			{state.isLoading ? (
+				<div>loading</div>
+			) : (
+				<>
+					<div className="my-2">
+						<button
+							className="btn btn-primary btn-sm px-4 py-2 d hover:pointer"
+							onClick={() => onBtnExport()}>
+							Export to Csv
+						</button>
+					</div>
+					<AgGridReact
+						rowData={rank.data}
+						columnDefs={columnDefs}
+						pagination={true}
+						paginationPageSize={20}
+						onGridReady={onGridReady}>
+						<AgGridColumn field="name" headerName="Name" />
+						<AgGridColumn field="academicScore" headerName="Academic Score" />
+						<AgGridColumn
+							field="organizationScore"
+							headerName="Organization Score"
+						/>
+						<AgGridColumn
+							field="competitionScore"
+							headerName="Competition Score"
+						/>
+						<AgGridColumn field="totalScore" headerName="Total Score" />
+					</AgGridReact>
+				</>
+			)}
 		</div>
 	);
 };

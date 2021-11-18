@@ -29,6 +29,7 @@ const getAcademics = `${rootLink}api/academics`;
 const getOneAcademic = `${rootLink}api/academics`;
 const getAcademicActivities = `${rootLink}api/academic-activities`;
 const getAcademicLevels = `${rootLink}api/academic-levels`;
+const deleteAcademic = `${rootLink}api/academics`;
 
 const createCompetition = `${rootLink}api/competitions`;
 const getCompetitions = `${rootLink}api/competitions`;
@@ -52,6 +53,7 @@ export {
 	getOneAcademic,
 	getAcademicActivities,
 	getAcademicLevels,
+	deleteAcademic,
 	createCompetition,
 	getCompetitions,
 	getOneCompetition,

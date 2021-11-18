@@ -1,7 +1,7 @@
 import React from "react";
 import AcademicForm from "../modules/AcademicForm";
 import CompetitionForm from "../modules/CompetitionForm";
-import useStore from "../store";
+import { useStore } from "../store";
 
 const NewAchievement = (props) => {
 	const category = useStore((state) => state.category);
