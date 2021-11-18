@@ -3,26 +3,23 @@ import Card from "../components/Card";
 import NewCard from "../components/Modal";
 import { useStore, useAuthStore } from "../store";
 
-const WallOfAchivement = ({ data }) => {
+const WallOfAchivement = ({ source }) => {
 	const state = useStore((state) => state);
-	const academics = useStore((state) => state.academics);
-	const getAcademics = useStore((state) => state.getAcademics);
+	// const academics = useStore((state) => state.academics);
+	// const getAcademics = useStore((state) => state.getAcademics);
 
-	useEffect(() => {
-		getAcademics();
-		// if (academics.data.length > 0) {
-		// 	setAcademicSource(academics.data);
-		// }
-	}, []);
+	// useEffect(() => {
+	// 	getAcademics();
+
+	// }, []);
 
 	return (
 		<div className="w-auto flex flex-wrap mt-5">
-			<NewCard />
 			{state.isLoading ? (
 				<div>Loading...</div>
 			) : (
 				<>
-					{academics.data.map((item) => (
+					{source.data.map((item) => (
 						<Card
 							key={item._id}
 							id={item._id}

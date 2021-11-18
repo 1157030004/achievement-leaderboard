@@ -1,29 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import WallOfAchivement from "../modules/WallOfAchivement";
 import { useStore } from "../store";
+import NewCard from "../components/Modal";
 
 const Achievements = () => {
-	const user = useStore((state) => state.user);
-	const data = [
-		{
-			id: "1",
-			title:
-				"First Card asdkjasdoajsdljasdojasodjasodj asodjasoidjsaiodjasoidj",
-			content: "This is the first card",
-		},
-		{ id: "2", title: "Second Card", content: "This is the second card" },
-		{ id: "3", title: "Third Card", content: "This is the third card" },
-		{
-			id: "4",
-			title: "Fourth Card",
-			content: "This is the fourth card",
-		},
-		{ id: "5", title: "Fifth Card", content: "This is the fifth card" },
-	];
+	const state = useStore((state) => state);
+	const academics = useStore((state) => state.academics);
+	const getAcademics = useStore((state) => state.getAcademics);
+	const competitions = useStore((state) => state.competitions);
+	const getCompetitions = useStore((state) => state.getCompetitions);
+
+	useEffect(() => {
+		getAcademics();
+		getCompetitions();
+	}, []);
 	return (
-		<>
-			<WallOfAchivement data={data} />
-		</>
+		<div className="flex flex-col w-full">
+			<NewCard />
+			<WallOfAchivement source={academics} />
+			<div class="divider" />
+			<WallOfAchivement source={competitions} />
+		</div>
 	);
 };
 

@@ -85,7 +85,7 @@ const CompetitionForm = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		addCompetition(inputs);
-		navigate("/achievements");
+		navigate("/welldone");
 	};
 
 	return (

@@ -5,7 +5,7 @@ import FormCategory from "./FormCategory";
 const Modal = ({ children }) => {
 	return (
 		<>
-			<div className="card m-2 max-w-sm text-center shadow-2xl lg:card-side bg-primary ">
+			<div className="card m-2  text-center shadow-2xl lg:card-side bg-primary cursor-pointer">
 				<div className="card-body items-center justify-center">
 					<label htmlFor="my-modal-2" className="btn btn-primary modal-button">
 						<AddSquare size="24" />
