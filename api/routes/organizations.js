@@ -127,21 +127,17 @@ router.delete("/:id", verify, async (req, res) => {
 });
 
 //!Get User Organization
-router.get("/:id", verify, async (req, res) => {
-	if (req.user.id === req.params.id) {
-		try {
-			let organization = [];
-			organization = await Organization.find({ owner: req.user.id });
-			if (!organization) return res.status(404).json("Not Found");
+router.get("/", verify, async (req, res) => {
+	try {
+		let organization = [];
+		organization = await Organization.find({ owner: req.user.id });
+		if (!organization) return res.status(404).json("Not Found");
 
-			res.status(200).json({
-				data: organization,
-			});
-		} catch (err) {
-			res.status(500).json(err);
-		}
-	} else {
-		res.status(403).json("You are not allowed");
+		res.status(200).json({
+			data: organization,
+		});
+	} catch (err) {
+		res.status(500).json(err);
 	}
 });
 

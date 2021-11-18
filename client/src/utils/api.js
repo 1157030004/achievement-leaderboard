@@ -25,12 +25,22 @@ const login = `${rootLink}api/auth/login`;
 const rank = `${rootLink}api/users/rank`;
 
 const createAcademic = `${rootLink}api/academics`;
+const getAcademics = `${rootLink}api/academics`;
+const getOneAcademic = `${rootLink}api/academics`;
 const getAcademicActivities = `${rootLink}api/academic-activities`;
 const getAcademicLevels = `${rootLink}api/academic-levels`;
 
 const createCompetition = `${rootLink}api/competitions`;
+const getCompetitions = `${rootLink}api/competitions`;
+const getOneCompetition = `${rootLink}api/competitions`;
 const getCompetitionActivities = `${rootLink}api/competition-activities`;
 const getCompetitionLevels = `${rootLink}api/competition-levels`;
+
+const createOrganization = `${rootLink}api/organizations`;
+const getOrganizations = `${rootLink}api/organizations`;
+const getOneOrganization = `${rootLink}api/organizations`;
+const getOrganizationActivities = `${rootLink}api/organization-activities`;
+const getOrganizationLevels = `${rootLink}api/organization-levels`;
 
 export default instance;
 export {
@@ -38,9 +48,18 @@ export {
 	login,
 	rank,
 	createAcademic,
+	getAcademics,
+	getOneAcademic,
 	getAcademicActivities,
 	getAcademicLevels,
 	createCompetition,
+	getCompetitions,
+	getOneCompetition,
 	getCompetitionActivities,
 	getCompetitionLevels,
+	createOrganization,
+	getOrganizations,
+	getOneOrganization,
+	getOrganizationActivities,
+	getOrganizationLevels,
 };
