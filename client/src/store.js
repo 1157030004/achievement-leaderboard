@@ -60,8 +60,7 @@ const createAcademicSlice = (set, get) => ({
 	getOneAcademic: async (id) => {
 		try {
 			const res = await API.get(`${getOneAcademic}/${id}`);
-			set({ academic: res.data });
-			console.log("academic from store", res.data);
+			set({ academic: res.data, isLoading: false });
 		} catch (err) {
 			set({
 				academics: {

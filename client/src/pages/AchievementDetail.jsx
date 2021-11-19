@@ -3,7 +3,8 @@ import { useParams } from "react-router";
 import AcademicForm from "../modules/AcademicForm";
 import { useStore } from "../store";
 
-const AchievementDetail = (props) => {
+const AchievementDetail = () => {
+	const state = useStore((state) => state);
 	const academic = useStore((state) => state.academic);
 	const getOneAcademic = useStore((state) => state.getOneAcademic);
 	let params = useParams();
@@ -12,10 +13,13 @@ const AchievementDetail = (props) => {
 		getOneAcademic(params.id);
 	}, []);
 
-	console.log(academic);
+	if (state.isLoading) {
+		return <div>Loading...</div>;
+	}
+
 	return (
 		<>
-			<AcademicForm />
+			<AcademicForm source={academic} />
 		</>
 	);
 };

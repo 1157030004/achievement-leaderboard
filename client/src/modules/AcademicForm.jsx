@@ -7,7 +7,7 @@ import Uploader from "../components/Uploader";
 import { useStore } from "../store";
 import storage from "../utils/firebase";
 
-const AcademicForm = () => {
+const AcademicForm = ({ source }) => {
 	const navigate = useNavigate();
 	const academicActivities = useStore((state) => state.academicActivities);
 	const academicLevels = useStore((state) => state.academicLevels);
@@ -95,6 +95,7 @@ const AcademicForm = () => {
 			<form className="form-control" onSubmit={handleSubmit}>
 				<FormInput
 					name="title"
+					value={source.title}
 					label="Pencapaian Akademik"
 					placeholder="Akademik"
 					onChange={handleChange}
@@ -102,6 +103,7 @@ const AcademicForm = () => {
 				<div className="flex flex-col md:flex-row w-auto">
 					<FormSelect
 						name="activity"
+						value={source.activity}
 						label="Kategori Pencapaian"
 						defaultValue="Pilih"
 						onChange={handleChange}
@@ -109,6 +111,7 @@ const AcademicForm = () => {
 					/>
 					<FormSelect
 						name="level"
+						value={source.level}
 						label="Skala Pencapaian"
 						defaultValue="Pilih"
 						onChange={handleChange}
@@ -117,6 +120,7 @@ const AcademicForm = () => {
 				</div>
 				<FormInput
 					name="year"
+					value={source.year}
 					label="Tahun"
 					placeholder="2045"
 					onChange={handleChange}
@@ -124,14 +128,6 @@ const AcademicForm = () => {
 				<label className="label mt-2">
 					<span className="label-text">Upload Bukti Pencapaian</span>
 				</label>
-				{/* <Uploader
-					name="file"
-					file={file}
-					formData={data}
-					handleServer={handleServer}
-					onUpdateFiles={setFile}
-				/> */}
-				{/* <label className="w-64 flex flex-col items-center px-4 py-6 bg-accent-content text-primary rounded-lg  tracking-wide uppercase border cursor-pointer"> */}
 
 				<div className="">
 					<input
@@ -140,6 +136,9 @@ const AcademicForm = () => {
 						className="input input-ghost cursor-pointer pt-1"
 						onChange={(e) => setFile(e.target.files[0])}
 					/>
+					{source.proof ? (
+						<img className="w-3/5" src={source.proof} alt="" />
+					) : null}
 				</div>
 				{uploaded > 0 ? (
 					<button className="btn btn-primary mt-4">Submit</button>

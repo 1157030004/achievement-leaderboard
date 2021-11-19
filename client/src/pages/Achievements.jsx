@@ -30,7 +30,7 @@ const Achievements = () => {
 	return (
 		<div className="flex flex-col w-full">
 			<div className="flex flex-row justify-between mt-2 mx-2 ">
-				<Stat handleChange={handleChange} />
+				<Stat handleChange={handleChange} tab={tab} />
 				<NewCard />
 			</div>
 			{tab === "academic" ? (
