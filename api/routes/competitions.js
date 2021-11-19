@@ -127,7 +127,19 @@ router.delete("/:id", verify, async (req, res) => {
 	}
 });
 
-//!Get User Competition
+//!Get One Competition
+router.get("/:id", verify, async (req, res) => {
+	try {
+		const competition = await Competition.findById(req.params.id);
+		if (!competition) return res.status(404).json("Not Found");
+
+		res.status(200).json(competition);
+	} catch (err) {
+		res.status(500).json(err);
+	}
+});
+
+//!Get User Competitions
 router.get("/", verify, async (req, res) => {
 	try {
 		let competition = [];

@@ -14,25 +14,19 @@ const WallOfAchivement = ({ source }) => {
 	// }, []);
 
 	return (
-		<div className="w-auto flex flex-wrap mt-5">
-			{state.isLoading ? (
-				<div>Loading...</div>
-			) : (
-				<>
-					{source.data.map((item) => (
-						<Card
-							key={item._id}
-							id={item._id}
-							title={item.title}
-							activity={item.activity}
-							level={item.level}
-							score={item.score}
-							status={item.status}
-							proof={item.proof}
-						/>
-					))}
-				</>
-			)}
+		<div className="w-auto flex flex-wrap ">
+			{source.map((item) => (
+				<Card
+					key={item._id}
+					id={item._id}
+					title={item.title}
+					activity={item.activity}
+					level={item.level}
+					score={item.score}
+					status={item.status}
+					proof={item.proof}
+				/>
+			))}
 		</div>
 	);
 };

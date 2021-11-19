@@ -64,7 +64,7 @@ const Table = ({ source }) => {
 
 	useEffect(() => {
 		getRank();
-	}, [rank.data]);
+	}, []);
 
 	const onGridReady = (params) => {
 		setGridApi(params.api);

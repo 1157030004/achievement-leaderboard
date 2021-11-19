@@ -126,7 +126,19 @@ router.delete("/:id", verify, async (req, res) => {
 	}
 });
 
-//!Get User Organization
+//!Get One Organization
+router.get("/:id", verify, async (req, res) => {
+	try {
+		const organization = await Organization.findById(req.params.id);
+		if (!organization) return res.status(404).json("Not Found");
+
+		res.status(200).json(organization);
+	} catch (err) {
+		res.status(500).json(err);
+	}
+});
+
+//!Get User Organizations
 router.get("/", verify, async (req, res) => {
 	try {
 		let organization = [];

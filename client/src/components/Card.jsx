@@ -21,15 +21,40 @@ const Card = ({ id, title, activity, level, score, status, proof }) => {
 	};
 	return (
 		<>
-			<div className="card m-2 max-w-sm  text-center shadow-2xl lg:card-side bg-accent text-accent-content">
+			<div className="card m-2 w-full  shadow-2xl lg:card-side bg-neutral-content">
 				<div className=" card-body ">
-					<h1 className="text-md font-extrabold">{title}</h1>
-					<div className=" justify-center card-actions ">
-						<button className="btn btn-sm btn-accent" onClick={handleClick}>
-							<Edit size="14" variant="Outline" />
+					<div className="flex flex-row items-start relative">
+						<div className=" w-2/5 lg:w-1/5 mr-2 rounded-lg">
+							<img src={proof} className="bg-base-100 rounded-lg" alt="proof" />
+						</div>
+
+						<div className="w-full flex flex-col text-2xs lg:text-xs">
+							<span className="  font-extrabold">{title}</span>
+							<span className="">{activity}</span>
+							<span className="">{level}</span>
+							<span className="text-2xs lg:text-xs rounded-lg bg-base-100 w-24 p-1">
+								Score: {score}
+							</span>
+						</div>
+					</div>
+					<div className="flex items-center text-primary-content text-2xs lg:text-xs absolute left-17 top-1">
+						{status === "pending" ? (
+							<span className="bg-primary p-1 rounded-lg">{status}</span>
+						) : (
+							<span className="bg-secondary p-1 rounded-lg">{status}</span>
+						)}
+					</div>
+
+					<div className="flex justify-end">
+						<button
+							className="btn btn-sm btn-accent mx-2 rounded-lg"
+							onClick={handleClick}>
+							<Edit size="14" variant="Outline" color="white" />
 						</button>
-						<button className="btn btn-sm btn-accent" onClick={handleDelete}>
-							<Trash size="14" variant="Outline" />
+						<button
+							className="btn btn-sm btn-accent rounded-lg"
+							onClick={handleDelete}>
+							<Trash size="14" variant="Outline" color="white" />
 						</button>
 						{/* <Popup handleDelete={handleDelete} /> */}
 					</div>

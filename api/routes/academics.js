@@ -126,7 +126,19 @@ router.delete("/:id", verify, async (req, res) => {
 	}
 });
 
-//!Get User Academic
+//!Get One Academic
+router.get("/:id", verify, async (req, res) => {
+	try {
+		const academic = await Academic.findById(req.params.id);
+		if (!academic) return res.status(404).json("Not Found");
+
+		res.status(200).json(academic);
+	} catch (err) {
+		res.status(500).json(err);
+	}
+});
+
+//!Get User Academics
 router.get("/", verify, async (req, res) => {
 	try {
 		let academic = [];

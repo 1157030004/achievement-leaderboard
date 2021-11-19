@@ -38,13 +38,14 @@ const createUserSlice = (set, get) => ({
 
 const createAcademicSlice = (set, get) => ({
 	academics: [],
+	academic: {},
 	academicActivities: [],
 	academicLevels: [],
 	isLoading: true,
 	getAcademics: async () => {
 		try {
 			const res = await API.get(`${getAcademics}`);
-			set({ academics: res.data, isLoading: false });
+			set({ academics: res.data.data, isLoading: false });
 		} catch (err) {
 			set({
 				academics: {
@@ -59,7 +60,8 @@ const createAcademicSlice = (set, get) => ({
 	getOneAcademic: async (id) => {
 		try {
 			const res = await API.get(`${getOneAcademic}/${id}`);
-			set({ academics: res.data });
+			set({ academic: res.data });
+			console.log("academic from store", res.data);
 		} catch (err) {
 			set({
 				academics: {
@@ -124,10 +126,11 @@ const createCompetitionSlice = (set, get) => ({
 	competitions: [],
 	competitionActivities: [],
 	competitionLevels: [],
+	isLoading: true,
 	getCompetitions: async () => {
 		try {
 			const res = await API.get(`${getCompetitions}`);
-			set({ competitions: res.data });
+			set({ competitions: res.data.data, isLoading: false });
 		} catch (err) {
 			set({
 				competitions: {
