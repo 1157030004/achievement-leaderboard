@@ -9,46 +9,66 @@ import NewAchievement from "./pages/NewAchievement";
 import AchievementDetail from "./pages/AchievementDetail";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { useAuthStore } from "./store";
+import { useAuthStore, useStore } from "./store";
 import Welldone from "./modules/Welldone";
+import AdminHome from "./pages/AdminHome";
 
 function App() {
 	const user = useAuthStore((state) => state.user);
-	const { isLoggedIn } = user;
+	const state = useAuthStore((state) => state);
+	const { isLoggedIn } = state;
+	const { isAdmin } = user;
+
+	console.log("isAdmin", user.isAdmin);
+	console.log("isLoggedIn", state.isLoggedIn);
 	return (
 		<Routes>
 			<Route path="/" element={<Layout />}>
 				<Route index element={<Home />} />
-				<Route
-					path="login"
-					element={isLoggedIn ? <Achievements /> : <Login />}
-				/>
-				<Route
-					path="register"
-					element={isLoggedIn ? <Achievements /> : <Register />}
-				/>
-				<Route
-					path="achievements"
-					element={isLoggedIn ? <Achievements /> : <Login />}
-				/>
-				<Route
-					path="achievements/new"
-					element={isLoggedIn ? <NewAchievement /> : <Login />}
-				/>
-				<Route
-					path="academics/:id"
-					element={isLoggedIn ? <AchievementDetail /> : <Login />}
-				/>
-				<Route
-					path="competitions/:id"
-					element={isLoggedIn ? <AchievementDetail /> : <Login />}
-				/>
-				<Route
-					path="organizations/:id"
-					element={isLoggedIn ? <AchievementDetail /> : <Login />}
-				/>
-				<Route path="profile" element={isLoggedIn ? <Profile /> : <Login />} />
-				<Route path="welldone" element={<Welldone />} />
+				<Route path="login" element={isLoggedIn ? <Home /> : <Login />} />
+				<Route path="register" element={isLoggedIn ? <Home /> : <Register />} />
+				{isAdmin ? (
+					<>
+						<Route
+							path="admin"
+							element={isLoggedIn && isAdmin ? <AdminHome /> : <Login />}
+						/>
+					</>
+				) : (
+					<>
+						<Route
+							path="achievements"
+							element={isLoggedIn && !isAdmin ? <Achievements /> : <Login />}
+						/>
+						<Route
+							path="achievements/new"
+							element={isLoggedIn && !isAdmin ? <NewAchievement /> : <Login />}
+						/>
+						<Route
+							path="academics/:id"
+							element={
+								isLoggedIn && !isAdmin ? <AchievementDetail /> : <Login />
+							}
+						/>
+						<Route
+							path="competitions/:id"
+							element={
+								isLoggedIn && !isAdmin ? <AchievementDetail /> : <Login />
+							}
+						/>
+						<Route
+							path="organizations/:id"
+							element={
+								isLoggedIn && !isAdmin ? <AchievementDetail /> : <Login />
+							}
+						/>
+						<Route
+							path="profile"
+							element={isLoggedIn && !isAdmin ? <Profile /> : <Login />}
+						/>
+						<Route path="welldone" element={<Welldone />} />
+					</>
+				)}
 				<Route path="*" element={<NoMatch />} />
 			</Route>
 		</Routes>

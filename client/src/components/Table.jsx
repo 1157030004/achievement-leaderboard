@@ -3,10 +3,11 @@ import { AgGridColumn, AgGridReact } from "ag-grid-react";
 // import "ag-grid-enterprise";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-import { useStore } from "../store";
+import { useAuthStore, useStore } from "../store";
 
 const Table = ({ source }) => {
 	const state = useStore((state) => state);
+	const isAdmin = useAuthStore((state) => state.user.isAdmin);
 	const rank = useStore((state) => state.rank);
 	const getRank = useStore((state) => state.getRank);
 	const [gridApi, setGridApi] = useState(null);
@@ -81,13 +82,15 @@ const Table = ({ source }) => {
 				<div>loading</div>
 			) : (
 				<>
-					<div className="my-2">
-						<button
-							className="btn btn-primary btn-sm px-4 py-2 d hover:pointer"
-							onClick={() => onBtnExport()}>
-							Export to Csv
-						</button>
-					</div>
+					{isAdmin ? (
+						<div className="my-2">
+							<button
+								className="btn btn-primary btn-sm px-4 py-2 d hover:pointer"
+								onClick={() => onBtnExport()}>
+								Export to Csv
+							</button>
+						</div>
+					) : null}
 					<AgGridReact
 						rowData={rank.data}
 						columnDefs={columnDefs}

@@ -11,9 +11,11 @@ import {
 import { useStore, useAuthStore } from "../store";
 
 const Header = () => {
+	const state = useAuthStore((state) => state);
 	const user = useAuthStore((state) => state.user);
 	const logout = useAuthStore((state) => state.logout);
-	const { isLoggedIn } = user;
+	const { isLoggedIn } = state;
+	const { isAdmin } = user;
 
 	const handleLogout = () => {
 		logout();
@@ -27,12 +29,20 @@ const Header = () => {
 			<div className="flex-none hidden px-2 mx-2 lg:flex ">
 				{isLoggedIn ? (
 					<div className="flex items-stretch">
-						<Link
-							to="/achievements"
-							className="btn btn-ghost btn-sm rounded-btn">
-							<Briefcase size="15" color="#70abc7" variant="Outline" />
-							<span className="pl-2 text-xs">Achievements</span>
-						</Link>
+						{isAdmin ? (
+							<Link to="/admin" className="btn btn-ghost btn-sm rounded-btn">
+								<Briefcase size="15" color="#70abc7" variant="Outline" />
+								<span className="pl-2 text-xs">Panel Admin</span>
+							</Link>
+						) : (
+							<Link
+								to="/achievements"
+								className="btn btn-ghost btn-sm rounded-btn">
+								<Briefcase size="15" color="#70abc7" variant="Outline" />
+								<span className="pl-2 text-xs">Achievements</span>
+							</Link>
+						)}
+
 						<Link
 							to="/login"
 							className="btn btn-ghost btn-sm rounded-btn"
@@ -63,9 +73,15 @@ const Header = () => {
 					<ul
 						tabIndex="0"
 						className="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
-						<li>
-							<Link to="/achievements">Achievements</Link>
-						</li>
+						{isAdmin ? (
+							<li>
+								<Link to="/admin">Panel Admin</Link>
+							</li>
+						) : (
+							<li>
+								<Link to="/achievements">Achievements</Link>
+							</li>
+						)}
 						<li>
 							<Link to="/login" onClick={handleLogout}>
 								Logout

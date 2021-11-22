@@ -425,10 +425,7 @@ const createAuthSlice = (set, get) => ({
 			localStorage.setItem("token", res.data.token);
 			set((state) => ({
 				user: res.data,
-				user: {
-					...state.user,
-					isLoggedIn: true,
-				},
+				isLoggedIn: true,
 			}));
 		} catch (err) {
 			set({
@@ -443,9 +440,7 @@ const createAuthSlice = (set, get) => ({
 	logout: async () => {
 		try {
 			set(() => ({
-				user: {
-					isLoggedIn: false,
-				},
+				isLoggedIn: false,
 			}));
 		} catch (err) {
 			set({
