@@ -28,10 +28,6 @@ const Achievements = () => {
 		return <div>Loading...</div>;
 	}
 
-	if (!academics || !competitions || !organizations) {
-		return <div>No data</div>;
-	}
-
 	return (
 		<div className="flex flex-col w-full">
 			<div className="flex flex-row justify-between mt-2 mx-2 ">

@@ -1,0 +1,87 @@
+import React, { useState, useEffect } from "react";
+import { AgGridColumn, AgGridReact } from "ag-grid-react";
+// import "ag-grid-enterprise";
+import "ag-grid-community/dist/styles/ag-grid.css";
+import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+import { useStore } from "../store";
+
+const AdminTable = ({ source }) => {
+	const [gridApi, setGridApi] = useState(null);
+	const state = useStore((state) => state);
+
+	const columnDefs = [
+		{
+			headerName: "Name",
+			field: "owner.name",
+			flex: 2,
+			sortable: true,
+			resizable: true,
+			filter: "agTextColumnFilter",
+			floatingFilter: true,
+			onCellClicked: function (event) {
+				console.log(event);
+			},
+		},
+		{
+			headerName: "Activity",
+			field: "activity",
+			flex: 1,
+			sortable: true,
+			resizable: true,
+		},
+		{
+			headerName: "Level",
+			field: "level",
+			flex: 1,
+			sortable: true,
+			resizable: true,
+		},
+		{
+			headerName: "Status",
+			field: "status",
+			flex: 1,
+			sortable: true,
+			resizable: true,
+		},
+		{
+			headerName: "Score",
+			field: "score",
+			flex: 1,
+			sortable: true,
+			sort: "desc",
+			resizable: true,
+		},
+	];
+
+	const onGridReady = (params) => {
+		setGridApi(params.api);
+		// setGridColumnApi(params.columnApi);
+	};
+
+	if (state.isLoading) {
+		return <div>Loading...</div>;
+	}
+
+	console.log(source);
+
+	return (
+		<div className="ag-theme-alpine h-96" style={{ width: "100%" }}>
+			<>
+				<AgGridReact
+					rowData={source}
+					columnDefs={columnDefs}
+					pagination={true}
+					paginationPageSize={20}
+					onGridReady={onGridReady}>
+					<AgGridColumn field="owner.name" headerName="Name" />
+					<AgGridColumn field="activity" headerName="Activity" />
+					<AgGridColumn field="level" headerName="Level" />
+					<AgGridColumn field="status" headerName="Status" />
+					<AgGridColumn field="score" headerName="Score" />
+				</AgGridReact>
+			</>
+		</div>
+	);
+};
+
+export default AdminTable;

@@ -25,6 +25,18 @@ import API, {
 	getOrganizationLevels,
 	updateOrganization,
 	deleteOrganization,
+	getAdminAllAcademics,
+	getAdminOneAcademic,
+	updateAdminAcademic,
+	deleteAdminAcademic,
+	getAdminAllCompetitions,
+	getAdminOneCompetition,
+	updateAdminCompetition,
+	deleteAdminCompetition,
+	getAdminAllOrganizations,
+	getAdminOneOrganization,
+	updateAdminOrganization,
+	deleteAdminOrganization,
 } from "./utils/api";
 
 const createUserSlice = (set, get) => ({
@@ -454,12 +466,78 @@ const createAuthSlice = (set, get) => ({
 	},
 });
 
+const createAdminAcademicSlice = (set, get) => ({
+	adminAcademics: [],
+	adminAcademic: {},
+	isLoading: false,
+	getAdminAllAcademics: async () => {
+		try {
+			const res = await API.get(`${getAdminAllAcademics}`);
+			set({ adminAcademics: res.data.data, isLoading: false });
+		} catch (err) {
+			set({
+				adminAcademics: {
+					...get().adminAcademics,
+					isLoading: false,
+					error: err,
+				},
+			});
+			console.log(err);
+		}
+	},
+});
+
+const createAdminCompetitionSlice = (set, get) => ({
+	adminCompetitions: [],
+	adminCompetition: {},
+	isLoading: false,
+	getAdminAllCompetitions: async () => {
+		try {
+			const res = await API.get(`${getAdminAllCompetitions}`);
+			set({ adminCompetitions: res.data.data, isLoading: false });
+		} catch (err) {
+			set({
+				adminCompetitions: {
+					...get().adminCompetitions,
+					isLoading: false,
+					error: err,
+				},
+			});
+			console.log(err);
+		}
+	},
+});
+
+const createAdminOrganizationSlice = (set, get) => ({
+	adminOrganizations: [],
+	adminOrganization: {},
+	isLoading: false,
+	getAdminAllOrganizations: async () => {
+		try {
+			const res = await API.get(`${getAdminAllOrganizations}`);
+			set({ adminOrganizations: res.data.data, isLoading: false });
+		} catch (err) {
+			set({
+				adminOrganizations: {
+					...get().adminOrganizations,
+					isLoading: false,
+					error: err,
+				},
+			});
+			console.log(err);
+		}
+	},
+});
+
 let store = (set, get) => ({
 	...createUserSlice(set, get),
 	...createAcademicSlice(set, get),
 	...createCompetitionSlice(set, get),
 	...createOrganizationSlice(set, get),
 	...createCategorySlice(set, get),
+	...createAdminAcademicSlice(set, get),
+	...createAdminCompetitionSlice(set, get),
+	...createAdminOrganizationSlice(set, get),
 });
 
 let authStore = (set, get) => ({

@@ -48,6 +48,21 @@ const getOrganizationLevels = `${rootLink}api/organization-levels`;
 const updateOrganization = `${rootLink}api/organizations`;
 const deleteOrganization = `${rootLink}api/organizations`;
 
+const getAdminAllAcademics = `${rootLink}api/admin/academics`;
+const getAdminOneAcademic = `${rootLink}api/admin/academics`;
+const updateAdminAcademic = `${rootLink}api/admin/academics`;
+const deleteAdminAcademic = `${rootLink}api/admin/academics`;
+
+const getAdminAllCompetitions = `${rootLink}api/admin/competitions`;
+const getAdminOneCompetition = `${rootLink}api/admin/competitions`;
+const updateAdminCompetition = `${rootLink}api/admin/competitions`;
+const deleteAdminCompetition = `${rootLink}api/admin/competitions`;
+
+const getAdminAllOrganizations = `${rootLink}api/admin/organizations`;
+const getAdminOneOrganization = `${rootLink}api/admin/organizations`;
+const updateAdminOrganization = `${rootLink}api/admin/organizations`;
+const deleteAdminOrganization = `${rootLink}api/admin/organizations`;
+
 export default instance;
 export {
 	register,
@@ -74,4 +89,16 @@ export {
 	getOrganizationLevels,
 	updateOrganization,
 	deleteOrganization,
+	getAdminAllAcademics,
+	getAdminOneAcademic,
+	updateAdminAcademic,
+	deleteAdminAcademic,
+	getAdminAllCompetitions,
+	getAdminOneCompetition,
+	updateAdminCompetition,
+	deleteAdminCompetition,
+	getAdminAllOrganizations,
+	getAdminOneOrganization,
+	updateAdminOrganization,
+	deleteAdminOrganization,
 };
