@@ -15,6 +15,7 @@ import API, {
 	getOneCompetition,
 	getCompetitionActivities,
 	getCompetitionLevels,
+	deleteCompetition,
 	createOrganization,
 	getOrganizations,
 	getOneOrganization,
@@ -114,7 +115,8 @@ const createAcademicSlice = (set, get) => ({
 	},
 	deleteAcademic: async (id) => {
 		try {
-			await API.delete(`${deleteAcademic}/${id}`);
+			const res = await API.delete(`${deleteAcademic}/${id}`);
+			console.log(res);
 		} catch (err) {
 			console.log(err);
 		}
@@ -197,13 +199,12 @@ const createCompetitionSlice = (set, get) => ({
 			console.log(err);
 		}
 	},
-	deleteCompetition: (id) => {
-		console.log(id);
-		// set((state) => ({
-		// 	competitions: state.competitions.filter(
-		// 		(competition) => competition.id !== id
-		// 	),
-		// }));
+	deleteCompetition: async (id) => {
+		try {
+			const res = await API.delete(`${deleteCompetition}/${id}`);
+		} catch (err) {
+			console.log(err);
+		}
 	},
 });
 

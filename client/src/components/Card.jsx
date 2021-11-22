@@ -4,20 +4,36 @@ import { useNavigate } from "react-router-dom";
 import { useStore } from "../store";
 import Popup from "./Popup";
 
-const Card = ({ id, title, activity, level, score, status, proof }) => {
+const Card = ({ id, title, activity, level, score, status, proof, tab }) => {
+	const addCategory = useStore((state) => state.addCategory);
 	const deleteAcademic = useStore((state) => state.deleteAcademic);
+	const deleteCompetition = useStore((state) => state.deleteCompetition);
 	const navigate = useNavigate();
 
 	const handleClick = (e) => {
 		e.preventDefault();
-		navigate(`/achievements/${id}`);
+		if (tab === "academic") {
+			addCategory(tab);
+			navigate(`/academics/${id}`);
+		} else if (tab === "competition") {
+			addCategory(tab);
+			navigate(`/competitions/${id}`);
+		} else {
+			addCategory(tab);
+			navigate(`/organizations/${id}`);
+		}
 	};
 
 	// function render header
 
 	const handleDelete = (e) => {
 		e.preventDefault();
-		deleteAcademic(id);
+		if (tab === "academic") {
+			deleteAcademic(id);
+		}
+		if (tab === "competition") {
+			deleteCompetition(id);
+		}
 	};
 	return (
 		<>
@@ -28,11 +44,11 @@ const Card = ({ id, title, activity, level, score, status, proof }) => {
 							<img src={proof} className="bg-base-100 rounded-lg" alt="proof" />
 						</div>
 
-						<div className="w-full flex flex-col text-2xs lg:text-xs">
+						<div className="w-full flex flex-col text-2xs lg:text-sm">
 							<span className="  font-extrabold">{title}</span>
 							<span className="">{activity}</span>
 							<span className="">{level}</span>
-							<span className="text-2xs lg:text-xs rounded-lg bg-base-100 w-24 p-1">
+							<span className="text-2xs lg:text-sm rounded-lg bg-base-100 w-24 ">
 								Score: {score}
 							</span>
 						</div>

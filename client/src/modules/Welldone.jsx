@@ -4,7 +4,7 @@ import { useStore } from "../store";
 import grow from "../assets/grow.svg";
 
 const Welldone = () => {
-	const preview = useStore((state) => state.preview);
+	const state = useStore((state) => state);
 	const navigate = useNavigate();
 
 	const handleClick = (e) => {
@@ -15,6 +15,10 @@ const Welldone = () => {
 			navigate(`/`);
 		}
 	};
+
+	if (state.isLoading) {
+		return <div>Loading...</div>;
+	}
 	return (
 		<div className="flex flex-col justify-center items-center">
 			,<img src={grow} alt="grow" className="w-full md:w-10/12" />

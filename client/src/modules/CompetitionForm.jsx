@@ -6,7 +6,7 @@ import FormSelect from "../components/FormSelect";
 import { useStore } from "../store";
 import storage from "../utils/firebase";
 
-const CompetitionForm = (props) => {
+const CompetitionForm = ({ source }) => {
 	const navigate = useNavigate();
 	const competitionActivities = useStore(
 		(state) => state.competitionActivities
@@ -125,14 +125,6 @@ const CompetitionForm = (props) => {
 				<label className="label mt-2">
 					<span className="label-text">Upload Bukti Pencapaian</span>
 				</label>
-				{/* <Uploader
-					name="file"
-					file={file}
-					formData={data}
-					handleServer={handleServer}
-					onUpdateFiles={setFile}
-				/> */}
-				{/* <label className="w-64 flex flex-col items-center px-4 py-6 bg-accent-content text-primary rounded-lg  tracking-wide uppercase border cursor-pointer"> */}
 
 				<div className="">
 					<input

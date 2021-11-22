@@ -36,7 +36,11 @@ function App() {
 					element={isLoggedIn ? <NewAchievement /> : <Login />}
 				/>
 				<Route
-					path="achievements/:id"
+					path="academics/:id"
+					element={isLoggedIn ? <AchievementDetail /> : <Login />}
+				/>
+				<Route
+					path="competitions/:id"
 					element={isLoggedIn ? <AchievementDetail /> : <Login />}
 				/>
 				<Route path="profile" element={isLoggedIn ? <Profile /> : <Login />} />

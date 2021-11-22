@@ -36,6 +36,7 @@ const getCompetitions = `${rootLink}api/competitions`;
 const getOneCompetition = `${rootLink}api/competitions`;
 const getCompetitionActivities = `${rootLink}api/competition-activities`;
 const getCompetitionLevels = `${rootLink}api/competition-levels`;
+const deleteCompetition = `${rootLink}api/competitions`;
 
 const createOrganization = `${rootLink}api/organizations`;
 const getOrganizations = `${rootLink}api/organizations`;
@@ -59,6 +60,7 @@ export {
 	getOneCompetition,
 	getCompetitionActivities,
 	getCompetitionLevels,
+	deleteCompetition,
 	createOrganization,
 	getOrganizations,
 	getOneOrganization,

@@ -5,27 +5,30 @@ import NewCard from "../components/Modal";
 import Stat from "../components/Stat";
 
 const Achievements = () => {
-	const isMounted = useRef(false);
 	const state = useStore((state) => state);
 	const academics = useStore((state) => state.academics);
 	const getAcademics = useStore((state) => state.getAcademics);
 	const competitions = useStore((state) => state.competitions);
 	const getCompetitions = useStore((state) => state.getCompetitions);
 
-	const [tab, setTab] = useState("");
+	const [tab, setTab] = useState("academic");
 
 	useEffect(() => {
 		getAcademics();
 		getCompetitions();
-	}, []);
+	}, [tab]);
+
+	const handleChange = (e) => {
+		setTab(e.target.name);
+	};
 
 	if (state.isLoading) {
 		return <div>Loading...</div>;
 	}
 
-	const handleChange = (e) => {
-		setTab(e.target.name);
-	};
+	if (!academics || !competitions) {
+		return <div>No data</div>;
+	}
 
 	return (
 		<div className="flex flex-col w-full">
@@ -34,9 +37,9 @@ const Achievements = () => {
 				<NewCard />
 			</div>
 			{tab === "academic" ? (
-				<WallOfAchivement source={academics} />
+				<WallOfAchivement source={academics} tab={tab} />
 			) : tab === "competition" ? (
-				<WallOfAchivement source={competitions} />
+				<WallOfAchivement source={competitions} tab={tab} />
 			) : (
 				<div>organization</div>
 			)}

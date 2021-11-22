@@ -6,8 +6,8 @@ const Popup = ({ handleDelete }) => {
 		<div>
 			<label
 				htmlFor="my-modal-3"
-				className="btn btn-sm btn-ghost  modal-button">
-				<Trash size="14" />
+				className="btn btn-sm btn-accent rounded-lg modal-button ">
+				<Trash size="14" color="white" />
 			</label>
 			<input type="checkbox" id="my-modal-3" className="modal-toggle" />
 			<div className="modal">
@@ -17,12 +17,16 @@ const Popup = ({ handleDelete }) => {
 					</span>
 					<div className="modal-action">
 						<label
+							name="yes"
 							htmlFor="my-modal-3"
-							className="btn btn-error"
+							className="btn btn-sm btn-error rounded-lg capitalize"
 							onClick={handleDelete}>
 							Ya
 						</label>
-						<label htmlFor="my-modal-3" className="btn btn-success">
+						<label
+							name="no"
+							htmlFor="my-modal-3"
+							className="btn btn-sm btn-accent rounded-lg capitalize">
 							Tidak
 						</label>
 					</div>

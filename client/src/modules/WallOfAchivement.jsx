@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
-import NewCard from "../components/Modal";
-import { useStore, useAuthStore } from "../store";
 
-const WallOfAchivement = ({ source }) => {
-	const state = useStore((state) => state);
-	// const academics = useStore((state) => state.academics);
-	// const getAcademics = useStore((state) => state.getAcademics);
-
-	// useEffect(() => {
-	// 	getAcademics();
-
-	// }, []);
-
+const WallOfAchivement = ({ source, tab }) => {
 	return (
 		<div className="w-auto flex flex-wrap ">
 			{source.map((item) => (
@@ -25,6 +14,7 @@ const WallOfAchivement = ({ source }) => {
 					score={item.score}
 					status={item.status}
 					proof={item.proof}
+					tab={tab}
 				/>
 			))}
 		</div>

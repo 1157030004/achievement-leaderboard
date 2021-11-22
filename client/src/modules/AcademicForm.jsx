@@ -95,7 +95,6 @@ const AcademicForm = ({ source }) => {
 			<form className="form-control" onSubmit={handleSubmit}>
 				<FormInput
 					name="title"
-					value={source.title}
 					label="Pencapaian Akademik"
 					placeholder="Akademik"
 					onChange={handleChange}
@@ -103,7 +102,6 @@ const AcademicForm = ({ source }) => {
 				<div className="flex flex-col md:flex-row w-auto">
 					<FormSelect
 						name="activity"
-						value={source.activity}
 						label="Kategori Pencapaian"
 						defaultValue="Pilih"
 						onChange={handleChange}
@@ -111,7 +109,6 @@ const AcademicForm = ({ source }) => {
 					/>
 					<FormSelect
 						name="level"
-						value={source.level}
 						label="Skala Pencapaian"
 						defaultValue="Pilih"
 						onChange={handleChange}
@@ -120,7 +117,6 @@ const AcademicForm = ({ source }) => {
 				</div>
 				<FormInput
 					name="year"
-					value={source.year}
 					label="Tahun"
 					placeholder="2045"
 					onChange={handleChange}
@@ -136,9 +132,6 @@ const AcademicForm = ({ source }) => {
 						className="input input-ghost cursor-pointer pt-1"
 						onChange={(e) => setFile(e.target.files[0])}
 					/>
-					{source.proof ? (
-						<img className="w-3/5" src={source.proof} alt="" />
-					) : null}
 				</div>
 				{uploaded > 0 ? (
 					<button className="btn btn-primary mt-4">Submit</button>
