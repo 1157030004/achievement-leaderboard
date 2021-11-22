@@ -8,6 +8,7 @@ const Card = ({ id, title, activity, level, score, status, proof, tab }) => {
 	const addCategory = useStore((state) => state.addCategory);
 	const deleteAcademic = useStore((state) => state.deleteAcademic);
 	const deleteCompetition = useStore((state) => state.deleteCompetition);
+	const deleteOrganization = useStore((state) => state.deleteOrganization);
 	const navigate = useNavigate();
 
 	const handleClick = (e) => {
@@ -30,9 +31,10 @@ const Card = ({ id, title, activity, level, score, status, proof, tab }) => {
 		e.preventDefault();
 		if (tab === "academic") {
 			deleteAcademic(id);
-		}
-		if (tab === "competition") {
+		} else if (tab === "competition") {
 			deleteCompetition(id);
+		} else {
+			deleteOrganization(id);
 		}
 	};
 	return (

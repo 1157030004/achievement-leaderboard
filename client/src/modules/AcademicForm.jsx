@@ -16,6 +16,7 @@ const AcademicForm = ({ source }) => {
 	);
 	const getAcademicLevels = useStore((state) => state.getAcademicLevels);
 	const addAcademic = useStore((state) => state.addAcademic);
+	const updateAcademic = useStore((state) => state.updateAcademic);
 
 	const [inputs, setInputs] = useState({});
 	const [file, setFile] = useState(null);
@@ -83,20 +84,24 @@ const AcademicForm = ({ source }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		addAcademic(inputs);
+		if (!source) {
+			addAcademic(inputs);
+		} else {
+			inputs.id = source._id;
+			updateAcademic(inputs);
+		}
+
 		navigate("/welldone");
 	};
 
 	return (
 		<div className=" mt-5 p-10 card bg-base-200">
-			<h1 className="text-center font-extrabold">
-				Formulir Pencapaian Akademik
-			</h1>
+			<h1 className="text-center font-extrabold">Formulir Pencapaian</h1>
 			<form className="form-control" onSubmit={handleSubmit}>
 				<FormInput
 					name="title"
-					label="Pencapaian Akademik"
-					placeholder="Akademik"
+					label="Pencapaian"
+					placeholder="Pencapaian"
 					onChange={handleChange}
 				/>
 				<div className="flex flex-col md:flex-row w-auto">
@@ -118,13 +123,12 @@ const AcademicForm = ({ source }) => {
 				<FormInput
 					name="year"
 					label="Tahun"
-					placeholder="2045"
+					placeholder="tahun"
 					onChange={handleChange}
 				/>
 				<label className="label mt-2">
 					<span className="label-text">Upload Bukti Pencapaian</span>
 				</label>
-
 				<div className="">
 					<input
 						type="file"
@@ -133,6 +137,7 @@ const AcademicForm = ({ source }) => {
 						onChange={(e) => setFile(e.target.files[0])}
 					/>
 				</div>
+
 				{uploaded > 0 ? (
 					<button className="btn btn-primary mt-4">Submit</button>
 				) : (

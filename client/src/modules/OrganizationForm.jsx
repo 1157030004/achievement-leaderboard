@@ -5,18 +5,20 @@ import FormSelect from "../components/FormSelect";
 import { useStore } from "../store";
 import storage from "../utils/firebase";
 
-const CompetitionForm = ({ source }) => {
+const OrganizationForm = ({ source }) => {
 	const navigate = useNavigate();
-	const competitionActivities = useStore(
-		(state) => state.competitionActivities
+	const organizationActivities = useStore(
+		(state) => state.organizationActivities
 	);
-	const competitionLevels = useStore((state) => state.competitionLevels);
-	const getCompetitionActivities = useStore(
-		(state) => state.getCompetitionActivities
+	const organizationLevels = useStore((state) => state.organizationLevels);
+	const getOrganizationActivities = useStore(
+		(state) => state.getOrganizationActivities
 	);
-	const getCompetitionLevels = useStore((state) => state.getCompetitionLevels);
-	const addCompetition = useStore((state) => state.addCompetition);
-	const updateCompetition = useStore((state) => state.updateCompetition);
+	const getOrganizationLevels = useStore(
+		(state) => state.getOrganizationLevels
+	);
+	const addOrganization = useStore((state) => state.addOrganization);
+	const updateOrganization = useStore((state) => state.updateOrganization);
 
 	const [inputs, setInputs] = useState({});
 	const [file, setFile] = useState(null);
@@ -25,12 +27,12 @@ const CompetitionForm = ({ source }) => {
 	const [percentage, setPercentage] = useState(0);
 
 	useEffect(() => {
-		getCompetitionActivities();
-		getCompetitionLevels();
+		getOrganizationActivities();
+		getOrganizationLevels();
 	}, []);
 
-	const activityOptions = competitionActivities.map((item) => item.activity);
-	const activityMatch = competitionLevels.map((item) => item.activity);
+	const activityOptions = organizationActivities.map((item) => item.activity);
+	const activityMatch = organizationLevels.map((item) => item.activity);
 	let index;
 
 	const handleChange = (e) => {
@@ -41,7 +43,7 @@ const CompetitionForm = ({ source }) => {
 
 		if (e.target.name == "activity") {
 			index = activityMatch.lastIndexOf(e.target.value);
-			setData(competitionLevels[index].level);
+			setData(organizationLevels[index].level);
 		}
 	};
 
@@ -85,10 +87,11 @@ const CompetitionForm = ({ source }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!source) {
-			addCompetition(inputs);
+			addOrganization(inputs);
 		} else {
 			inputs.id = source._id;
-			updateCompetition(inputs);
+			// inputs.proof = source.proof;
+			updateOrganization(inputs);
 		}
 		navigate("/welldone");
 	};
@@ -125,18 +128,20 @@ const CompetitionForm = ({ source }) => {
 					placeholder={"Tahun"}
 					onChange={handleChange}
 				/>
-				<label className="label mt-2">
-					<span className="label-text">Upload Bukti Pencapaian</span>
-				</label>
+				<>
+					<label className="label mt-2">
+						<span className="label-text">Upload Bukti Pencapaian</span>
+					</label>
 
-				<div className="">
-					<input
-						type="file"
-						id="file"
-						className="input input-ghost cursor-pointer pt-1"
-						onChange={(e) => setFile(e.target.files[0])}
-					/>
-				</div>
+					<div className="">
+						<input
+							type="file"
+							id="file"
+							className="input input-ghost cursor-pointer pt-1"
+							onChange={(e) => setFile(e.target.files[0])}
+						/>
+					</div>
+				</>
 
 				{uploaded > 0 ? (
 					<button className="btn btn-primary mt-4">Submit</button>
@@ -150,4 +155,4 @@ const CompetitionForm = ({ source }) => {
 	);
 };
 
-export default CompetitionForm;
+export default OrganizationForm;

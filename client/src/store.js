@@ -9,18 +9,22 @@ import API, {
 	getOneAcademic,
 	getAcademicActivities,
 	getAcademicLevels,
+	updateAcademic,
 	deleteAcademic,
 	createCompetition,
 	getCompetitions,
 	getOneCompetition,
 	getCompetitionActivities,
 	getCompetitionLevels,
+	updateCompetition,
 	deleteCompetition,
 	createOrganization,
 	getOrganizations,
 	getOneOrganization,
 	getOrganizationActivities,
 	getOrganizationLevels,
+	updateOrganization,
+	deleteOrganization,
 } from "./utils/api";
 
 const createUserSlice = (set, get) => ({
@@ -113,6 +117,32 @@ const createAcademicSlice = (set, get) => ({
 			console.log(err);
 		}
 	},
+	updateAcademic: async (data) => {
+		try {
+			const res = await API.put(`${updateAcademic}/${data.id}`, {
+				title: data.title,
+				activity: data.activity,
+				level: data.level,
+				year: data.year,
+				proof: data.proof,
+			});
+			set((state) => ({
+				academics: state.academics.map((academic) =>
+					academic.id === data.id ? res.data : academic
+				),
+				isLoading: false,
+			}));
+		} catch (err) {
+			set({
+				academics: {
+					...get().academics,
+					isLoading: false,
+					error: err,
+				},
+			});
+			console.log(err);
+		}
+	},
 	deleteAcademic: async (id) => {
 		try {
 			const res = await API.delete(`${deleteAcademic}/${id}`);
@@ -125,6 +155,7 @@ const createAcademicSlice = (set, get) => ({
 
 const createCompetitionSlice = (set, get) => ({
 	competitions: [],
+	competition: {},
 	competitionActivities: [],
 	competitionLevels: [],
 	isLoading: true,
@@ -146,7 +177,7 @@ const createCompetitionSlice = (set, get) => ({
 	getOneCompetition: async (id) => {
 		try {
 			const res = await API.get(`${getOneCompetition}/${id}`);
-			set({ competitions: res.data });
+			set({ competition: res.data, isLoading: false });
 		} catch (err) {
 			set({
 				competitions: {
@@ -199,9 +230,36 @@ const createCompetitionSlice = (set, get) => ({
 			console.log(err);
 		}
 	},
+	updateCompetition: async (data) => {
+		try {
+			const res = await API.put(`${updateCompetition}/${data.id}`, {
+				title: data.title,
+				activity: data.activity,
+				level: data.level,
+				year: data.year,
+				proof: data.proof,
+			});
+			set((state) => ({
+				competitions: state.competitions.map((competition) =>
+					competition.id === data.id ? res.data : competition
+				),
+				isLoading: false,
+			}));
+		} catch (err) {
+			set({
+				competitions: {
+					...get().competitions,
+					isLoading: false,
+					error: err,
+				},
+			});
+			console.log(err);
+		}
+	},
 	deleteCompetition: async (id) => {
 		try {
 			const res = await API.delete(`${deleteCompetition}/${id}`);
+			console.log(res);
 		} catch (err) {
 			console.log(err);
 		}
@@ -210,12 +268,14 @@ const createCompetitionSlice = (set, get) => ({
 
 const createOrganizationSlice = (set, get) => ({
 	organizations: [],
+	organization: {},
 	organizationActivities: [],
 	organizationLevels: [],
+	isLoading: true,
 	getOrganizations: async () => {
 		try {
 			const res = await API.get(`${getOrganizations}`);
-			set({ organizations: res.data });
+			set({ organizations: res.data.data, isLoading: false });
 		} catch (err) {
 			set({
 				organizations: {
@@ -230,7 +290,7 @@ const createOrganizationSlice = (set, get) => ({
 	getOneOrganization: async (id) => {
 		try {
 			const res = await API.get(`${getOneOrganization}/${id}`);
-			set({ organizations: res.data });
+			set({ organization: res.data, isLoading: false });
 		} catch (err) {
 			set({
 				organizations: {
@@ -243,7 +303,6 @@ const createOrganizationSlice = (set, get) => ({
 		}
 	},
 	addOrganization: async (data) => {
-		console.log(data);
 		try {
 			const res = await API.post(`${createOrganization}`, {
 				title: data.title,
@@ -283,10 +342,44 @@ const createOrganizationSlice = (set, get) => ({
 			console.log(err);
 		}
 	},
+	updateOrganization: async (data) => {
+		try {
+			const res = await API.put(`${updateOrganization}/${data.id}`, {
+				title: data.title,
+				activity: data.activity,
+				level: data.level,
+				year: data.year,
+				proof: data.proof,
+			});
+			set((state) => ({
+				organizations: state.organizations.map((organization) =>
+					organization.id === data.id ? res.data : organization
+				),
+				isLoading: false,
+			}));
+		} catch (err) {
+			set({
+				organizations: {
+					...get().organizations,
+					isLoading: false,
+					error: err,
+				},
+			});
+			console.log(err);
+		}
+	},
+	deleteOrganization: async (id) => {
+		try {
+			const res = await API.delete(`${deleteOrganization}/${id}`);
+			console.log(res);
+		} catch (err) {
+			console.log(err);
+		}
+	},
 });
 
 const createCategorySlice = (set, get) => ({
-	category: "",
+	category: "academic",
 	addCategory: (category) => {
 		set((state) => ({
 			category: category,
@@ -378,7 +471,7 @@ let authStore = (set, get) => ({
 	...createAuthSlice(set, get),
 });
 
-store = devtools(store, { name: "achivement" });
+store = devtools(store, { name: "achievement" });
 authStore = devtools(authStore, { name: "auth" });
 
 authStore = persist(authStore, { name: "auth" });

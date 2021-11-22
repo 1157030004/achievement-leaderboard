@@ -1,11 +1,11 @@
 import React from "react";
 import AcademicForm from "../modules/AcademicForm";
 import CompetitionForm from "../modules/CompetitionForm";
+import OrganizationForm from "../modules/OrganizationForm";
 import { useStore } from "../store";
 
 const NewAchievement = (props) => {
 	const category = useStore((state) => state.category);
-	console.log(category);
 	return (
 		<div>
 			{category === "academic" ? (
@@ -13,7 +13,7 @@ const NewAchievement = (props) => {
 			) : category === "competition" ? (
 				<CompetitionForm {...props} />
 			) : (
-				<div>Organization</div>
+				<OrganizationForm {...props} />
 			)}
 		</div>
 	);

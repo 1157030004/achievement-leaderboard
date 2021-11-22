@@ -2,23 +2,30 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import AcademicForm from "../modules/AcademicForm";
 import CompetitionForm from "../modules/CompetitionForm";
+import OrganizationForm from "../modules/OrganizationForm";
 import { useStore } from "../store";
 
 const AchievementDetail = () => {
 	const state = useStore((state) => state);
 	const academic = useStore((state) => state.academic);
 	const competition = useStore((state) => state.competition);
+	const organization = useStore((state) => state.organization);
 	const getOneAcademic = useStore((state) => state.getOneAcademic);
 	const getOneCompetition = useStore((state) => state.getOneCompetition);
+	const getOneOrganization = useStore((state) => state.getOneOrganization);
 	let params = useParams();
+
+	console.log("category", state.category);
 
 	useEffect(() => {
 		if (state.category === "academic") {
 			getOneAcademic(params.id);
-		} else if (state.category === "competition") {
+		}
+		if (state.category === "competition") {
 			getOneCompetition(params.id);
-		} else {
-			console.log("organizaton");
+		}
+		if (state.category === "organization") {
+			getOneOrganization(params.id);
 		}
 	}, []);
 
@@ -33,7 +40,7 @@ const AchievementDetail = () => {
 			) : state.category === "competition" ? (
 				<CompetitionForm source={competition} />
 			) : (
-				<div>organization</div>
+				<OrganizationForm source={organization} />
 			)}
 		</>
 	);

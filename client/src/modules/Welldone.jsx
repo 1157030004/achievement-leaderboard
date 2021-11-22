@@ -23,7 +23,7 @@ const Welldone = () => {
 		<div className="flex flex-col justify-center items-center">
 			,<img src={grow} alt="grow" className="w-full md:w-10/12" />
 			<h1 className="text-3xl">Selamat!</h1>
-			<h1>Kamu berhasil menambahkan pencapaian baru</h1>
+			<h1>Pencapaianmu telah diperbaharui</h1>
 			<p className="font-thin text-sm">
 				Skor pencapaianmu akan muncul jika lolos proses review
 			</p>

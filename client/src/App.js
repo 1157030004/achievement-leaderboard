@@ -43,6 +43,10 @@ function App() {
 					path="competitions/:id"
 					element={isLoggedIn ? <AchievementDetail /> : <Login />}
 				/>
+				<Route
+					path="organizations/:id"
+					element={isLoggedIn ? <AchievementDetail /> : <Login />}
+				/>
 				<Route path="profile" element={isLoggedIn ? <Profile /> : <Login />} />
 				<Route path="welldone" element={<Welldone />} />
 				<Route path="*" element={<NoMatch />} />

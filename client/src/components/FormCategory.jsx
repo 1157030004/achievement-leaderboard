@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router";
 import { useStore } from "../store";
 
 const FormCategory = () => {
 	const navigate = useNavigate();
-	const [category, setCategory] = useState("");
 	const addCategory = useStore((state) => state.addCategory);
 
 	const data = [
@@ -23,7 +22,6 @@ const FormCategory = () => {
 	];
 
 	const handleClick = (e) => {
-		setCategory(e);
 		navigate("/achievements/new");
 		addCategory(e);
 	};

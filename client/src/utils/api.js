@@ -29,6 +29,7 @@ const getAcademics = `${rootLink}api/academics`;
 const getOneAcademic = `${rootLink}api/academics`;
 const getAcademicActivities = `${rootLink}api/academic-activities`;
 const getAcademicLevels = `${rootLink}api/academic-levels`;
+const updateAcademic = `${rootLink}api/academics`;
 const deleteAcademic = `${rootLink}api/academics`;
 
 const createCompetition = `${rootLink}api/competitions`;
@@ -36,6 +37,7 @@ const getCompetitions = `${rootLink}api/competitions`;
 const getOneCompetition = `${rootLink}api/competitions`;
 const getCompetitionActivities = `${rootLink}api/competition-activities`;
 const getCompetitionLevels = `${rootLink}api/competition-levels`;
+const updateCompetition = `${rootLink}api/competitions`;
 const deleteCompetition = `${rootLink}api/competitions`;
 
 const createOrganization = `${rootLink}api/organizations`;
@@ -43,6 +45,8 @@ const getOrganizations = `${rootLink}api/organizations`;
 const getOneOrganization = `${rootLink}api/organizations`;
 const getOrganizationActivities = `${rootLink}api/organization-activities`;
 const getOrganizationLevels = `${rootLink}api/organization-levels`;
+const updateOrganization = `${rootLink}api/organizations`;
+const deleteOrganization = `${rootLink}api/organizations`;
 
 export default instance;
 export {
@@ -54,16 +58,20 @@ export {
 	getOneAcademic,
 	getAcademicActivities,
 	getAcademicLevels,
+	updateAcademic,
 	deleteAcademic,
 	createCompetition,
 	getCompetitions,
 	getOneCompetition,
 	getCompetitionActivities,
 	getCompetitionLevels,
+	updateCompetition,
 	deleteCompetition,
 	createOrganization,
 	getOrganizations,
 	getOneOrganization,
 	getOrganizationActivities,
 	getOrganizationLevels,
+	updateOrganization,
+	deleteOrganization,
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import WallOfAchivement from "../modules/WallOfAchivement";
 import { useStore } from "../store";
 import NewCard from "../components/Modal";
@@ -10,38 +10,40 @@ const Achievements = () => {
 	const getAcademics = useStore((state) => state.getAcademics);
 	const competitions = useStore((state) => state.competitions);
 	const getCompetitions = useStore((state) => state.getCompetitions);
-
-	const [tab, setTab] = useState("academic");
+	const organizations = useStore((state) => state.organizations);
+	const getOrganizations = useStore((state) => state.getOrganizations);
+	const addCategory = useStore((state) => state.addCategory);
 
 	useEffect(() => {
 		getAcademics();
 		getCompetitions();
-	}, [tab]);
+		getOrganizations();
+	}, [state.category]);
 
 	const handleChange = (e) => {
-		setTab(e.target.name);
+		addCategory(e.target.name);
 	};
 
 	if (state.isLoading) {
 		return <div>Loading...</div>;
 	}
 
-	if (!academics || !competitions) {
+	if (!academics || !competitions || !organizations) {
 		return <div>No data</div>;
 	}
 
 	return (
 		<div className="flex flex-col w-full">
 			<div className="flex flex-row justify-between mt-2 mx-2 ">
-				<Stat handleChange={handleChange} tab={tab} />
+				<Stat handleChange={handleChange} tab={state.category} />
 				<NewCard />
 			</div>
-			{tab === "academic" ? (
-				<WallOfAchivement source={academics} tab={tab} />
-			) : tab === "competition" ? (
-				<WallOfAchivement source={competitions} tab={tab} />
+			{state.category === "academic" ? (
+				<WallOfAchivement source={academics} tab={state.category} />
+			) : state.category === "competition" ? (
+				<WallOfAchivement source={competitions} tab={state.category} />
 			) : (
-				<div>organization</div>
+				<WallOfAchivement source={organizations} tab={state.category} />
 			)}
 		</div>
 	);
