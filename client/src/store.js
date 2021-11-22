@@ -485,6 +485,21 @@ const createAdminAcademicSlice = (set, get) => ({
 			console.log(err);
 		}
 	},
+	getAdminOneAcademic: async (id) => {
+		try {
+			const res = await API.get(`${getAdminOneAcademic}/${id}`);
+			set({ adminAcademic: res.data, isLoading: false });
+		} catch (err) {
+			set({
+				adminAcademic: {
+					...get().adminAcademic,
+					isLoading: false,
+					error: err,
+				},
+			});
+			console.log(err);
+		}
+	},
 });
 
 const createAdminCompetitionSlice = (set, get) => ({

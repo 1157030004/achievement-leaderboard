@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import { useAuthStore, useStore } from "./store";
 import Welldone from "./modules/Welldone";
 import AdminHome from "./pages/AdminHome";
+import AdminDetail from "./pages/AdminDetail";
 
 function App() {
 	const user = useAuthStore((state) => state.user);
@@ -28,8 +29,12 @@ function App() {
 				{isAdmin ? (
 					<>
 						<Route
-							path="admin"
+							path="/admin"
 							element={isLoggedIn && isAdmin ? <AdminHome /> : <Login />}
+						/>
+						<Route
+							path="admin-academics/:id"
+							element={isLoggedIn && isAdmin ? <AdminDetail /> : <Login />}
 						/>
 					</>
 				) : (

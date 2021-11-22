@@ -95,7 +95,7 @@ const AcademicForm = ({ source }) => {
 	};
 
 	return (
-		<div className=" mt-5 p-10 card bg-base-200">
+		<div className="mt-5 p-10 card bg-base-200">
 			<h1 className="text-center font-extrabold">Formulir Pencapaian</h1>
 			<form className="form-control" onSubmit={handleSubmit}>
 				<FormInput

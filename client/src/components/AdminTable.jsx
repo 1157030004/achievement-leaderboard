@@ -3,23 +3,25 @@ import { AgGridColumn, AgGridReact } from "ag-grid-react";
 // import "ag-grid-enterprise";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+import { useNavigate } from "react-router-dom";
 import { useStore } from "../store";
 
 const AdminTable = ({ source }) => {
 	const [gridApi, setGridApi] = useState(null);
 	const state = useStore((state) => state);
+	const navigate = useNavigate();
 
 	const columnDefs = [
 		{
 			headerName: "Name",
 			field: "owner.name",
-			flex: 2,
+			flex: 1,
 			sortable: true,
 			resizable: true,
 			filter: "agTextColumnFilter",
 			floatingFilter: true,
-			onCellClicked: function (event) {
-				console.log(event);
+			onCellClicked: function (e) {
+				navigate(`/admin-academics/${e.data._id}`);
 			},
 		},
 		{
@@ -61,8 +63,6 @@ const AdminTable = ({ source }) => {
 	if (state.isLoading) {
 		return <div>Loading...</div>;
 	}
-
-	console.log(source);
 
 	return (
 		<div className="ag-theme-alpine h-96" style={{ width: "100%" }}>
