@@ -16,8 +16,6 @@ const AchievementDetail = () => {
 	const getOneOrganization = useStore((state) => state.getOneOrganization);
 	let params = useParams();
 
-	console.log("category", state.category);
-
 	useEffect(() => {
 		if (state.category === "academic") {
 			getOneAcademic(params.id);

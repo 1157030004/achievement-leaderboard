@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Helmet from "react-helmet";
 import AdminAcademicForm from "../modules/AdminAcademicForm";
@@ -15,12 +15,6 @@ const AdminDetail = () => {
 	const getAdminOneAcademic = useStore((state) => state.getAdminOneAcademic);
 	const getAdminOneCompetition = useStore(
 		(state) => state.getAdminOneCompetition
-	);
-	const updateAdminCompetition = useStore(
-		(state) => state.updateAdminCompetition
-	);
-	const updateAdminOrganization = useStore(
-		(state) => state.updateAdminOrganization
 	);
 	const getAdminOneOrganization = useStore(
 		(state) => state.getAdminOneOrganization

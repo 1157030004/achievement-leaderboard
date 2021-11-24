@@ -8,7 +8,7 @@ import NewAchievement from "./pages/NewAchievement";
 import AchievementDetail from "./pages/AchievementDetail";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { useAuthStore, useStore } from "./store";
+import { useAuthStore } from "./store";
 import Welldone from "./modules/Welldone";
 import AdminHome from "./pages/AdminHome";
 import AdminDetail from "./pages/AdminDetail";

@@ -214,7 +214,6 @@ const createCompetitionSlice = (set, get) => ({
 			set((state) => ({
 				competitions: { competitions: res.data },
 			}));
-			console.log(res.data);
 		} catch (err) {
 			set({
 				competitions: {

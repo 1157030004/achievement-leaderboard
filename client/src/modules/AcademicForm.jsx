@@ -129,6 +129,11 @@ const AcademicForm = ({ source }) => {
 				<label className="label mt-2">
 					<span className="label-text">Upload Bukti Pencapaian</span>
 				</label>
+				<ul className="ml-5 text-2xs font-extralight">
+					<li>*Cukup upload 1 gambar</li>
+					<li>*Ukuran file maksimal 10MB</li>
+					<li>*Ektensi jpg, png, jpeg</li>
+				</ul>
 				<div className="">
 					<input
 						type="file"
