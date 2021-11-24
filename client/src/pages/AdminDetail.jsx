@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Helmet from "react-helmet";
 import AdminAcademicForm from "../modules/AdminAcademicForm";
 import AdminCompetitionForm from "../modules/AdminCompetitionForm";
 import AdminOrganizationForm from "../modules/AdminOrganizationForm";
@@ -41,6 +42,13 @@ const AdminDetail = () => {
 
 	return (
 		<>
+			<Helmet>
+				<title>Admin Leaderboard Aktivis Salman - Detail Prestasi</title>
+				<meta
+					name="description"
+					content={`Daftar prestasi ${state.category} aktivis Masjid Salman ITB`}
+				/>
+			</Helmet>
 			{state.category === "academic" ? (
 				<AdminAcademicForm source={adminAcademic} />
 			) : state.category === "competition" ? (

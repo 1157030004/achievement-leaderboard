@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Helmet from "react-helmet";
 import AdminTable from "../components/AdminTable";
 import Stat from "../components/Stat";
 import { useStore } from "../store";
@@ -36,18 +37,27 @@ const AdminHome = () => {
 	}
 
 	return (
-		<div className="flex flex-col w-full">
-			<div className="flex flex-row justify-between mt-2 mx-2 ">
-				<Stat handleChange={handleChange} tab={state.category} />
+		<>
+			<Helmet>
+				<title>Admin Leaderboard Aktivis Salman - Daftar Prestasi</title>
+				<meta
+					name="description"
+					content={`Daftar prestasi ${state.category} aktivis Masjid Salman ITB`}
+				/>
+			</Helmet>
+			<div className="flex flex-col w-full">
+				<div className="flex flex-row justify-between mt-2 mx-2 ">
+					<Stat handleChange={handleChange} tab={state.category} />
+				</div>
+				{state.category === "academic" ? (
+					<AdminTable source={adminAcademics} />
+				) : state.category === "competition" ? (
+					<AdminTable source={adminCompetitions} />
+				) : (
+					<AdminTable source={adminOrganizations} />
+				)}
 			</div>
-			{state.category === "academic" ? (
-				<AdminTable source={adminAcademics} />
-			) : state.category === "competition" ? (
-				<AdminTable source={adminCompetitions} />
-			) : (
-				<AdminTable source={adminOrganizations} />
-			)}
-		</div>
+		</>
 	);
 };
 

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Helmet from "react-helmet";
 import WallOfAchivement from "../modules/WallOfAchivement";
 import { useStore } from "../store";
 import NewCard from "../components/Modal";
@@ -29,19 +30,28 @@ const Achievements = () => {
 	}
 
 	return (
-		<div className="flex flex-col w-full">
-			<div className="flex flex-row justify-between mt-2 mx-2 ">
-				<Stat handleChange={handleChange} tab={state.category} />
-				<NewCard />
+		<>
+			<Helmet>
+				<title>Leaderboard Aktivis Salman - Daftar Prestasi</title>
+				<meta
+					name="description"
+					content={`Daftar prestasi ${state.category} aktivis Masjid Salman ITB`}
+				/>
+			</Helmet>
+			<div className="flex flex-col w-full">
+				<div className="flex flex-row justify-between mt-2 mx-2 ">
+					<Stat handleChange={handleChange} tab={state.category} />
+					<NewCard />
+				</div>
+				{state.category === "academic" ? (
+					<WallOfAchivement source={academics} tab={state.category} />
+				) : state.category === "competition" ? (
+					<WallOfAchivement source={competitions} tab={state.category} />
+				) : (
+					<WallOfAchivement source={organizations} tab={state.category} />
+				)}
 			</div>
-			{state.category === "academic" ? (
-				<WallOfAchivement source={academics} tab={state.category} />
-			) : state.category === "competition" ? (
-				<WallOfAchivement source={competitions} tab={state.category} />
-			) : (
-				<WallOfAchivement source={organizations} tab={state.category} />
-			)}
-		</div>
+		</>
 	);
 };
 

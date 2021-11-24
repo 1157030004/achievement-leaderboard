@@ -41,23 +41,27 @@ const Card = ({ id, title, activity, level, score, status, proof, tab }) => {
 		<>
 			<div className="card m-2 w-full  shadow-2xl lg:card-side bg-neutral-content">
 				<div className=" card-body ">
-					<div className="flex flex-row items-start relative">
+					<div className="flex flex-row items-center relative">
 						<div className=" w-2/5 lg:w-1/5 mr-2 rounded-lg">
 							<img src={proof} className="bg-base-100 rounded-lg" alt="proof" />
 						</div>
 
-						<div className="w-full flex flex-col text-2xs lg:text-sm">
-							<span className="  font-extrabold">{title}</span>
-							<span className="">{activity}</span>
-							<span className="">{level}</span>
-							<span className="text-2xs lg:text-sm rounded-lg bg-base-100 w-24 ">
-								Score: {score}
+						<div className="w-full flex flex-col">
+							<span className="font-extrabold text-xs lg:text-lg mb-2">
+								{title}
 							</span>
+							<span className="text-2xs lg:text-sm font-thin">{activity}</span>
+							<span className="text-2xs lg:text-sm font-thin">{level}</span>
+						</div>
+
+						<div className="flex flex-col items-center w-24 p-2 bg-base-100 text-base-content rounded-lg">
+							<span className="text-2xs lg:text-sm font-light">Skor</span>
+							<span className="text-2xs lg:text-sm font-bold">{score}</span>
 						</div>
 					</div>
-					<div className="flex items-center text-primary-content text-2xs lg:text-xs absolute left-17 top-1">
-						{status === "pending" ? (
-							<span className="bg-primary p-1 rounded-lg">{status}</span>
+					<div className="flex items-center text-primary-content text-2xs lg:text-xs absolute right-8 top-1">
+						{status === "Pending" ? (
+							<span className="bg-accent p-1 rounded-lg">{status}</span>
 						) : (
 							<span className="bg-secondary p-1 rounded-lg">{status}</span>
 						)}

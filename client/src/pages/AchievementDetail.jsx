@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
+import Helmet from "react-helmet";
 import AcademicForm from "../modules/AcademicForm";
 import CompetitionForm from "../modules/CompetitionForm";
 import OrganizationForm from "../modules/OrganizationForm";
@@ -35,6 +36,13 @@ const AchievementDetail = () => {
 
 	return (
 		<>
+			<Helmet>
+				<title>Leaderboard Aktivis Salman - Detail Prestasi</title>
+				<meta
+					name="description"
+					content={`Detail prestasi ${state.category} aktivis Masjid Salman ITB`}
+				/>
+			</Helmet>
 			{state.category === "academic" ? (
 				<AcademicForm source={academic} />
 			) : state.category === "competition" ? (

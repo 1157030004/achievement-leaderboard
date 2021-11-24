@@ -66,7 +66,7 @@ const Header = () => {
 			</div>
 
 			<div className="dropdown dropdown-end block lg:hidden">
-				<div tabIndex="0" className="m-1 btn btn-primary">
+				<div tabIndex="0" className="btn btn-primary btn-md rounded-lg">
 					<HambergerMenu variant="Outline" color="white" />
 				</div>
 				{isLoggedIn ? (
