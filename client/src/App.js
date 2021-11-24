@@ -33,7 +33,7 @@ function App() {
 							element={isLoggedIn && isAdmin ? <AdminHome /> : <Login />}
 						/>
 						<Route
-							path="admin-academics/:id"
+							path="admin-details/:id"
 							element={isLoggedIn && isAdmin ? <AdminDetail /> : <Login />}
 						/>
 					</>

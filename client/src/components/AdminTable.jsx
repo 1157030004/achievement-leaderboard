@@ -21,7 +21,7 @@ const AdminTable = ({ source }) => {
 			filter: "agTextColumnFilter",
 			floatingFilter: true,
 			onCellClicked: function (e) {
-				navigate(`/admin-academics/${e.data._id}`);
+				navigate(`/admin-details/${e.data._id}`);
 			},
 		},
 		{

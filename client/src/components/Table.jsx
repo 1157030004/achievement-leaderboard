@@ -100,13 +100,14 @@ const Table = ({ source }) => {
 						<AgGridColumn field="name" headerName="Name" />
 						<AgGridColumn field="academicScore" headerName="Academic Score" />
 						<AgGridColumn
-							field="organizationScore"
-							headerName="Organization Score"
-						/>
-						<AgGridColumn
 							field="competitionScore"
 							headerName="Competition Score"
 						/>
+						<AgGridColumn
+							field="organizationScore"
+							headerName="Organization Score"
+						/>
+
 						<AgGridColumn field="totalScore" headerName="Total Score" />
 					</AgGridReact>
 				</>

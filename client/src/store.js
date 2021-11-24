@@ -500,6 +500,29 @@ const createAdminAcademicSlice = (set, get) => ({
 			console.log(err);
 		}
 	},
+	updateAdminAcademic: async (data) => {
+		try {
+			const res = await API.put(`${updateAdminAcademic}/${data.id}`, {
+				status: data.status,
+				score: data.score,
+			});
+			set((state) => ({
+				adminAcademics: state.adminAcademics.map((adminAcademic) =>
+					adminAcademic.id === data.id ? res.data : adminAcademic
+				),
+				isLoading: false,
+			}));
+		} catch (err) {
+			set({
+				adminAcademics: {
+					...get().adminAcademics,
+					isLoading: false,
+					error: err,
+				},
+			});
+			console.log(err);
+		}
+	},
 });
 
 const createAdminCompetitionSlice = (set, get) => ({
@@ -521,6 +544,44 @@ const createAdminCompetitionSlice = (set, get) => ({
 			console.log(err);
 		}
 	},
+	getAdminOneCompetition: async (id) => {
+		try {
+			const res = await API.get(`${getAdminOneCompetition}/${id}`);
+			set({ adminCompetition: res.data, isLoading: false });
+		} catch (err) {
+			set({
+				adminCompetition: {
+					...get().adminCompetition,
+					isLoading: false,
+					error: err,
+				},
+			});
+			console.log(err);
+		}
+	},
+	updateAdminCompetition: async (data) => {
+		try {
+			const res = await API.put(`${updateAdminCompetition}/${data.id}`, {
+				status: data.status,
+				score: data.score,
+			});
+			set((state) => ({
+				adminCompetitions: state.adminCompetitions.map((adminCompetition) =>
+					adminCompetition.id === data.id ? res.data : adminCompetition
+				),
+				isLoading: false,
+			}));
+		} catch (err) {
+			set({
+				adminCompetitions: {
+					...get().adminCompetitions,
+					isLoading: false,
+					error: err,
+				},
+			});
+			console.log(err);
+		}
+	},
 });
 
 const createAdminOrganizationSlice = (set, get) => ({
@@ -531,6 +592,44 @@ const createAdminOrganizationSlice = (set, get) => ({
 		try {
 			const res = await API.get(`${getAdminAllOrganizations}`);
 			set({ adminOrganizations: res.data.data, isLoading: false });
+		} catch (err) {
+			set({
+				adminOrganizations: {
+					...get().adminOrganizations,
+					isLoading: false,
+					error: err,
+				},
+			});
+			console.log(err);
+		}
+	},
+	getAdminOneOrganization: async (id) => {
+		try {
+			const res = await API.get(`${getAdminOneOrganization}/${id}`);
+			set({ adminOrganization: res.data, isLoading: false });
+		} catch (err) {
+			set({
+				adminOrganization: {
+					...get().adminOrganization,
+					isLoading: false,
+					error: err,
+				},
+			});
+			console.log(err);
+		}
+	},
+	updateAdminOrganization: async (data) => {
+		try {
+			const res = await API.put(`${updateAdminOrganization}/${data.id}`, {
+				status: data.status,
+				score: data.score,
+			});
+			set((state) => ({
+				adminOrganizations: state.adminOrganizations.map((adminOrganization) =>
+					adminOrganization.id === data.id ? res.data : adminOrganization
+				),
+				isLoading: false,
+			}));
 		} catch (err) {
 			set({
 				adminOrganizations: {
