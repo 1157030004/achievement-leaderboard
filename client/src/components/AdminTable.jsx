@@ -68,10 +68,11 @@ const AdminTable = ({ source }) => {
 		<div className="ag-theme-alpine h-96" style={{ width: "100%" }}>
 			<>
 				<AgGridReact
+					domLayout={"autoHeight"}
 					rowData={source}
 					columnDefs={columnDefs}
 					pagination={true}
-					paginationPageSize={20}
+					paginationPageSize={10}
 					onGridReady={onGridReady}>
 					<AgGridColumn field="owner.name" headerName="Name" />
 					<AgGridColumn field="activity" headerName="Activity" />

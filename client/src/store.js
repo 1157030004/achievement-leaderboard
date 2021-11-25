@@ -399,9 +399,9 @@ const createCategorySlice = (set, get) => ({
 });
 
 const createAuthSlice = (set, get) => ({
-	user: {
-		isLoggedIn: false,
-	},
+	isLoggedIn: false,
+	error: null,
+	isLoading: true,
 	register: async (data) => {
 		try {
 			const res = await API.post(`${register}`, {
@@ -414,6 +414,7 @@ const createAuthSlice = (set, get) => ({
 			set((state) => ({
 				user: res.data,
 				isLoggedIn: true,
+				isLoading: false,
 			}));
 		} catch (err) {
 			set({
@@ -423,7 +424,7 @@ const createAuthSlice = (set, get) => ({
 					error: err.response.data.message,
 				},
 			});
-			console.log(err);
+			console.log(err.response.data.message);
 		}
 	},
 	login: async (data) => {
@@ -436,6 +437,7 @@ const createAuthSlice = (set, get) => ({
 			set((state) => ({
 				user: res.data,
 				isLoggedIn: true,
+				isLoading: false,
 			}));
 		} catch (err) {
 			set({

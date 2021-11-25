@@ -4,6 +4,7 @@ import FormSearchSelect from "../components/FormSearchSelect";
 import { useStore, useAuthStore } from "../store";
 
 const AuthForm = ({ data }) => {
+	const state = useAuthStore((state) => state);
 	const login = useAuthStore((state) => state.login);
 	const register = useAuthStore((state) => state.register);
 	const [selected, setSelected] = useState(null);
@@ -77,6 +78,9 @@ const AuthForm = ({ data }) => {
 								onChange={handleChange}
 							/>
 							<button className="btn btn-primary mt-4">Register</button>
+							{state.isLoading ? (
+								<div className="text-center">Loading...</div>
+							) : null}
 						</>
 					)}
 				</form>
