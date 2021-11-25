@@ -81,12 +81,12 @@ router.get("/rank", async (req, res) => {
 			.select("-password")
 			.skip(skip)
 			.sort({ totalScore: 1 })
-			.limit(pageSize)
 			.populate("competitions academics organizations");
+		// .limit(pageSize);
 
-		if (page > pages) {
-			return res.status(404).json("No page found");
-		}
+		// if (page > pages) {
+		// 	return res.status(404).json("No page found");
+		// }
 
 		query.sort((a, b) => b.totalScore - a.totalScore);
 
