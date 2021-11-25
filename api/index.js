@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const path = require("path");
 const cors = require("cors");
 
 const authRoute = require("./routes/auth");
@@ -33,6 +34,11 @@ mongoose
 	})
 	.then(() => console.log("DB connected"))
 	.catch((err) => console.log(err));
+
+// app.use(express.static(path.join(__dirname, "build")));
+// app.get("/*", function (req, res) {
+// 	res.sendFile(path.join(__dirname, "build", "index.html"));
+// });
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);

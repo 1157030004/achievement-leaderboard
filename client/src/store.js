@@ -405,14 +405,15 @@ const createAuthSlice = (set, get) => ({
 	register: async (data) => {
 		try {
 			const res = await API.post(`${register}`, {
-				name: data.name,
 				email: data.email,
-				gpa: data.gpa,
+				name: data.name,
 				campus: data.campus,
+				gpa: data.gpa,
 				password: data.password,
 			});
 			res.data.isLoggedIn = true;
 			localStorage.setItem("token", res.data.token);
+			console.log(res.data);
 			set((state) => ({
 				...state.user,
 				user: res.data,
@@ -425,6 +426,7 @@ const createAuthSlice = (set, get) => ({
 					error: err.response.data.message,
 				},
 			});
+			console.log(err);
 		}
 	},
 	login: async (data) => {
