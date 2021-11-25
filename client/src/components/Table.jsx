@@ -92,10 +92,11 @@ const Table = ({ source }) => {
 						</div>
 					) : null}
 					<AgGridReact
+						domLayout={"autoHeight"}
 						rowData={rank.data}
 						columnDefs={columnDefs}
 						pagination={true}
-						paginationPageSize={20}
+						paginationPageSize={10}
 						onGridReady={onGridReady}>
 						<AgGridColumn field="name" headerName="Name" />
 						<AgGridColumn field="academicScore" headerName="Academic Score" />
