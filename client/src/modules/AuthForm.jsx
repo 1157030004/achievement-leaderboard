@@ -32,6 +32,7 @@ const AuthForm = ({ data }) => {
 					{data.type === "login" ? (
 						<>
 							<FormInput
+								type="email"
 								name="email"
 								label="Email"
 								placeholder="email@email.com"
@@ -39,6 +40,7 @@ const AuthForm = ({ data }) => {
 							/>
 
 							<FormInput
+								type="password"
 								name="password"
 								label="Password"
 								placeholder="********"
@@ -49,12 +51,14 @@ const AuthForm = ({ data }) => {
 					) : (
 						<>
 							<FormInput
+								type="email"
 								name="email"
 								label="Email"
 								placeholder="email@email.com"
 								onChange={handleChange}
 							/>
 							<FormInput
+								type="text"
 								name="name"
 								label="Nama Lengkap"
 								placeholder="Shadee Arqhifa"
@@ -66,12 +70,7 @@ const AuthForm = ({ data }) => {
 								options={data.options}
 							/>
 							<FormInput
-								name="gpa"
-								label="IPK"
-								placeholder="3.00"
-								onChange={handleChange}
-							/>
-							<FormInput
+								type="password"
 								name="password"
 								label="Kata Sandi"
 								placeholder="Bukan 1234, tanggal lahir, dan nama ortu kan?"

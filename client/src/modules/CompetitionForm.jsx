@@ -98,6 +98,7 @@ const CompetitionForm = ({ source }) => {
 			<h1 className="text-center font-extrabold">Formulir Pencapaian</h1>
 			<form className="form-control" onSubmit={handleSubmit}>
 				<FormInput
+					type="text"
 					name="title"
 					label="Pencapaian"
 					placeholder={"Pencapaian"}
@@ -120,6 +121,7 @@ const CompetitionForm = ({ source }) => {
 					/>
 				</div>
 				<FormInput
+					type="number"
 					name="year"
 					label="Tahun"
 					placeholder={"Tahun"}

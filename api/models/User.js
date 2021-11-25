@@ -9,7 +9,7 @@ const UserSchema = new Schema(
 		password: { type: String, required: true },
 		profilePic: { type: String, default: "" },
 		isAdmin: { type: Boolean, default: false },
-		gpa: { type: Number, required: true },
+		gpa: { type: Number, default: 0 },
 		academics: [
 			{
 				type: Schema.Types.ObjectId,

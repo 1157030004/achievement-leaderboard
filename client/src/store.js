@@ -408,15 +408,12 @@ const createAuthSlice = (set, get) => ({
 				email: data.email,
 				name: data.name,
 				campus: data.campus,
-				gpa: data.gpa,
 				password: data.password,
 			});
-			res.data.isLoggedIn = true;
 			localStorage.setItem("token", res.data.token);
-			console.log(res.data);
 			set((state) => ({
-				...state.user,
 				user: res.data,
+				isLoggedIn: true,
 			}));
 		} catch (err) {
 			set({

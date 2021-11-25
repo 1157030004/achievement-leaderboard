@@ -99,6 +99,7 @@ const AcademicForm = ({ source }) => {
 			<h1 className="text-center font-extrabold">Formulir Pencapaian</h1>
 			<form className="form-control" onSubmit={handleSubmit}>
 				<FormInput
+					type="text"
 					name="title"
 					label="Pencapaian"
 					placeholder="Pencapaian"
@@ -121,6 +122,7 @@ const AcademicForm = ({ source }) => {
 					/>
 				</div>
 				<FormInput
+					type="number"
 					name="year"
 					label="Tahun"
 					placeholder="tahun"

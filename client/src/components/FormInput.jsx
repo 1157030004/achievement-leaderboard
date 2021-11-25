@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-const FormInput = ({ name, value, label, placeholder, onChange }) => {
+const FormInput = ({ type, name, value, label, placeholder, onChange }) => {
 	return (
 		<>
 			<label className="label mt-2">
 				<span className="label-text">{label}</span>
 			</label>
 			<input
-				type="text"
+				type={type}
 				name={name}
 				value={value}
 				placeholder={placeholder}

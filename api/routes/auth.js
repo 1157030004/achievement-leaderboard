@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 //!Register
 router.post("/register", async (req, res) => {
-	const { email, name, campus, gpa, password } = req.body;
+	const { email, name, campus, password } = req.body;
 	const user = await User.findOne({ email });
 
 	if (!user) {
@@ -13,7 +13,6 @@ router.post("/register", async (req, res) => {
 			email,
 			name,
 			campus,
-			gpa,
 			password: CryptoJS.AES.encrypt(
 				password,
 				process.env.SECRET_KEY
