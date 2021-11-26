@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import InputLabel from "../components/InputLabel";
 import { useStore } from "../store";
 
 const AdminCompetitionForm = ({ source }) => {
+	const navigate = useNavigate();
 	const params = useParams();
 	const updateAdminCompetition = useStore(
 		(state) => state.updateAdminCompetition
@@ -23,6 +24,7 @@ const AdminCompetitionForm = ({ source }) => {
 		e.preventDefault();
 		inputs.id = params.id;
 		updateAdminCompetition(inputs);
+		navigate("/admin");
 	};
 	return (
 		<div className="mt-5 p-10 card bg-base-200">

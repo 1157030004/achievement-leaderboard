@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import InputLabel from "../components/InputLabel";
 import { useStore } from "../store";
 
 const AdminAcademicForm = ({ source }) => {
+	const navigate = useNavigate();
 	const params = useParams();
 	const updateAdminAcademic = useStore((state) => state.updateAdminAcademic);
 	const [inputs, setInputs] = useState({});
@@ -21,6 +22,7 @@ const AdminAcademicForm = ({ source }) => {
 		e.preventDefault();
 		inputs.id = params.id;
 		updateAdminAcademic(inputs);
+		navigate("/admin");
 	};
 	return (
 		<div className="mt-5 p-10 card bg-base-200">

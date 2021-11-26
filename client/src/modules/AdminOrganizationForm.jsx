@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import InputLabel from "../components/InputLabel";
 import { useStore } from "../store";
 
 const AdminOrganizationForm = ({ source }) => {
+	const navigate = useNavigate();
 	const params = useParams();
 	const updateAdminOrganization = useStore(
 		(state) => state.updateAdminOrganization
@@ -23,6 +24,7 @@ const AdminOrganizationForm = ({ source }) => {
 		e.preventDefault();
 		inputs.id = params.id;
 		updateAdminOrganization(inputs);
+		navigate("/admin");
 	};
 	return (
 		<div className="mt-5 p-10 card bg-base-200">

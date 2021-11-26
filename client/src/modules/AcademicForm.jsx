@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import FormInput from "../components/FormInput";
 import FormSelect from "../components/FormSelect";
-import Uploader from "../components/Uploader";
 import { useStore } from "../store";
 import storage from "../utils/firebase";
 
