@@ -32,11 +32,10 @@ const FormCategory = () => {
 				{data.map((item, index) => (
 					<div className="item m-1" key={index}>
 						<div className="card">
-							<div className="card-body">
+							<div className="card-body text-center">
 								<h5 className="card-title text-sm font-bold">{item.name}</h5>
-								<p className="card-text text-2xs">{item.content}</p>
 								<button
-									className="btn btn-xs btn-primary capitalize mt-3"
+									className="btn btn-xs btn-primary rounded-lg capitalize"
 									onClick={() => handleClick(item.name)}>
 									Pilih
 								</button>

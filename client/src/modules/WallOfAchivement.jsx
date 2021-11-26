@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
+import NoAchievement from "../components/NoAchievement";
 
 const WallOfAchivement = ({ source, tab }) => {
+	console.log(source.length);
 	return (
 		<div className="w-auto flex flex-wrap ">
-			{source.length >= 0 ? (
+			{source.length > 0 ? (
 				source.map((item) => (
 					<Card
 						key={item._id}
@@ -19,7 +21,7 @@ const WallOfAchivement = ({ source, tab }) => {
 					/>
 				))
 			) : (
-				<div>fethcing...</div>
+				<NoAchievement />
 			)}
 		</div>
 	);

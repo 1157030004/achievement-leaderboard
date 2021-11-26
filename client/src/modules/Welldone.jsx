@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../store";
-import grow from "../assets/grow.svg";
+import sent from "../assets/sent.png";
 
 const Welldone = () => {
 	const state = useStore((state) => state);
@@ -20,21 +20,24 @@ const Welldone = () => {
 		return <div>Loading...</div>;
 	}
 	return (
-		<div className="flex flex-col justify-center items-center">
-			,<img src={grow} alt="grow" className="w-full md:w-10/12" />
-			<h1 className="text-3xl">Selamat!</h1>
-			<h1>Pencapaianmu telah diperbaharui</h1>
+		<div className="flex flex-col justify-center items-center text-center">
+			<img src={sent} alt="grow" className="w-full md:w-1/2" />
+			<h1 className="text-3xl font-bold">Selamat!</h1>
+			<h1>Prestasimu telah diperbaharui</h1>
 			<p className="font-thin text-sm">
-				Skor pencapaianmu akan muncul jika lolos proses review
+				Skor prestasimu akan muncul jika lolos proses review
 			</p>
 			<div className="flex flex-row  w-full mt-5 justify-evenly">
 				<button
 					name="achievements"
-					className="btn btn-primary"
+					className="btn btn-primary rounded-lg"
 					onClick={handleClick}>
 					Isi lagi
 				</button>
-				<button name="home" className="btn btn-primary" onClick={handleClick}>
+				<button
+					name="home"
+					className="btn btn-primary rounded-lg"
+					onClick={handleClick}>
 					Kembali
 				</button>
 			</div>
