@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useAuthStore } from "../store";
 
-const Alert = ({ status, message }) => {
+const Alert = ({ type, message }) => {
+	const setAlert = useAuthStore((state) => state.setAlert);
 	const [isOpen, setIsOpen] = useState(true);
 
 	let TIME = (3000 - 500) / 1000 + "s";
@@ -9,23 +11,23 @@ const Alert = ({ status, message }) => {
 		if (isOpen) {
 			setTimeout(() => {
 				setIsOpen(false);
+				setAlert();
 			}, 3000);
 			return () => {
 				clearTimeout();
 			};
 		}
 	}, [isOpen]);
-	console.log(TIME);
 
 	const styles = {
 		alert: `alert absolute right-10 bottom-10 font-bold transition duration-500 ease-in ${
-			status === "success"
+			type === "success"
 				? "alert-success"
-				: status === "info"
+				: type === "info"
 				? "alert-info"
-				: status === "warning"
+				: type === "warning"
 				? "alert-warning"
-				: status === "error"
+				: type === "error"
 				? "alert-error"
 				: ""
 		} ${isOpen ? "block" : "hidden"}`,

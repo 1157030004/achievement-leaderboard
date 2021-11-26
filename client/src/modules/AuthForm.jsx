@@ -3,7 +3,6 @@ import FormInput from "../components/FormInput";
 import FormSearchSelect from "../components/FormSearchSelect";
 import Loading from "../components/Loading";
 import { useStore, useAuthStore } from "../store";
-import Alert from "../components/Alert";
 
 const AuthForm = ({ data }) => {
 	const state = useAuthStore((state) => state);
@@ -85,7 +84,6 @@ const AuthForm = ({ data }) => {
 					)}
 				</form>
 			</div>
-			<Alert status="info" message="Woi salah!" />
 		</>
 	);
 };

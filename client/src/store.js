@@ -402,6 +402,24 @@ const createAuthSlice = (set, get) => ({
 	isLoggedIn: false,
 	error: null,
 	isLoading: true,
+	alert: {
+		isActive: false,
+		type: "",
+		message: "",
+	},
+	setAlert: async () => {
+		try {
+			set((state) => ({
+				alert: {
+					isActive: false,
+					type: "",
+					message: "",
+				},
+			}));
+		} catch (err) {
+			console.log(err);
+		}
+	},
 	register: async (data) => {
 		try {
 			const res = await API.post(`${register}`, {
@@ -415,6 +433,11 @@ const createAuthSlice = (set, get) => ({
 				user: res.data,
 				isLoggedIn: true,
 				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Successfully registered",
+				},
 			}));
 		} catch (err) {
 			set({
@@ -422,9 +445,13 @@ const createAuthSlice = (set, get) => ({
 					...get().user,
 					isLoading: false,
 					error: err.response.data.message,
+					alert: {
+						isActive: true,
+						type: "error",
+						message: err.response.data.message,
+					},
 				},
 			});
-			console.log(err.response.data.message);
 		}
 	},
 	login: async (data) => {
@@ -438,13 +465,18 @@ const createAuthSlice = (set, get) => ({
 				user: res.data,
 				isLoggedIn: true,
 				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Successfully logged in",
+				},
 			}));
 		} catch (err) {
 			set({
-				user: {
-					...get().user,
-					isLoading: false,
-					error: err,
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data,
 				},
 			});
 		}
@@ -452,14 +484,20 @@ const createAuthSlice = (set, get) => ({
 	logout: async () => {
 		try {
 			set(() => ({
+				user: {},
 				isLoggedIn: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Successfully logged out",
+				},
 			}));
 		} catch (err) {
 			set({
-				user: {
-					...get().user,
-					isLoading: false,
-					error: err.response.data.message,
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data,
 				},
 			});
 		}

@@ -3,8 +3,11 @@ import { Outlet } from "react-router";
 import Helmet from "react-helmet";
 import Main from "../components/Main";
 import Header from "../components/Header";
+import Alert from "../components/Alert";
+import { useAuthStore } from "../store";
 
 const Layout = () => {
+	const state = useAuthStore((state) => state);
 	return (
 		<Main>
 			<Helmet>
@@ -29,6 +32,9 @@ const Layout = () => {
           so you can think about this <Outlet> as a placeholder for
           the child routes we defined above. */}
 			<Outlet />
+			{state.alert.isActive ? (
+				<Alert type={state.alert.type} message={state.alert.message} />
+			) : null}
 		</Main>
 	);
 };
