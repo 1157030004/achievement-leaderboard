@@ -5,6 +5,7 @@ import AcademicForm from "../modules/AcademicForm";
 import CompetitionForm from "../modules/CompetitionForm";
 import OrganizationForm from "../modules/OrganizationForm";
 import { useStore } from "../store";
+import Loading from "../components/Loading";
 
 const AchievementDetail = () => {
 	const state = useStore((state) => state);
@@ -29,7 +30,7 @@ const AchievementDetail = () => {
 	}, []);
 
 	if (state.isLoading) {
-		return <div>Loading...</div>;
+		return <Loading />;
 	}
 
 	return (

@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../store";
 import sent from "../assets/sent.png";
+import Loading from "../components/Loading";
 
 const Welldone = () => {
 	const state = useStore((state) => state);
@@ -17,7 +18,7 @@ const Welldone = () => {
 	};
 
 	if (state.isLoading) {
-		return <div>Loading...</div>;
+		return <Loading />;
 	}
 	return (
 		<div className="flex flex-col justify-center items-center text-center">

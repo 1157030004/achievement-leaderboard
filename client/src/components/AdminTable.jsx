@@ -5,6 +5,7 @@ import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../store";
+import Loading from "./Loading";
 
 const AdminTable = ({ source }) => {
 	const [gridApi, setGridApi] = useState(null);
@@ -61,7 +62,7 @@ const AdminTable = ({ source }) => {
 	};
 
 	if (state.isLoading) {
-		return <div>Loading...</div>;
+		return <Loading />;
 	}
 
 	return (

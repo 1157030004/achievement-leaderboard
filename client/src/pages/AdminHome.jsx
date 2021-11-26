@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Helmet from "react-helmet";
 import AdminTable from "../components/AdminTable";
+import Loading from "../components/Loading";
 import Stat from "../components/Stat";
 import { useStore } from "../store";
 
@@ -33,7 +34,7 @@ const AdminHome = () => {
 	};
 
 	if (state.isLoading) {
-		return <div>Loading...</div>;
+		return <Loading />;
 	}
 
 	return (

@@ -4,6 +4,7 @@ import WallOfAchivement from "../modules/WallOfAchivement";
 import { useStore } from "../store";
 import NewCard from "../components/Modal";
 import Stat from "../components/Stat";
+import Loading from "../components/Loading";
 
 const Achievements = () => {
 	const state = useStore((state) => state);
@@ -26,7 +27,7 @@ const Achievements = () => {
 	};
 
 	if (state.isLoading) {
-		return <div>Loading...</div>;
+		return <Loading />;
 	}
 
 	return (

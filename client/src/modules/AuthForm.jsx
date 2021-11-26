@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FormInput from "../components/FormInput";
 import FormSearchSelect from "../components/FormSearchSelect";
+import Loading from "../components/Loading";
 import { useStore, useAuthStore } from "../store";
 
 const AuthForm = ({ data }) => {
@@ -78,9 +79,7 @@ const AuthForm = ({ data }) => {
 								onChange={handleChange}
 							/>
 							<button className="btn btn-primary mt-4">Register</button>
-							{state.isLoading ? (
-								<div className="text-center">Loading...</div>
-							) : null}
+							{state.isLoading ? <Loading /> : null}
 						</>
 					)}
 				</form>

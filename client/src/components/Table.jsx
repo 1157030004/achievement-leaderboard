@@ -4,6 +4,7 @@ import { AgGridColumn, AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { useAuthStore, useStore } from "../store";
+import Loading from "./Loading";
 
 const Table = ({ source }) => {
 	const state = useStore((state) => state);
@@ -79,7 +80,7 @@ const Table = ({ source }) => {
 	return (
 		<div className="ag-theme-alpine h-96" style={{ width: "100%" }}>
 			{state.isLoading ? (
-				<div>loading</div>
+				<Loading />
 			) : (
 				<>
 					{isAdmin ? (

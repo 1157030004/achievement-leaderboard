@@ -5,6 +5,7 @@ import AdminAcademicForm from "../modules/AdminAcademicForm";
 import AdminCompetitionForm from "../modules/AdminCompetitionForm";
 import AdminOrganizationForm from "../modules/AdminOrganizationForm";
 import { useStore } from "../store";
+import Loading from "../components/Loading";
 
 const AdminDetail = () => {
 	const params = useParams();
@@ -31,7 +32,7 @@ const AdminDetail = () => {
 	}, []);
 
 	if (state.isLoading) {
-		return <div>Loading...</div>;
+		return <Loading />;
 	}
 
 	return (
