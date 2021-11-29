@@ -17,9 +17,13 @@ const Achievements = () => {
 	const addCategory = useStore((state) => state.addCategory);
 
 	useEffect(() => {
-		getAcademics();
-		getCompetitions();
-		getOrganizations();
+		if (state.category === "academic") {
+			getAcademics();
+		} else if (state.category === "competition") {
+			getCompetitions();
+		} else {
+			getOrganizations();
+		}
 	}, [state.category]);
 
 	const handleChange = (e) => {

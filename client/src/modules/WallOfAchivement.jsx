@@ -3,7 +3,6 @@ import Card from "../components/Card";
 import NoAchievement from "../components/NoAchievement";
 
 const WallOfAchivement = ({ source, tab }) => {
-	console.log(source.length);
 	return (
 		<div className="w-auto flex flex-wrap ">
 			{source.length > 0 ? (
