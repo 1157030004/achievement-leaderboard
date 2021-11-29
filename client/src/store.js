@@ -62,7 +62,7 @@ const createUserSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			}));
 		}
@@ -82,7 +82,7 @@ const createUserSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			}));
 		}
@@ -121,7 +121,7 @@ const createAcademicSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -146,7 +146,7 @@ const createAcademicSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -177,7 +177,7 @@ const createAcademicSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -232,7 +232,7 @@ const createAcademicSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -256,7 +256,7 @@ const createAcademicSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -294,7 +294,7 @@ const createCompetitionSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -319,7 +319,7 @@ const createCompetitionSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -350,7 +350,7 @@ const createCompetitionSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -405,7 +405,7 @@ const createCompetitionSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -429,7 +429,7 @@ const createCompetitionSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -467,7 +467,7 @@ const createOrganizationSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -492,7 +492,7 @@ const createOrganizationSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -523,7 +523,7 @@ const createOrganizationSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -578,7 +578,7 @@ const createOrganizationSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -633,7 +633,7 @@ const createAuthSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			}));
 		}
@@ -665,7 +665,7 @@ const createAuthSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			});
 		}
@@ -753,7 +753,7 @@ const createAdminAcademicSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			}));
 		}
@@ -778,7 +778,7 @@ const createAdminAcademicSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			}));
 		}
@@ -808,7 +808,7 @@ const createAdminAcademicSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			}));
 		}
@@ -844,7 +844,7 @@ const createAdminCompetitionSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			}));
 		}
@@ -869,7 +869,7 @@ const createAdminCompetitionSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			}));
 		}
@@ -899,7 +899,7 @@ const createAdminCompetitionSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			}));
 		}
@@ -935,7 +935,7 @@ const createAdminOrganizationSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			}));
 		}
@@ -960,7 +960,7 @@ const createAdminOrganizationSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			}));
 		}
@@ -990,7 +990,7 @@ const createAdminOrganizationSlice = (set, get) => ({
 				alert: {
 					isActive: true,
 					type: "error",
-					message: err.response.data.message,
+					message: err.response.data,
 				},
 			}));
 		}

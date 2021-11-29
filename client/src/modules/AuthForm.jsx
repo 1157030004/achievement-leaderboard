@@ -79,7 +79,6 @@ const AuthForm = ({ data }) => {
 								onChange={handleChange}
 							/>
 							<button className="btn btn-primary mt-4">Register</button>
-							{state.isLoading ? <Loading /> : null}
 						</>
 					)}
 				</form>
