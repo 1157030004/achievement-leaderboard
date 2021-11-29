@@ -247,6 +247,7 @@ const createCompetitionSlice = (set, get) => ({
 			});
 			set((state) => ({
 				competitions: { competitions: res.data },
+				isLoading: false,
 			}));
 		} catch (err) {
 			set({
@@ -381,8 +382,8 @@ const createOrganizationSlice = (set, get) => ({
 			});
 			set((state) => ({
 				organizations: { organizations: res.data },
+				isLoading: false,
 			}));
-			console.log(res.data);
 		} catch (err) {
 			set({
 				organizations: {

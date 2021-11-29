@@ -24,7 +24,7 @@ const Welldone = () => {
 		<div className="flex flex-col justify-center items-center text-center">
 			<img src={sent} alt="grow" className="w-full md:w-1/2" />
 			<h1 className="text-3xl font-bold">Selamat!</h1>
-			<h1>Prestasimu telah diperbaharui</h1>
+			<h1 className="text-3xl font-bold">Prestasimu telah diperbaharui</h1>
 			<p className="font-thin text-sm">
 				Skor prestasimu akan muncul jika lolos proses review
 			</p>
