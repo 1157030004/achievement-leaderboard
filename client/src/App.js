@@ -19,8 +19,6 @@ function App() {
 	const { isLoggedIn } = state;
 	const { isAdmin } = user;
 
-	console.log("isAdmin", user);
-
 	return (
 		<Routes>
 			<Route path="/" element={<Layout />}>

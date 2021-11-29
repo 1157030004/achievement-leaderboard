@@ -43,15 +43,53 @@ const createUserSlice = (set, get) => ({
 	users: [],
 	rank: {},
 	isLoading: true,
+	alert: {
+		isActive: false,
+		type: "",
+		message: "",
+	},
+	setAlert: async () => {
+		try {
+			set((state) => ({
+				alert: {
+					isActive: false,
+					type: "",
+					message: "",
+				},
+			}));
+		} catch (err) {
+			set(() => ({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			}));
+		}
+	},
 	getRank: async () => {
 		try {
 			set(() => ({
 				isLoading: true,
 			}));
 			const res = await API.get(`${rank}`);
-			set({ rank: res.data, isLoading: false });
+			set({
+				rank: res.data,
+				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Successfully fetched rank",
+				},
+			});
 		} catch (err) {
-			console.log(err);
+			set(() => ({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			}));
 		}
 	},
 });
@@ -62,22 +100,35 @@ const createAcademicSlice = (set, get) => ({
 	academicActivities: [],
 	academicLevels: [],
 	isLoading: false,
+	alert: {
+		isActive: false,
+		type: "",
+		message: "",
+	},
+
 	getAcademics: async () => {
 		try {
 			set(() => ({
 				isLoading: true,
 			}));
 			const res = await API.get(`${getAcademics}`);
-			set({ academics: res.data.data, isLoading: false });
-		} catch (err) {
 			set({
-				academics: {
-					...get().academics,
-					isLoading: false,
-					error: err,
+				academics: res.data.data,
+				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Academic data has been successfully fetched",
 				},
 			});
-			console.log(err);
+		} catch (err) {
+			set({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			});
 		}
 	},
 	getOneAcademic: async (id) => {
@@ -86,16 +137,23 @@ const createAcademicSlice = (set, get) => ({
 				isLoading: true,
 			}));
 			const res = await API.get(`${getOneAcademic}/${id}`);
-			set({ academic: res.data, isLoading: false });
-		} catch (err) {
 			set({
-				academics: {
-					...get().academics,
-					isLoading: false,
-					error: err,
+				academic: res.data,
+				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Academic data has been successfully fetched",
 				},
 			});
-			console.log(err);
+		} catch (err) {
+			set({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			});
 		}
 	},
 	addAcademic: async (data) => {
@@ -113,16 +171,20 @@ const createAcademicSlice = (set, get) => ({
 			set((state) => ({
 				academics: [...state.academics, res.data],
 				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Academic data has been successfully added",
+				},
 			}));
 		} catch (err) {
 			set({
-				academics: {
-					...get().academics,
-					isLoading: false,
-					error: err,
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
 				},
 			});
-			console.log(err);
 		}
 	},
 	getAcademicActivities: async () => {
@@ -164,16 +226,20 @@ const createAcademicSlice = (set, get) => ({
 					academic.id === data.id ? res.data : academic
 				),
 				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Academic data has been successfully updated",
+				},
 			}));
 		} catch (err) {
 			set({
-				academics: {
-					...get().academics,
-					isLoading: false,
-					error: err,
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
 				},
 			});
-			console.log(err);
 		}
 	},
 	deleteAcademic: async (id) => {
@@ -184,9 +250,20 @@ const createAcademicSlice = (set, get) => ({
 			await API.delete(`${deleteAcademic}/${id}`);
 			set(() => ({
 				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Academic data has been successfully deleted",
+				},
 			}));
 		} catch (err) {
-			console.log(err);
+			set({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			});
 		}
 	},
 });
@@ -197,22 +274,34 @@ const createCompetitionSlice = (set, get) => ({
 	competitionActivities: [],
 	competitionLevels: [],
 	isLoading: false,
+	alert: {
+		isActive: false,
+		type: "",
+		message: "",
+	},
 	getCompetitions: async () => {
 		try {
 			set(() => ({
 				isLoading: true,
 			}));
 			const res = await API.get(`${getCompetitions}`);
-			set({ competitions: res.data.data, isLoading: false });
-		} catch (err) {
 			set({
-				competitions: {
-					...get().competitions,
-					isLoading: false,
-					error: err,
+				competitions: res.data.data,
+				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Competition data has been successfully fetched",
 				},
 			});
-			console.log(err);
+		} catch (err) {
+			set({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			});
 		}
 	},
 	getOneCompetition: async (id) => {
@@ -221,16 +310,23 @@ const createCompetitionSlice = (set, get) => ({
 				isLoading: true,
 			}));
 			const res = await API.get(`${getOneCompetition}/${id}`);
-			set({ competition: res.data, isLoading: false });
-		} catch (err) {
 			set({
-				competitions: {
-					...get().competitions,
-					isLoading: false,
-					error: err,
+				competition: res.data,
+				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Competition data has been successfully fetched",
 				},
 			});
-			console.log(err);
+		} catch (err) {
+			set({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			});
 		}
 	},
 	addCompetition: async (data) => {
@@ -248,16 +344,20 @@ const createCompetitionSlice = (set, get) => ({
 			set((state) => ({
 				competitions: { competitions: res.data },
 				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Competition data has been successfully added",
+				},
 			}));
 		} catch (err) {
 			set({
-				competitions: {
-					...get().competitions,
-					isLoading: false,
-					error: err,
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
 				},
 			});
-			console.log(err);
 		}
 	},
 	getCompetitionActivities: async () => {
@@ -299,16 +399,20 @@ const createCompetitionSlice = (set, get) => ({
 					competition.id === data.id ? res.data : competition
 				),
 				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Competition data has been successfully updated",
+				},
 			}));
 		} catch (err) {
 			set({
-				competitions: {
-					...get().competitions,
-					isLoading: false,
-					error: err,
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
 				},
 			});
-			console.log(err);
 		}
 	},
 	deleteCompetition: async (id) => {
@@ -319,9 +423,20 @@ const createCompetitionSlice = (set, get) => ({
 			await API.delete(`${deleteCompetition}/${id}`);
 			set(() => ({
 				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Competition data has been successfully deleted",
+				},
 			}));
 		} catch (err) {
-			console.log(err);
+			set({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			});
 		}
 	},
 });
@@ -332,22 +447,34 @@ const createOrganizationSlice = (set, get) => ({
 	organizationActivities: [],
 	organizationLevels: [],
 	isLoading: false,
+	alert: {
+		isActive: false,
+		type: "",
+		message: "",
+	},
 	getOrganizations: async () => {
 		try {
 			set(() => ({
 				isLoading: true,
 			}));
 			const res = await API.get(`${getOrganizations}`);
-			set({ organizations: res.data.data, isLoading: false });
-		} catch (err) {
 			set({
-				organizations: {
-					...get().organizations,
-					isLoading: false,
-					error: err,
+				organizations: res.data.data,
+				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Organization data has been successfully fetched",
 				},
 			});
-			console.log(err);
+		} catch (err) {
+			set({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			});
 		}
 	},
 	getOneOrganization: async (id) => {
@@ -356,16 +483,23 @@ const createOrganizationSlice = (set, get) => ({
 				isLoading: true,
 			}));
 			const res = await API.get(`${getOneOrganization}/${id}`);
-			set({ organization: res.data, isLoading: false });
-		} catch (err) {
 			set({
-				organizations: {
-					...get().organizations,
-					isLoading: false,
-					error: err,
+				organization: res.data,
+				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Organization data has been successfully fetched",
 				},
 			});
-			console.log(err);
+		} catch (err) {
+			set({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			});
 		}
 	},
 	addOrganization: async (data) => {
@@ -383,16 +517,20 @@ const createOrganizationSlice = (set, get) => ({
 			set((state) => ({
 				organizations: { organizations: res.data },
 				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Organization data has been successfully added",
+				},
 			}));
 		} catch (err) {
 			set({
-				organizations: {
-					...get().organizations,
-					isLoading: false,
-					error: err,
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
 				},
 			});
-			console.log(err);
 		}
 	},
 	getOrganizationActivities: async () => {
@@ -434,16 +572,20 @@ const createOrganizationSlice = (set, get) => ({
 					organization.id === data.id ? res.data : organization
 				),
 				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Organization data has been successfully updated",
+				},
 			}));
 		} catch (err) {
 			set({
-				organizations: {
-					...get().organizations,
-					isLoading: false,
-					error: err,
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
 				},
 			});
-			console.log(err);
 		}
 	},
 	deleteOrganization: async (id) => {
@@ -462,7 +604,7 @@ const createOrganizationSlice = (set, get) => ({
 });
 
 const createCategorySlice = (set, get) => ({
-	category: "academic",
+	category: "",
 	addCategory: (category) => {
 		set((state) => ({
 			category: category,
@@ -492,7 +634,13 @@ const createAuthSlice = (set, get) => ({
 				},
 			}));
 		} catch (err) {
-			console.log(err);
+			set(() => ({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			}));
 		}
 	},
 	register: async (data) => {
@@ -519,15 +667,10 @@ const createAuthSlice = (set, get) => ({
 			}));
 		} catch (err) {
 			set({
-				user: {
-					...get().user,
-					isLoading: false,
-					error: err.response.data.message,
-					alert: {
-						isActive: true,
-						type: "error",
-						message: err.response.data.message,
-					},
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
 				},
 			});
 		}
@@ -590,22 +733,34 @@ const createAdminAcademicSlice = (set, get) => ({
 	adminAcademics: [],
 	adminAcademic: {},
 	isLoading: false,
+	alert: {
+		isActive: false,
+		type: "",
+		message: "",
+	},
 	getAdminAllAcademics: async () => {
 		try {
 			set(() => ({
 				isLoading: true,
 			}));
 			const res = await API.get(`${getAdminAllAcademics}`);
-			set({ adminAcademics: res.data.data, isLoading: false });
-		} catch (err) {
 			set({
-				adminAcademics: {
-					...get().adminAcademics,
-					isLoading: false,
-					error: err,
+				adminAcademics: res.data.data,
+				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Successfully fetched all academics",
 				},
 			});
-			console.log(err);
+		} catch (err) {
+			set(() => ({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			}));
 		}
 	},
 	getAdminOneAcademic: async (id) => {
@@ -614,16 +769,23 @@ const createAdminAcademicSlice = (set, get) => ({
 				isLoading: true,
 			}));
 			const res = await API.get(`${getAdminOneAcademic}/${id}`);
-			set({ adminAcademic: res.data, isLoading: false });
-		} catch (err) {
 			set({
-				adminAcademic: {
-					...get().adminAcademic,
-					isLoading: false,
-					error: err,
+				adminAcademic: res.data,
+				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Successfully fetched one academic",
 				},
 			});
-			console.log(err);
+		} catch (err) {
+			set(() => ({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			}));
 		}
 	},
 	updateAdminAcademic: async (data) => {
@@ -640,16 +802,20 @@ const createAdminAcademicSlice = (set, get) => ({
 					adminAcademic.id === data.id ? res.data : adminAcademic
 				),
 				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Successfully updated academic",
+				},
 			}));
 		} catch (err) {
-			set({
-				adminAcademics: {
-					...get().adminAcademics,
-					isLoading: false,
-					error: err,
+			set(() => ({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
 				},
-			});
-			console.log(err);
+			}));
 		}
 	},
 });
@@ -658,22 +824,34 @@ const createAdminCompetitionSlice = (set, get) => ({
 	adminCompetitions: [],
 	adminCompetition: {},
 	isLoading: false,
+	alert: {
+		isActive: false,
+		type: "",
+		message: "",
+	},
 	getAdminAllCompetitions: async () => {
 		try {
 			set(() => ({
 				isLoading: true,
 			}));
 			const res = await API.get(`${getAdminAllCompetitions}`);
-			set({ adminCompetitions: res.data.data, isLoading: false });
-		} catch (err) {
 			set({
-				adminCompetitions: {
-					...get().adminCompetitions,
-					isLoading: false,
-					error: err,
+				adminCompetitions: res.data.data,
+				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Successfully fetched all competitions",
 				},
 			});
-			console.log(err);
+		} catch (err) {
+			set(() => ({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			}));
 		}
 	},
 	getAdminOneCompetition: async (id) => {
@@ -682,16 +860,23 @@ const createAdminCompetitionSlice = (set, get) => ({
 				isLoading: true,
 			}));
 			const res = await API.get(`${getAdminOneCompetition}/${id}`);
-			set({ adminCompetition: res.data, isLoading: false });
-		} catch (err) {
 			set({
-				adminCompetition: {
-					...get().adminCompetition,
-					isLoading: false,
-					error: err,
+				adminCompetition: res.data,
+				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Successfully fetched one competition",
 				},
 			});
-			console.log(err);
+		} catch (err) {
+			set(() => ({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			}));
 		}
 	},
 	updateAdminCompetition: async (data) => {
@@ -708,16 +893,20 @@ const createAdminCompetitionSlice = (set, get) => ({
 					adminCompetition.id === data.id ? res.data : adminCompetition
 				),
 				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Successfully updated competition",
+				},
 			}));
 		} catch (err) {
-			set({
-				adminCompetitions: {
-					...get().adminCompetitions,
-					isLoading: false,
-					error: err,
+			set(() => ({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
 				},
-			});
-			console.log(err);
+			}));
 		}
 	},
 });
@@ -726,22 +915,34 @@ const createAdminOrganizationSlice = (set, get) => ({
 	adminOrganizations: [],
 	adminOrganization: {},
 	isLoading: false,
+	alert: {
+		isActive: false,
+		type: "",
+		message: "",
+	},
 	getAdminAllOrganizations: async () => {
 		try {
 			set(() => ({
 				isLoading: true,
 			}));
 			const res = await API.get(`${getAdminAllOrganizations}`);
-			set({ adminOrganizations: res.data.data, isLoading: false });
-		} catch (err) {
 			set({
-				adminOrganizations: {
-					...get().adminOrganizations,
-					isLoading: false,
-					error: err,
+				adminOrganizations: res.data.data,
+				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Successfully fetched all organizations",
 				},
 			});
-			console.log(err);
+		} catch (err) {
+			set(() => ({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			}));
 		}
 	},
 	getAdminOneOrganization: async (id) => {
@@ -750,16 +951,23 @@ const createAdminOrganizationSlice = (set, get) => ({
 				isLoading: true,
 			}));
 			const res = await API.get(`${getAdminOneOrganization}/${id}`);
-			set({ adminOrganization: res.data, isLoading: false });
-		} catch (err) {
 			set({
-				adminOrganization: {
-					...get().adminOrganization,
-					isLoading: false,
-					error: err,
+				adminOrganization: res.data,
+				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Successfully fetched one organization",
 				},
 			});
-			console.log(err);
+		} catch (err) {
+			set(() => ({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
+				},
+			}));
 		}
 	},
 	updateAdminOrganization: async (data) => {
@@ -776,16 +984,20 @@ const createAdminOrganizationSlice = (set, get) => ({
 					adminOrganization.id === data.id ? res.data : adminOrganization
 				),
 				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Successfully updated organization",
+				},
 			}));
 		} catch (err) {
-			set({
-				adminOrganizations: {
-					...get().adminOrganizations,
-					isLoading: false,
-					error: err,
+			set(() => ({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data.message,
 				},
-			});
-			console.log(err);
+			}));
 		}
 	},
 });

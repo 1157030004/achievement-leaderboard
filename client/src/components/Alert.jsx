@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useAuthStore } from "../store";
+import { useAuthStore, useStore } from "../store";
 
 const Alert = ({ type, message }) => {
 	const setAlert = useAuthStore((state) => state.setAlert);
+	const clearAlert = useStore((state) => state.setAlert);
 	const [isOpen, setIsOpen] = useState(true);
-
-	let TIME = (3000 - 500) / 1000 + "s";
 
 	useEffect(() => {
 		if (isOpen) {
 			setTimeout(() => {
 				setIsOpen(false);
 				setAlert();
+				clearAlert();
 			}, 3000);
 			return () => {
 				clearTimeout();

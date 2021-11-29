@@ -27,11 +27,11 @@ const AchievementDetail = () => {
 		if (state.category === "organization") {
 			getOneOrganization(params.id);
 		}
-	}, []);
+	}, [state.category]);
 
-	if (state.isLoading) {
-		return <Loading />;
-	}
+	// if (state.isLoading) {
+	// 	return <Loading />;
+	// }
 
 	return (
 		<>

@@ -4,10 +4,12 @@ import Helmet from "react-helmet";
 import Main from "../components/Main";
 import Header from "../components/Header";
 import Alert from "../components/Alert";
-import { useAuthStore } from "../store";
+import { useAuthStore, useStore } from "../store";
 
 const Layout = () => {
 	const state = useAuthStore((state) => state);
+	const alert = useStore((state) => state.alert);
+	console.log(alert.isActive);
 	return (
 		<Main>
 			<Helmet>
@@ -34,6 +36,9 @@ const Layout = () => {
 			<Outlet />
 			{state.alert.isActive ? (
 				<Alert type={state.alert.type} message={state.alert.message} />
+			) : null}
+			{alert.isActive ? (
+				<Alert type={alert.type} message={alert.message} />
 			) : null}
 		</Main>
 	);
