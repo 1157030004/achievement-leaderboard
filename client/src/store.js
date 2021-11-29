@@ -45,6 +45,9 @@ const createUserSlice = (set, get) => ({
 	isLoading: true,
 	getRank: async () => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${rank}`);
 			set({ rank: res.data, isLoading: false });
 		} catch (err) {
@@ -58,9 +61,12 @@ const createAcademicSlice = (set, get) => ({
 	academic: {},
 	academicActivities: [],
 	academicLevels: [],
-	isLoading: true,
+	isLoading: false,
 	getAcademics: async () => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getAcademics}`);
 			set({ academics: res.data.data, isLoading: false });
 		} catch (err) {
@@ -76,6 +82,9 @@ const createAcademicSlice = (set, get) => ({
 	},
 	getOneAcademic: async (id) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getOneAcademic}/${id}`);
 			set({ academic: res.data, isLoading: false });
 		} catch (err) {
@@ -91,6 +100,9 @@ const createAcademicSlice = (set, get) => ({
 	},
 	addAcademic: async (data) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.post(`${createAcademic}`, {
 				title: data.title,
 				activity: data.activity,
@@ -115,6 +127,9 @@ const createAcademicSlice = (set, get) => ({
 	},
 	getAcademicActivities: async () => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getAcademicActivities}`);
 			set({ academicActivities: res.data });
 		} catch (err) {
@@ -123,6 +138,9 @@ const createAcademicSlice = (set, get) => ({
 	},
 	getAcademicLevels: async () => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getAcademicLevels}`);
 			set({ academicLevels: res.data });
 		} catch (err) {
@@ -131,6 +149,9 @@ const createAcademicSlice = (set, get) => ({
 	},
 	updateAcademic: async (data) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.put(`${updateAcademic}/${data.id}`, {
 				title: data.title,
 				activity: data.activity,
@@ -157,8 +178,13 @@ const createAcademicSlice = (set, get) => ({
 	},
 	deleteAcademic: async (id) => {
 		try {
-			const res = await API.delete(`${deleteAcademic}/${id}`);
-			console.log(res);
+			set(() => ({
+				isLoading: true,
+			}));
+			await API.delete(`${deleteAcademic}/${id}`);
+			set(() => ({
+				isLoading: false,
+			}));
 		} catch (err) {
 			console.log(err);
 		}
@@ -170,9 +196,12 @@ const createCompetitionSlice = (set, get) => ({
 	competition: {},
 	competitionActivities: [],
 	competitionLevels: [],
-	isLoading: true,
+	isLoading: false,
 	getCompetitions: async () => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getCompetitions}`);
 			set({ competitions: res.data.data, isLoading: false });
 		} catch (err) {
@@ -188,6 +217,9 @@ const createCompetitionSlice = (set, get) => ({
 	},
 	getOneCompetition: async (id) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getOneCompetition}/${id}`);
 			set({ competition: res.data, isLoading: false });
 		} catch (err) {
@@ -202,8 +234,10 @@ const createCompetitionSlice = (set, get) => ({
 		}
 	},
 	addCompetition: async (data) => {
-		console.log(data);
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.post(`${createCompetition}`, {
 				title: data.title,
 				activity: data.activity,
@@ -227,6 +261,9 @@ const createCompetitionSlice = (set, get) => ({
 	},
 	getCompetitionActivities: async () => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getCompetitionActivities}`);
 			set({ competitionActivities: res.data });
 		} catch (err) {
@@ -235,6 +272,9 @@ const createCompetitionSlice = (set, get) => ({
 	},
 	getCompetitionLevels: async () => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getCompetitionLevels}`);
 			set({ competitionLevels: res.data });
 		} catch (err) {
@@ -243,6 +283,9 @@ const createCompetitionSlice = (set, get) => ({
 	},
 	updateCompetition: async (data) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.put(`${updateCompetition}/${data.id}`, {
 				title: data.title,
 				activity: data.activity,
@@ -269,8 +312,13 @@ const createCompetitionSlice = (set, get) => ({
 	},
 	deleteCompetition: async (id) => {
 		try {
-			const res = await API.delete(`${deleteCompetition}/${id}`);
-			console.log(res);
+			set(() => ({
+				isLoading: true,
+			}));
+			await API.delete(`${deleteCompetition}/${id}`);
+			set(() => ({
+				isLoading: false,
+			}));
 		} catch (err) {
 			console.log(err);
 		}
@@ -282,9 +330,12 @@ const createOrganizationSlice = (set, get) => ({
 	organization: {},
 	organizationActivities: [],
 	organizationLevels: [],
-	isLoading: true,
+	isLoading: false,
 	getOrganizations: async () => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getOrganizations}`);
 			set({ organizations: res.data.data, isLoading: false });
 		} catch (err) {
@@ -300,6 +351,9 @@ const createOrganizationSlice = (set, get) => ({
 	},
 	getOneOrganization: async (id) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getOneOrganization}/${id}`);
 			set({ organization: res.data, isLoading: false });
 		} catch (err) {
@@ -315,6 +369,9 @@ const createOrganizationSlice = (set, get) => ({
 	},
 	addOrganization: async (data) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.post(`${createOrganization}`, {
 				title: data.title,
 				activity: data.activity,
@@ -339,22 +396,31 @@ const createOrganizationSlice = (set, get) => ({
 	},
 	getOrganizationActivities: async () => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getOrganizationActivities}`);
-			set({ organizationActivities: res.data });
+			set({ organizationActivities: res.data, isLoading: false });
 		} catch (err) {
 			console.log(err);
 		}
 	},
 	getOrganizationLevels: async () => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getOrganizationLevels}`);
-			set({ organizationLevels: res.data });
+			set({ organizationLevels: res.data, isLoading: false });
 		} catch (err) {
 			console.log(err);
 		}
 	},
 	updateOrganization: async (data) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.put(`${updateOrganization}/${data.id}`, {
 				title: data.title,
 				activity: data.activity,
@@ -381,8 +447,13 @@ const createOrganizationSlice = (set, get) => ({
 	},
 	deleteOrganization: async (id) => {
 		try {
-			const res = await API.delete(`${deleteOrganization}/${id}`);
-			console.log(res);
+			set(() => ({
+				isLoading: true,
+			}));
+			await API.delete(`${deleteOrganization}/${id}`);
+			set(() => ({
+				isLoading: false,
+			}));
 		} catch (err) {
 			console.log(err);
 		}
@@ -404,7 +475,7 @@ const createAuthSlice = (set, get) => ({
 	},
 	isLoggedIn: false,
 	error: null,
-	isLoading: true,
+	isLoading: false,
 	alert: {
 		isActive: false,
 		type: "",
@@ -425,6 +496,9 @@ const createAuthSlice = (set, get) => ({
 	},
 	register: async (data) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.post(`${register}`, {
 				email: data.email,
 				name: data.name,
@@ -459,6 +533,9 @@ const createAuthSlice = (set, get) => ({
 	},
 	login: async (data) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.post(`${login}`, {
 				email: data.email,
 				password: data.password,
@@ -486,6 +563,7 @@ const createAuthSlice = (set, get) => ({
 	},
 	logout: async () => {
 		try {
+			localStorage.removeItem("token");
 			set(() => ({
 				user: {},
 				isLoggedIn: false,
@@ -513,6 +591,9 @@ const createAdminAcademicSlice = (set, get) => ({
 	isLoading: false,
 	getAdminAllAcademics: async () => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getAdminAllAcademics}`);
 			set({ adminAcademics: res.data.data, isLoading: false });
 		} catch (err) {
@@ -528,6 +609,9 @@ const createAdminAcademicSlice = (set, get) => ({
 	},
 	getAdminOneAcademic: async (id) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getAdminOneAcademic}/${id}`);
 			set({ adminAcademic: res.data, isLoading: false });
 		} catch (err) {
@@ -543,6 +627,9 @@ const createAdminAcademicSlice = (set, get) => ({
 	},
 	updateAdminAcademic: async (data) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.put(`${updateAdminAcademic}/${data.id}`, {
 				status: data.status,
 				score: data.score,
@@ -572,6 +659,9 @@ const createAdminCompetitionSlice = (set, get) => ({
 	isLoading: false,
 	getAdminAllCompetitions: async () => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getAdminAllCompetitions}`);
 			set({ adminCompetitions: res.data.data, isLoading: false });
 		} catch (err) {
@@ -587,6 +677,9 @@ const createAdminCompetitionSlice = (set, get) => ({
 	},
 	getAdminOneCompetition: async (id) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getAdminOneCompetition}/${id}`);
 			set({ adminCompetition: res.data, isLoading: false });
 		} catch (err) {
@@ -602,6 +695,9 @@ const createAdminCompetitionSlice = (set, get) => ({
 	},
 	updateAdminCompetition: async (data) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.put(`${updateAdminCompetition}/${data.id}`, {
 				status: data.status,
 				score: data.score,
@@ -631,6 +727,9 @@ const createAdminOrganizationSlice = (set, get) => ({
 	isLoading: false,
 	getAdminAllOrganizations: async () => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getAdminAllOrganizations}`);
 			set({ adminOrganizations: res.data.data, isLoading: false });
 		} catch (err) {
@@ -646,6 +745,9 @@ const createAdminOrganizationSlice = (set, get) => ({
 	},
 	getAdminOneOrganization: async (id) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getAdminOneOrganization}/${id}`);
 			set({ adminOrganization: res.data, isLoading: false });
 		} catch (err) {
@@ -661,6 +763,9 @@ const createAdminOrganizationSlice = (set, get) => ({
 	},
 	updateAdminOrganization: async (data) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.put(`${updateAdminOrganization}/${data.id}`, {
 				status: data.status,
 				score: data.score,
