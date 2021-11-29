@@ -1,7 +1,8 @@
 import React from "react";
 import Select from "react-select";
 
-const FormSearchSelect = ({ value, handleChange, options }) => {
+const FormSearchSelect = (props) => {
+	const { label, errorMessage, onChange, id, ...itemProps } = props;
 	const customStyles = {
 		menu: (provided, state) => ({
 			...provided,
@@ -30,11 +31,10 @@ const FormSearchSelect = ({ value, handleChange, options }) => {
 				<span className="label-text">Perguruan Tinggi</span>
 			</label>
 			<Select
+				{...itemProps}
 				className=" w-full h-12 rounded-full p-0"
 				styles={customStyles}
-				value={value}
-				onChange={handleChange}
-				options={options}
+				onChange={onChange}
 			/>
 		</>
 	);

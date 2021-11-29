@@ -1,19 +1,13 @@
 import React, { useState } from "react";
 
-const FormInput = ({ type, name, value, label, placeholder, onChange }) => {
+const FormInput = (props) => {
+	const { label, errorMessage, onChange, id, ...itemProps } = props;
 	return (
 		<>
-			<label className="label mt-2">
-				<span className="label-text">{label}</span>
-			</label>
-			<input
-				type={type}
-				name={name}
-				value={value}
-				placeholder={placeholder}
-				className="input"
-				onChange={onChange}
-			/>
+			<span className="label label-text" for="input-field">
+				{label}
+			</span>
+			<input {...itemProps} className="input" onChange={onChange} />
 		</>
 	);
 };

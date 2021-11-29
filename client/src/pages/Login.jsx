@@ -2,21 +2,26 @@ import React from "react";
 import AuthForm from "../modules/AuthForm";
 
 const Login = () => {
-	const data = {
-		type: "login",
-		title: "Halaman Login",
-		emailLabel: {
-			label: "Email",
+	const data = [
+		{
+			id: 1,
 			name: "email",
+			type: "text",
 			placeholder: "email@email.com",
+			errorMessage: "Please enter a valid email address",
+			label: "Email",
+			required: true,
 		},
-		passwordLabel: {
-			label: "Password",
+		{
+			id: 2,
 			name: "password",
+			type: "password",
 			placeholder: "password",
+			errorMessage: "Please enter a strong password",
+			label: "Password",
+			required: true,
 		},
-		buttonLabel: "Login",
-	};
+	];
 	return (
 		<>
 			<AuthForm data={data} />

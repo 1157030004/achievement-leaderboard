@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router";
 import FormInput from "../components/FormInput";
 import FormSearchSelect from "../components/FormSearchSelect";
 import Loading from "../components/Loading";
 import { useStore, useAuthStore } from "../store";
 
 const AuthForm = ({ data }) => {
+	const location = useLocation();
 	const state = useAuthStore((state) => state);
 	const login = useAuthStore((state) => state.login);
 	const register = useAuthStore((state) => state.register);
@@ -19,7 +21,7 @@ const AuthForm = ({ data }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (data.type === "login") {
+		if (location.pathname === "/login") {
 			login(inputs);
 		} else {
 			inputs.campus = selected.label;
@@ -31,56 +33,27 @@ const AuthForm = ({ data }) => {
 			<div className=" mt-5 p-10 card bg-base-200">
 				<h1 className="text-center font-extrabold">{data.title}</h1>
 				<form className="form-control" onSubmit={handleSubmit}>
-					{data.type === "login" ? (
+					{data.map((item) => (
 						<>
-							<FormInput
-								type="email"
-								name="email"
-								label="Email"
-								placeholder="email@email.com"
-								onChange={handleChange}
-							/>
+							{item.type != "select" && (
+								<FormInput
+									key={item.id}
+									{...item}
+									value={inputs[item.name]}
+									onChange={handleChange}
+								/>
+							)}
 
-							<FormInput
-								type="password"
-								name="password"
-								label="Password"
-								placeholder="********"
-								onChange={handleChange}
-							/>
-							<button className="btn btn-primary mt-4">Login</button>
+							{item.type === "select" && (
+								<FormSearchSelect
+									options={item.options}
+									value={selected}
+									onChange={setSelected}
+								/>
+							)}
 						</>
-					) : (
-						<>
-							<FormInput
-								type="email"
-								name="email"
-								label="Email"
-								placeholder="email@email.com"
-								onChange={handleChange}
-							/>
-							<FormInput
-								type="text"
-								name="name"
-								label="Nama Lengkap"
-								placeholder="Shadee Arqhifa"
-								onChange={handleChange}
-							/>
-							<FormSearchSelect
-								value={selected}
-								handleChange={setSelected}
-								options={data.options}
-							/>
-							<FormInput
-								type="password"
-								name="password"
-								label="Kata Sandi"
-								placeholder="Bukan 1234, tanggal lahir, dan nama ortu kan?"
-								onChange={handleChange}
-							/>
-							<button className="btn btn-primary mt-4">Register</button>
-						</>
-					)}
+					))}
+					<button className="btn btn-primary mt-4">Submit</button>
 				</form>
 			</div>
 		</>

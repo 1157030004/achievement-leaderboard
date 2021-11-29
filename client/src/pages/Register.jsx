@@ -2,49 +2,59 @@ import React from "react";
 import AuthForm from "../modules/AuthForm";
 
 const Register = () => {
-	const data = {
-		type: "register",
-		title: "Halaman Registrasi",
-		emailLabel: {
-			label: "Email",
+	const data = [
+		{
+			id: 1,
 			name: "email",
+			type: "email",
 			placeholder: "email@email.com",
+			errorMessage: "Please enter a valid email address",
+			label: "Email",
+			required: true,
 		},
-		nameLabel: {
-			label: "Nama Lengkap",
+		{
+			id: 2,
 			name: "name",
-			placeholder: "Shadee Arqhifa",
+			type: "text",
+			placeholder: "Sha Dee",
+			errorMessage: "Please enter your name",
+			label: "Name",
+			required: true,
 		},
-		campusLabel: {
-			label: "Perguruan Tinggi",
+		{
+			id: 3,
 			name: "campus",
+			type: "select",
+			placeholder: "Campus",
+			errorMessage: "Please enter your campus",
+			label: "Campus",
+			options: [
+				{
+					value: "1",
+					label: "Institut Teknologi Bandung",
+				},
+				{
+					value: "2",
+					label: "Institut Teknologi Sepuluh Nopember",
+				},
+				{
+					value: "3",
+					label: "Universitas Pendidikan Indonesia",
+				},
+			],
+			required: true,
 		},
-		gpaLabel: {
-			label: "IPK",
-			name: "gpa",
-			placeholder: "3.00",
-		},
-		passwordLabel: {
-			label: "Password",
+		{
+			id: 4,
 			name: "password",
+			type: "password",
 			placeholder: "password",
+			errorMessage: "Please enter a strong password",
+			label: "Password",
+			required: true,
 		},
-		buttonLabel: "Daftar",
-		options: [
-			{
-				value: "1",
-				label: "Institut Teknologi Bandung",
-			},
-			{
-				value: "2",
-				label: "Institut Teknologi Sepuluh Nopember",
-			},
-			{
-				value: "3",
-				label: "Universitas Pendidikan Indonesia",
-			},
-		],
-	};
+	];
+
 	return (
 		<>
 			<AuthForm data={data} />
