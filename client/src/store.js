@@ -76,11 +76,6 @@ const createUserSlice = (set, get) => ({
 			set({
 				rank: res.data,
 				isLoading: false,
-				alert: {
-					isActive: true,
-					type: "success",
-					message: "Successfully fetched rank",
-				},
 			});
 		} catch (err) {
 			set(() => ({

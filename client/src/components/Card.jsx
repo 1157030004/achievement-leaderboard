@@ -65,7 +65,7 @@ const Card = ({ id, title, activity, level, score, status, proof, tab }) => {
 						) : status === "Approved" ? (
 							<span className=" bg-success p-1 rounded-lg">{status}</span>
 						) : status === "Rejected" ? (
-							<span className="bg-danger p-1 rounded-lg">{status}</span>
+							<span className="bg-error p-1 rounded-lg">{status}</span>
 						) : null}
 					</div>
 
