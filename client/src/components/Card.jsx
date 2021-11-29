@@ -60,11 +60,13 @@ const Card = ({ id, title, activity, level, score, status, proof, tab }) => {
 						</div>
 					</div>
 					<div className="flex items-center text-primary-content text-2xs lg:text-xs absolute right-8 top-1">
-						{status === "Pending" ? (
-							<span className="bg-accent p-1 rounded-lg">{status}</span>
-						) : (
-							<span className="bg-secondary p-1 rounded-lg">{status}</span>
-						)}
+						{status === "Reviewed" ? (
+							<span className="bg-info p-1 rounded-lg">{status}</span>
+						) : status === "Approved" ? (
+							<span className=" bg-success p-1 rounded-lg">{status}</span>
+						) : status === "Rejected" ? (
+							<span className="bg-danger p-1 rounded-lg">{status}</span>
+						) : null}
 					</div>
 
 					<div className="flex justify-end">

@@ -49,8 +49,9 @@ const AdminAcademicForm = ({ source }) => {
 							className="select w-full"
 							onChange={handleChange}>
 							<option value="Pilih">Pilih</option>
-							<option value="Pending">Pending</option>
 							<option value="Reviewed">Reviewed</option>
+							<option value="Rejected">Rejected</option>
+							<option value="Approved">Approved</option>
 						</select>
 						<label className="label mt-2 font-bold">
 							<span className="label-text">Status</span>

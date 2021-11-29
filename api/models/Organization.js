@@ -18,7 +18,7 @@ const OrganizationSchema = new Schema(
 			type: Number,
 			default: 0,
 		},
-		status: { type: String, default: "Pending" },
+		status: { type: String, default: "Reviewed" },
 		owner: {
 			type: Schema.Types.ObjectId,
 			ref: "User",
