@@ -399,6 +399,9 @@ const createCategorySlice = (set, get) => ({
 });
 
 const createAuthSlice = (set, get) => ({
+	user: {
+		isAdmin: false,
+	},
 	isLoggedIn: false,
 	error: null,
 	isLoading: true,
