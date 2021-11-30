@@ -184,24 +184,30 @@ const createAcademicSlice = (set, get) => ({
 	},
 	getAcademicActivities: async () => {
 		try {
-			set(() => ({
-				isLoading: true,
-			}));
 			const res = await API.get(`${getAcademicActivities}`);
 			set({ academicActivities: res.data });
 		} catch (err) {
-			console.log(err);
+			set({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data,
+				},
+			});
 		}
 	},
 	getAcademicLevels: async () => {
 		try {
-			set(() => ({
-				isLoading: true,
-			}));
 			const res = await API.get(`${getAcademicLevels}`);
 			set({ academicLevels: res.data });
 		} catch (err) {
-			console.log(err);
+			set({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data,
+				},
+			});
 		}
 	},
 	updateAcademic: async (data) => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const FormSelect = ({ name, value, label, onChange, options }) => {
+const FormSelect = ({ name, defaultValue, label, onChange, options }) => {
 	return (
 		<div className="flex flex-col w-full mt-2 mx-1 md:mx-0 justify-between">
 			<label className="label text-left">
@@ -9,7 +9,7 @@ const FormSelect = ({ name, value, label, onChange, options }) => {
 			<select
 				name={name}
 				className="select  w-full max-w-xs"
-				value={value}
+				value={defaultValue}
 				onChange={onChange}>
 				<option value="Pilih">Pilih</option>
 				{options.map((option, index) => {
