@@ -14,7 +14,7 @@ const NoAchievement = () => {
 					Galeri prestasimu masih kosong
 				</h1>
 				<h2 className="text-sm md:text-xl font-normal">
-					Tekan tombol hijau di kanan atas untuk menambahkan prestasi
+					Tekan tombol di kanan atas untuk menambahkan prestasi
 				</h2>
 			</div>
 		</div>

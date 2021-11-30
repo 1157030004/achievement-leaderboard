@@ -15,7 +15,9 @@ const Modal = ({ children }) => {
 				<div className="modal-box">
 					<FormCategory />
 					<div className="modal-action">
-						<label htmlFor="my-modal-2" className="btn btn-xs capitalize">
+						<label
+							htmlFor="my-modal-2"
+							className="btn btn-xs bg-secondary border-none capitalize">
 							Tutup
 						</label>
 					</div>

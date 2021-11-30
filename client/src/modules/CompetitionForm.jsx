@@ -145,13 +145,17 @@ const CompetitionForm = ({ source }) => {
 				</div>
 
 				{uploaded > 0 ? (
-					<button className="btn btn-primary mt-4">Submit</button>
+					<button className="btn btn-primary mt-4 capitalize">Submit</button>
 				) : file ? (
-					<button className="btn btn-secondary mt-4" onClick={handleUpload}>
+					<button
+						className="btn btn-secondary mt-4 capitalize"
+						onClick={handleUpload}>
 						Upload Bukti
 					</button>
 				) : (
-					<button className="btn btn-disabled mt-4" onClick={handleUpload}>
+					<button
+						className="btn btn-disabled mt-4 capitalize"
+						onClick={handleUpload}>
 						Upload Bukti
 					</button>
 				)}

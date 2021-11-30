@@ -28,6 +28,7 @@ const AuthForm = ({ data }) => {
 			register(inputs, () => navigate("/login"));
 		}
 	};
+
 	return (
 		<>
 			<div className=" mt-5 p-10 card bg-base-200">
@@ -46,6 +47,8 @@ const AuthForm = ({ data }) => {
 
 							{item.type === "select" && (
 								<FormSearchSelect
+									key={item.id}
+									{...item}
 									options={item.options}
 									value={selected}
 									onChange={setSelected}
@@ -53,7 +56,7 @@ const AuthForm = ({ data }) => {
 							)}
 						</>
 					))}
-					<button className="btn btn-primary mt-4">Submit</button>
+					<button className="btn btn-primary mt-4 capitalize">Submit</button>
 				</form>
 			</div>
 		</>

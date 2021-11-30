@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Helmet from "react-helmet";
 import WallOfAchivement from "../modules/WallOfAchivement";
 import { useStore } from "../store";
@@ -16,15 +16,21 @@ const Achievements = () => {
 	const getOrganizations = useStore((state) => state.getOrganizations);
 	const addCategory = useStore((state) => state.addCategory);
 
+	const [data, setData] = useState([]);
+
 	useEffect(() => {
 		if (state.category === "academic") {
 			getAcademics();
+			setData(academics);
 		} else if (state.category === "competition") {
 			getCompetitions();
+			setData(competitions);
 		} else {
 			getOrganizations();
+			setData(organizations);
 		}
-	}, [state.category]);
+	}, [state.category, academics.length]);
+	console.log(academics);
 
 	const handleChange = (e) => {
 		addCategory(e.target.name);

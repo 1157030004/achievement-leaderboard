@@ -33,7 +33,9 @@ const FormCategory = () => {
 					<div className="item m-1" key={index}>
 						<div className="card">
 							<div className="card-body text-center">
-								<h5 className="card-title text-sm font-bold">{item.name}</h5>
+								<h5 className="card-title text-sm font-bold capitalize">
+									{item.name}
+								</h5>
 								<button
 									className="btn btn-xs btn-primary rounded-lg capitalize"
 									onClick={() => handleClick(item.name)}>

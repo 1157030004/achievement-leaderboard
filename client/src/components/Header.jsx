@@ -20,10 +20,20 @@ const Header = () => {
 	const handleLogout = () => {
 		logout();
 	};
+
+	const style = {
+		icon: "#2DA5D8",
+	};
+
 	return (
 		<div className="navbar mb-2">
-			<Link to="/" className="flex-1 px-2 mx-2 rounded-md cursor-pointer">
-				<Rank size="32" color="#70abc7" variant="Outline" />
+			<Link to="/" className="flex-1 px-2 mx-2  rounded-md cursor-pointer">
+				<Rank
+					className="bg-primary rounded-md p-1 mr-1"
+					size="32"
+					color="#ffff"
+					variant="Bold"
+				/>
 				<span className="text-lg font-bold">Leaderboard</span>
 			</Link>
 			<div className="flex-none hidden px-2 mx-2 lg:flex ">
@@ -31,15 +41,15 @@ const Header = () => {
 					<div className="flex items-stretch">
 						{isAdmin ? (
 							<Link to="/admin" className="btn btn-ghost btn-sm rounded-btn">
-								<Briefcase size="15" color="#70abc7" variant="Outline" />
-								<span className="pl-2 text-xs">Panel Admin</span>
+								<Briefcase size="15" color={style.icon} variant="Outline" />
+								<span className="pl-2 text-xs capitalize">Panel Admin</span>
 							</Link>
 						) : (
 							<Link
 								to="/achievements"
 								className="btn btn-ghost btn-sm rounded-btn">
-								<Briefcase size="15" color="#70abc7" variant="Outline" />
-								<span className="pl-2 text-xs">Achievements</span>
+								<Briefcase size="15" color={style.icon} variant="Outline" />
+								<span className="pl-2 text-xs capitalize">Achievements</span>
 							</Link>
 						)}
 
@@ -47,19 +57,19 @@ const Header = () => {
 							to="/login"
 							className="btn btn-ghost btn-sm rounded-btn"
 							onClick={handleLogout}>
-							<LogoutCurve size="15" color="#70abc7" variant="Outline" />
-							<span className="pl-2 text-xs">Logout</span>
+							<LogoutCurve size="15" color={style.icon} variant="Outline" />
+							<span className="pl-2 text-xs capitalize">Logout</span>
 						</Link>
 					</div>
 				) : (
 					<div className="flex items-stretch">
 						<Link to="/login" className="btn btn-ghost btn-sm rounded-btn">
-							<LoginCurve size="15" color="#70abc7" variant="Outline" />
-							<span className="pl-2 text-xs">Login</span>
+							<LoginCurve size="15" color={style.icon} variant="Outline" />
+							<span className="pl-2 text-xs capitalize">Login</span>
 						</Link>
 						<Link to="/register" className="btn btn-ghost btn-sm rounded-btn">
-							<UserCirlceAdd size="15" color="#70abc7" variant="Outline" />
-							<span className="pl-2 text-xs">Register</span>
+							<UserCirlceAdd size="15" color={style.icon} variant="Outline" />
+							<span className="pl-2 text-xs capitalize">Register</span>
 						</Link>
 					</div>
 				)}

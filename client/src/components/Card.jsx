@@ -71,12 +71,12 @@ const Card = ({ id, title, activity, level, score, status, proof, tab }) => {
 
 					<div className="flex justify-end">
 						<button
-							className="btn btn-sm btn-accent mx-2 rounded-lg"
+							className="btn btn-sm btn-secondary mx-2 rounded-lg"
 							onClick={handleClick}>
 							<Edit size="14" variant="Outline" color="white" />
 						</button>
 						<button
-							className="btn btn-sm btn-accent rounded-lg"
+							className="btn btn-sm btn-secondary rounded-lg"
 							onClick={handleDelete}>
 							<Trash size="14" variant="Outline" color="white" />
 						</button>

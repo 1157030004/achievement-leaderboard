@@ -5,14 +5,12 @@ const User = require("../models/User");
 
 //!Update Academic
 router.put("/:id", verify, async (req, res) => {
-	const { score, status } = req.body;
 	if (req.user.isAdmin) {
 		try {
 			const updateAcademic = await Academic.findByIdAndUpdate(
 				req.params.id,
 				{
-					status,
-					score,
+					$set: req.body,
 				},
 				{
 					new: true,
