@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import FormInput from "../components/FormInput";
 import FormSearchSelect from "../components/FormSearchSelect";
 import Loading from "../components/Loading";
 import { useStore, useAuthStore } from "../store";
 
 const AuthForm = ({ data }) => {
+	const navigate = useNavigate();
 	const location = useLocation();
-	const state = useAuthStore((state) => state);
 	const login = useAuthStore((state) => state.login);
 	const register = useAuthStore((state) => state.register);
 	const [selected, setSelected] = useState(null);
@@ -25,7 +25,7 @@ const AuthForm = ({ data }) => {
 			login(inputs);
 		} else {
 			inputs.campus = selected.label;
-			register(inputs);
+			register(inputs, () => navigate("/login"));
 		}
 	};
 	return (

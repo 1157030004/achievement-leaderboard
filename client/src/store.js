@@ -638,7 +638,7 @@ const createAuthSlice = (set, get) => ({
 			}));
 		}
 	},
-	register: async (data) => {
+	register: async (data, callback) => {
 		try {
 			set(() => ({
 				isLoading: true,
@@ -649,10 +649,10 @@ const createAuthSlice = (set, get) => ({
 				campus: data.campus,
 				password: data.password,
 			});
+			console.log(res.data);
 			localStorage.setItem("token", res.data.token);
 			set((state) => ({
 				user: res.data,
-				isLoggedIn: true,
 				isLoading: false,
 				alert: {
 					isActive: true,
@@ -660,6 +660,7 @@ const createAuthSlice = (set, get) => ({
 					message: "Successfully registered",
 				},
 			}));
+			callback();
 		} catch (err) {
 			set({
 				alert: {
