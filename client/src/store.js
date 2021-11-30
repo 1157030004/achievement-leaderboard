@@ -363,24 +363,30 @@ const createCompetitionSlice = (set, get) => ({
 	},
 	getCompetitionActivities: async () => {
 		try {
-			set(() => ({
-				isLoading: true,
-			}));
 			const res = await API.get(`${getCompetitionActivities}`);
 			set({ competitionActivities: res.data });
 		} catch (err) {
-			console.log(err);
+			set({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data,
+				},
+			});
 		}
 	},
 	getCompetitionLevels: async () => {
 		try {
-			set(() => ({
-				isLoading: true,
-			}));
 			const res = await API.get(`${getCompetitionLevels}`);
 			set({ competitionLevels: res.data });
 		} catch (err) {
-			console.log(err);
+			set({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data,
+				},
+			});
 		}
 	},
 	updateCompetition: async (data) => {
@@ -536,24 +542,30 @@ const createOrganizationSlice = (set, get) => ({
 	},
 	getOrganizationActivities: async () => {
 		try {
-			set(() => ({
-				isLoading: true,
-			}));
 			const res = await API.get(`${getOrganizationActivities}`);
-			set({ organizationActivities: res.data, isLoading: false });
+			set({ organizationActivities: res.data });
 		} catch (err) {
-			console.log(err);
+			set({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data,
+				},
+			});
 		}
 	},
 	getOrganizationLevels: async () => {
 		try {
-			set(() => ({
-				isLoading: true,
-			}));
 			const res = await API.get(`${getOrganizationLevels}`);
-			set({ organizationLevels: res.data, isLoading: false });
+			set({ organizationLevels: res.data });
 		} catch (err) {
-			console.log(err);
+			set({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data,
+				},
+			});
 		}
 	},
 	updateOrganization: async (data) => {
@@ -949,13 +961,9 @@ const createAdminOrganizationSlice = (set, get) => ({
 	},
 	getAdminOneOrganization: async (id) => {
 		try {
-			set(() => ({
-				isLoading: true,
-			}));
 			const res = await API.get(`${getAdminOneOrganization}/${id}`);
 			set({
 				adminOrganization: res.data,
-				isLoading: false,
 				alert: {
 					isActive: true,
 					type: "success",

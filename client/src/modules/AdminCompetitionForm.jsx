@@ -1,24 +1,58 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import InputLabel from "../components/InputLabel";
 import { useStore } from "../store";
+import InputLabel from "../components/InputLabel";
+import FormSelect from "../components/FormSelect";
 
 const AdminCompetitionForm = ({ source }) => {
+	const { title, activity, level, score, status, proof } = source;
+
 	const navigate = useNavigate();
 	const params = useParams();
+	const competitionActivities = useStore(
+		(state) => state.competitionActivities
+	);
+	const competitionLevels = useStore((state) => state.competitionLevels);
+	const getCompetitionActivities = useStore(
+		(state) => state.getCompetitionActivities
+	);
+	const getCompetitionLevels = useStore((state) => state.getCompetitionLevels);
 	const updateAdminCompetition = useStore(
 		(state) => state.updateAdminCompetition
 	);
-	const [inputs, setInputs] = useState({});
+	const [inputs, setInputs] = useState({
+		title,
+		activity,
+		level,
+		score,
+		status,
+	});
+	const [data, setData] = useState([]);
 
-	const { title, activity, level, score, status, proof } = source;
+	const activityOptions = competitionActivities.map((item) => item.activity);
+	const activityMatch = competitionLevels.map((item) => item.activity);
+	let index;
+
+	useEffect(() => {
+		getCompetitionActivities();
+		getCompetitionLevels();
+		index = activityMatch.lastIndexOf(inputs.activity);
+		setData(competitionLevels[index].level);
+	}, []);
 
 	const handleChange = (e) => {
 		setInputs({
 			...inputs,
 			[e.target.name]: e.target.value,
 		});
+
+		if (e.target.name == "activity") {
+			index = activityMatch.lastIndexOf(e.target.value);
+			setData(competitionLevels[index].level);
+		}
 	};
+
+	const levelOptions = data.map((item) => item.name);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -33,8 +67,7 @@ const AdminCompetitionForm = ({ source }) => {
 				<div className="flex flex-col lg:flex-row justify-between">
 					<div className="flex flex-col">
 						<InputLabel label="Title" value={title} />
-						<InputLabel label="Activity" value={activity} />
-						<InputLabel label="Level" value={level} />
+
 						<label className="label mt-2 font-bold block md:hidden">
 							<span className="label-text">Bukti</span>
 						</label>
@@ -43,12 +76,29 @@ const AdminCompetitionForm = ({ source }) => {
 							src={proof}
 							alt=""
 						/>
+
+						<FormSelect
+							name="activity"
+							label="Kategori Pencapaian"
+							defaultValue={inputs.activity}
+							onChange={handleChange}
+							options={activityOptions}
+						/>
+
+						<FormSelect
+							name="level"
+							label="Skala Pencapaian"
+							defaultValue={inputs.level}
+							onChange={handleChange}
+							options={levelOptions}
+						/>
 						<label className="label mt-2 font-bold">
 							<span className="label-text">Status</span>
 						</label>
 						<select
 							name="status"
 							className="select w-full"
+							value={inputs.status}
 							onChange={handleChange}>
 							<option value="Pilih">Pilih</option>
 							<option value="Reviewed">Reviewed</option>
@@ -56,7 +106,7 @@ const AdminCompetitionForm = ({ source }) => {
 							<option value="Approved">Approved</option>
 						</select>
 						<label className="label mt-2 font-bold">
-							<span className="label-text">Status</span>
+							<span className="label-text">Score</span>
 						</label>
 						<input
 							type="number"

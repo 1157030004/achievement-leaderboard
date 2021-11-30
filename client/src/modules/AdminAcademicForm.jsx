@@ -56,7 +56,6 @@ const AdminAcademicForm = ({ source }) => {
 		updateAdminAcademic(inputs);
 		navigate("/admin");
 	};
-	console.log(inputs.level);
 	return (
 		<div className="mt-5 p-10 card bg-base-200">
 			<form className="form-control" onSubmit={handleSubmit}>
