@@ -1,25 +1,40 @@
 import React, { useState } from "react";
 
-const FormSelect = ({ name, defaultValue, label, onChange, options }) => {
+const FormSelect = ({
+	name,
+	defaultValue,
+	label,
+	onChange,
+	options,
+	disabled,
+	onClick,
+}) => {
 	return (
-		<div className="flex flex-col w-full mt-2 mx-1 md:mx-0 justify-between">
-			<label className="label text-left">
-				<span className="label-text">{label}</span>
-			</label>
-			<select
-				name={name}
-				className="select  w-full max-w-xs"
-				value={defaultValue}
-				onChange={onChange}>
-				<option value="Pilih">Pilih</option>
-				{options.map((option, index) => {
-					return (
-						<option key={index} value={option}>
-							{option}
-						</option>
-					);
-				})}
-			</select>
+		<div className="flex flex-col w-full justify-between">
+			<label className="mt-2 font-bold text-xs">{label}</label>
+			<div className="flex  items-center">
+				<select
+					name={name}
+					className="select w-3/4 lg:w-full max-w-xs  mr-2"
+					value={defaultValue}
+					onChange={onChange}
+					disabled={disabled}>
+					<option value="Pilih">Pilih</option>
+					{options.map((option, index) => {
+						return (
+							<option key={index} value={option}>
+								{option}
+							</option>
+						);
+					})}
+				</select>
+				<input
+					type="checkbox"
+					name={name}
+					onClick={onClick}
+					class="checkbox checkbox-xs checkbox-secondary"
+				/>
+			</div>
 		</div>
 	);
 };

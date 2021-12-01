@@ -77,43 +77,38 @@ const Table = ({ source }) => {
 		gridApi.exportDataAsCsv();
 	};
 
+	if (state.loading) {
+		return <Loading />;
+	}
+
 	return (
 		<div className="ag-theme-alpine h-96" style={{ width: "100%" }}>
-			{state.isLoading ? (
-				<Loading />
-			) : (
-				<>
-					{isAdmin ? (
-						<div className="my-2">
-							<button
-								className="btn btn-primary btn-sm px-4 py-2 d hover:pointer"
-								onClick={() => onBtnExport()}>
-								Export to Csv
-							</button>
-						</div>
-					) : null}
-					<AgGridReact
-						domLayout={"autoHeight"}
-						rowData={rank.data}
-						columnDefs={columnDefs}
-						pagination={true}
-						paginationPageSize={10}
-						onGridReady={onGridReady}>
-						<AgGridColumn field="name" headerName="Name" />
-						<AgGridColumn field="academicScore" headerName="Academic Score" />
-						<AgGridColumn
-							field="competitionScore"
-							headerName="Competition Score"
-						/>
-						<AgGridColumn
-							field="organizationScore"
-							headerName="Organization Score"
-						/>
+			{isAdmin ? (
+				<div className="my-2">
+					<button
+						className="btn btn-primary btn-sm px-4 py-2 d hover:pointer"
+						onClick={() => onBtnExport()}>
+						Export to Csv
+					</button>
+				</div>
+			) : null}
+			<AgGridReact
+				domLayout={"autoHeight"}
+				rowData={rank.data}
+				columnDefs={columnDefs}
+				pagination={true}
+				paginationPageSize={10}
+				onGridReady={onGridReady}>
+				<AgGridColumn field="name" headerName="Name" />
+				<AgGridColumn field="academicScore" headerName="Academic Score" />
+				<AgGridColumn field="competitionScore" headerName="Competition Score" />
+				<AgGridColumn
+					field="organizationScore"
+					headerName="Organization Score"
+				/>
 
-						<AgGridColumn field="totalScore" headerName="Total Score" />
-					</AgGridReact>
-				</>
-			)}
+				<AgGridColumn field="totalScore" headerName="Total Score" />
+			</AgGridReact>
 		</div>
 	);
 };

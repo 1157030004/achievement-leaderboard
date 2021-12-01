@@ -961,9 +961,13 @@ const createAdminOrganizationSlice = (set, get) => ({
 	},
 	getAdminOneOrganization: async (id) => {
 		try {
+			set(() => ({
+				isLoading: true,
+			}));
 			const res = await API.get(`${getAdminOneOrganization}/${id}`);
 			set({
 				adminOrganization: res.data,
+				isLoading: false,
 				alert: {
 					isActive: true,
 					type: "success",
@@ -972,6 +976,7 @@ const createAdminOrganizationSlice = (set, get) => ({
 			});
 		} catch (err) {
 			set(() => ({
+				isLoading: false,
 				alert: {
 					isActive: true,
 					type: "error",

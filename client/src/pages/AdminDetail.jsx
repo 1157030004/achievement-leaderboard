@@ -20,6 +20,18 @@ const AdminDetail = () => {
 	const getAdminOneOrganization = useStore(
 		(state) => state.getAdminOneOrganization
 	);
+	const organizationActivities = useStore(
+		(state) => state.organizationActivities
+	);
+	const organizationLevels = useStore((state) => state.organizationLevels);
+	const getOrganizationActivities = useStore(
+		(state) => state.getOrganizationActivities
+	);
+	const getOrganizationLevels = useStore(
+		(state) => state.getOrganizationLevels
+	);
+
+	const statusCategory = ["Pilih", "Reviewed", "Approved", "Rejected"];
 
 	useEffect(() => {
 		if (state.category === "academic") {
@@ -28,6 +40,8 @@ const AdminDetail = () => {
 			getAdminOneCompetition(params.id);
 		} else {
 			getAdminOneOrganization(params.id);
+			getOrganizationActivities();
+			getOrganizationLevels();
 		}
 	}, []);
 
@@ -37,7 +51,7 @@ const AdminDetail = () => {
 
 	return (
 		<>
-			<Helmet>
+			{/* <Helmet>
 				<title>Admin Leaderboard Aktivis Salman - Detail Prestasi</title>
 				<meta
 					name="description"
@@ -49,8 +63,13 @@ const AdminDetail = () => {
 			) : state.category === "competition" ? (
 				<AdminCompetitionForm source={adminCompetition} />
 			) : (
-				<AdminOrganizationForm source={adminOrganization} />
-			)}
+				<AdminOrganizationForm
+					source={adminOrganization}
+					activities={organizationActivities}
+					levels={organizationLevels}
+					statusCategory={statusCategory}
+				/>
+			)} */}
 		</>
 	);
 };

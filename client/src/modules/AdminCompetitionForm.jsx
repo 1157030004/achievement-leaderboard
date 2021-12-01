@@ -4,11 +4,15 @@ import { useStore } from "../store";
 import InputLabel from "../components/InputLabel";
 import FormSelect from "../components/FormSelect";
 
-const AdminCompetitionForm = ({ source }) => {
-	const { title, activity, level, score, status, proof } = source;
-
+const AdminCompetitionForm = (props) => {
 	const navigate = useNavigate();
 	const params = useParams();
+
+	const getAdminOneCompetition = useStore(
+		(state) => state.getAdminOneCompetition
+	);
+	const adminCompetition = useStore((state) => state.adminCompetition);
+
 	const competitionActivities = useStore(
 		(state) => state.competitionActivities
 	);
@@ -20,25 +24,31 @@ const AdminCompetitionForm = ({ source }) => {
 	const updateAdminCompetition = useStore(
 		(state) => state.updateAdminCompetition
 	);
+
+	const { title, activity, level, score, status, proof } = adminCompetition;
+
 	const [inputs, setInputs] = useState({
 		title,
 		activity,
 		level,
 		score,
 		status,
+		proof,
 	});
 	const [data, setData] = useState([]);
+
+	useEffect(() => {
+		getAdminOneCompetition(params.id);
+		getCompetitionActivities();
+		getCompetitionLevels();
+		console.log("competition ", activity);
+		index = activityMatch.lastIndexOf(activity);
+		setData(competitionLevels[index].level);
+	}, []);
 
 	const activityOptions = competitionActivities.map((item) => item.activity);
 	const activityMatch = competitionLevels.map((item) => item.activity);
 	let index;
-
-	useEffect(() => {
-		getCompetitionActivities();
-		getCompetitionLevels();
-		index = activityMatch.lastIndexOf(inputs.activity);
-		setData(competitionLevels[index].level);
-	}, []);
 
 	const handleChange = (e) => {
 		setInputs({
@@ -73,7 +83,7 @@ const AdminCompetitionForm = ({ source }) => {
 						</label>
 						<img
 							className="w-2/4 rounded-lg block md:hidden"
-							src={proof}
+							src={inputs.proof}
 							alt=""
 						/>
 
@@ -98,7 +108,7 @@ const AdminCompetitionForm = ({ source }) => {
 						<select
 							name="status"
 							className="select w-full"
-							value={inputs.status}
+							defaultValue={inputs.status}
 							onChange={handleChange}>
 							<option value="Pilih">Pilih</option>
 							<option value="Reviewed">Reviewed</option>

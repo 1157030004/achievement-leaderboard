@@ -3,15 +3,16 @@ import Leaderboard from "../modules/Leaderboard";
 import { useStore } from "../store";
 
 const Home = () => {
-	const getRank = useStore((state) => state.getRank);
+	// const getRank = useStore((state) => state.getRank);
 
-	useEffect(() => {
-		getRank();
-	}, []);
+	// useEffect(() => {
+	// 	getRank();
+	// }, []);
 
 	return (
 		<div className="home">
-			<Leaderboard />
+			leaderboard
+			{/* <Leaderboard /> */}
 		</div>
 	);
 };
