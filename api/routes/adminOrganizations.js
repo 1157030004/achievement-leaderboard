@@ -11,8 +11,7 @@ router.put("/:id", verify, async (req, res) => {
 			const updateOrganization = await Organization.findByIdAndUpdate(
 				req.params.id,
 				{
-					status,
-					score,
+					$set: req.body,
 				},
 				{
 					new: true,

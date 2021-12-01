@@ -10,13 +10,19 @@ import Loading from "../components/Loading";
 const AdminDetail = () => {
 	const params = useParams();
 	const state = useStore((state) => state);
+
+	//? Academic
 	const adminAcademic = useStore((state) => state.adminAcademic);
-	const adminCompetition = useStore((state) => state.adminCompetition);
-	const adminOrganization = useStore((state) => state.adminOrganization);
 	const getAdminOneAcademic = useStore((state) => state.getAdminOneAcademic);
-	const getAdminOneCompetition = useStore(
-		(state) => state.getAdminOneCompetition
+	const academicActivities = useStore((state) => state.academicActivities);
+	const academicLevels = useStore((state) => state.academicLevels);
+	const getAcademicActivities = useStore(
+		(state) => state.getAcademicActivities
 	);
+	const getAcademicLevels = useStore((state) => state.getAcademicLevels);
+
+	//? Organization
+	const adminOrganization = useStore((state) => state.adminOrganization);
 	const getAdminOneOrganization = useStore(
 		(state) => state.getAdminOneOrganization
 	);
@@ -31,13 +37,31 @@ const AdminDetail = () => {
 		(state) => state.getOrganizationLevels
 	);
 
+	//? Competition
+	const adminCompetition = useStore((state) => state.adminCompetition);
+	const getAdminOneCompetition = useStore(
+		(state) => state.getAdminOneCompetition
+	);
+	const competitionActivities = useStore(
+		(state) => state.competitionActivities
+	);
+	const competitionLevels = useStore((state) => state.competitionLevels);
+	const getCompetitionActivities = useStore(
+		(state) => state.getCompetitionActivities
+	);
+	const getCompetitionLevels = useStore((state) => state.getCompetitionLevels);
+
 	const statusCategory = ["Pilih", "Reviewed", "Approved", "Rejected"];
 
 	useEffect(() => {
 		if (state.category === "academic") {
 			getAdminOneAcademic(params.id);
+			getAcademicActivities();
+			getAcademicLevels();
 		} else if (state.category === "competition") {
 			getAdminOneCompetition(params.id);
+			getCompetitionActivities();
+			getCompetitionLevels();
 		} else {
 			getAdminOneOrganization(params.id);
 			getOrganizationActivities();
@@ -59,9 +83,19 @@ const AdminDetail = () => {
 				/>
 			</Helmet>
 			{state.category === "academic" ? (
-				<AdminAcademicForm source={adminAcademic} />
+				<AdminAcademicForm
+					source={adminAcademic}
+					activities={academicActivities}
+					levels={academicLevels}
+					statusCategory={statusCategory}
+				/>
 			) : state.category === "competition" ? (
-				<AdminCompetitionForm source={adminCompetition} />
+				<AdminCompetitionForm
+					source={adminCompetition}
+					activities={competitionActivities}
+					levels={competitionLevels}
+					statusCategory={statusCategory}
+				/>
 			) : (
 				<AdminOrganizationForm
 					source={adminOrganization}

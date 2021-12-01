@@ -1,40 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useStore } from "../store";
 import InputLabel from "../components/InputLabel";
 import FormSelect from "../components/FormSelect";
+import Loading from "../components/Loading";
+import FormInput from "../components/FormInput";
 
-const AdminAcademicForm = ({ source }) => {
+const AdminAcademicForm = ({ source, activities, levels, statusCategory }) => {
 	const { title, activity, level, score, status, proof } = source;
-
 	const navigate = useNavigate();
 	const params = useParams();
-	const academicActivities = useStore((state) => state.academicActivities);
-	const academicLevels = useStore((state) => state.academicLevels);
-	const getAcademicActivities = useStore(
-		(state) => state.getAcademicActivities
-	);
-	const getAcademicLevels = useStore((state) => state.getAcademicLevels);
+
+	const isLoading = useStore((state) => state.isLoading);
+
 	const updateAdminAcademic = useStore((state) => state.updateAdminAcademic);
-	const [inputs, setInputs] = useState({
-		title,
-		activity,
-		level,
-		score,
-		status,
-	});
+
+	const [inputs, setInputs] = useState({});
 	const [data, setData] = useState([]);
+	const [checked, setChecked] = useState({
+		activity: true,
+		level: true,
+		status: true,
+		score: true,
+	});
 
-	const activityOptions = academicActivities.map((item) => item.activity);
-	const activityMatch = academicLevels.map((item) => item.activity);
+	const activityOptions = activities.map((item) => item.activity);
+	const activityMatch = levels.map((item) => item.activity);
 	let index;
-
-	useEffect(() => {
-		getAcademicActivities();
-		getAcademicLevels();
-		index = activityMatch.lastIndexOf(inputs.activity);
-		setData(academicLevels[index].level);
-	}, []);
 
 	const handleChange = (e) => {
 		setInputs({
@@ -44,8 +36,15 @@ const AdminAcademicForm = ({ source }) => {
 
 		if (e.target.name == "activity") {
 			index = activityMatch.lastIndexOf(e.target.value);
-			setData(academicLevels[index].level);
+			setData(levels[index].level);
 		}
+	};
+
+	const handleClick = (e) => {
+		setChecked({
+			...checked,
+			[e.target.name]: !e.target.checked,
+		});
 	};
 
 	const levelOptions = data.map((item) => item.name);
@@ -53,70 +52,61 @@ const AdminAcademicForm = ({ source }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		inputs.id = params.id;
-		updateAdminAcademic(inputs);
-		navigate("/admin");
+		updateAdminAcademic(inputs, () => navigate("/admin"));
 	};
+
+	if (isLoading) {
+		return <Loading />;
+	}
+
 	return (
 		<div className="mt-5 p-10 card bg-base-200">
 			<form className="form-control" onSubmit={handleSubmit}>
 				<h1 className="text-center font-extrabold">Formulir Tinjauan</h1>
-				<div className="flex flex-col lg:flex-row justify-between">
+				<div className="flex flex-col md:flex-row justify-between">
 					<div className="flex flex-col">
 						<InputLabel label="Title" value={title} />
+						<InputLabel label="Activity" value={activity} />
+						<InputLabel label="Level" value={level} />
+						<InputLabel label="Score" value={score} />
+						<InputLabel label="Status" value={status} />
+						<InputLabel label="Proof" image={proof} />
+					</div>
 
-						<label className="label mt-2 font-bold block md:hidden">
-							<span className="label-text">Bukti</span>
-						</label>
-						<img
-							className="w-2/4 rounded-lg block md:hidden"
-							src={proof}
-							alt=""
-						/>
-
+					<div className="flex flex-col">
 						<FormSelect
 							name="activity"
-							label="Kategori Pencapaian"
-							defaultValue={inputs.activity}
+							label="Activity"
 							onChange={handleChange}
+							onClick={handleClick}
+							disabled={checked.activity}
 							options={activityOptions}
 						/>
 
 						<FormSelect
 							name="level"
-							label="Skala Pencapaian"
-							defaultValue={inputs.level}
+							label="Level"
 							onChange={handleChange}
+							onClick={handleClick}
+							disabled={checked.level}
 							options={levelOptions}
 						/>
-						<label className="label mt-2 font-bold">
-							<span className="label-text">Status</span>
-						</label>
-						<select
+						<FormSelect
 							name="status"
-							className="select w-full"
-							value={inputs.status}
-							onChange={handleChange}>
-							<option value="Pilih">Pilih</option>
-							<option value="Reviewed">Reviewed</option>
-							<option value="Rejected">Rejected</option>
-							<option value="Approved">Approved</option>
-						</select>
-						<label className="label mt-2 font-bold">
-							<span className="label-text">Score</span>
-						</label>
-						<input
-							type="number"
-							name="score"
-							placeholder={score}
-							className="input"
+							label="Status"
 							onChange={handleChange}
+							onClick={handleClick}
+							disabled={checked.status}
+							options={statusCategory}
+						/>
+						<FormInput
+							name="score"
+							label="Score"
+							onChange={handleChange}
+							onClick={handleClick}
+							disabled={checked.score}
 						/>
 					</div>
-					<img
-						className="w-2/4 rounded-lg hidden md:block"
-						src={proof}
-						alt=""
-					/>
 				</div>
 				<button className="btn btn-primary mt-4">Submit</button>
 			</form>

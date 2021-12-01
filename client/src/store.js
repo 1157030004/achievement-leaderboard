@@ -802,14 +802,13 @@ const createAdminAcademicSlice = (set, get) => ({
 			}));
 		}
 	},
-	updateAdminAcademic: async (data) => {
+	updateAdminAcademic: async (data, callback) => {
 		try {
 			set(() => ({
 				isLoading: true,
 			}));
 			const res = await API.put(`${updateAdminAcademic}/${data.id}`, {
-				status: data.status,
-				score: data.score,
+				data,
 			});
 			set((state) => ({
 				adminAcademics: state.adminAcademics.map((adminAcademic) =>
@@ -822,6 +821,7 @@ const createAdminAcademicSlice = (set, get) => ({
 					message: "Successfully updated academic",
 				},
 			}));
+			callback();
 		} catch (err) {
 			set(() => ({
 				alert: {
@@ -893,14 +893,13 @@ const createAdminCompetitionSlice = (set, get) => ({
 			}));
 		}
 	},
-	updateAdminCompetition: async (data) => {
+	updateAdminCompetition: async (data, callback) => {
 		try {
 			set(() => ({
 				isLoading: true,
 			}));
 			const res = await API.put(`${updateAdminCompetition}/${data.id}`, {
-				status: data.status,
-				score: data.score,
+				data,
 			});
 			set((state) => ({
 				adminCompetitions: state.adminCompetitions.map((adminCompetition) =>
@@ -913,6 +912,8 @@ const createAdminCompetitionSlice = (set, get) => ({
 					message: "Successfully updated competition",
 				},
 			}));
+			console.log("res", data);
+			callback();
 		} catch (err) {
 			set(() => ({
 				alert: {
@@ -985,14 +986,13 @@ const createAdminOrganizationSlice = (set, get) => ({
 			}));
 		}
 	},
-	updateAdminOrganization: async (data) => {
+	updateAdminOrganization: async (data, callback) => {
 		try {
 			set(() => ({
 				isLoading: true,
 			}));
 			const res = await API.put(`${updateAdminOrganization}/${data.id}`, {
-				status: data.status,
-				score: data.score,
+				data,
 			});
 			set((state) => ({
 				adminOrganizations: state.adminOrganizations.map((adminOrganization) =>
@@ -1005,6 +1005,7 @@ const createAdminOrganizationSlice = (set, get) => ({
 					message: "Successfully updated organization",
 				},
 			}));
+			callback();
 		} catch (err) {
 			set(() => ({
 				alert: {

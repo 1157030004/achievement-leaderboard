@@ -1,53 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useStore } from "../store";
 import InputLabel from "../components/InputLabel";
 import FormSelect from "../components/FormSelect";
+import Loading from "../components/Loading";
+import FormInput from "../components/FormInput";
 
-const AdminCompetitionForm = (props) => {
+const AdminCompetitionForm = ({
+	source,
+	activities,
+	levels,
+	statusCategory,
+}) => {
+	const { title, activity, level, score, status, proof } = source;
 	const navigate = useNavigate();
 	const params = useParams();
 
-	const getAdminOneCompetition = useStore(
-		(state) => state.getAdminOneCompetition
-	);
-	const adminCompetition = useStore((state) => state.adminCompetition);
+	const isLoading = useStore((state) => state.isLoading);
 
-	const competitionActivities = useStore(
-		(state) => state.competitionActivities
-	);
-	const competitionLevels = useStore((state) => state.competitionLevels);
-	const getCompetitionActivities = useStore(
-		(state) => state.getCompetitionActivities
-	);
-	const getCompetitionLevels = useStore((state) => state.getCompetitionLevels);
 	const updateAdminCompetition = useStore(
 		(state) => state.updateAdminCompetition
 	);
 
-	const { title, activity, level, score, status, proof } = adminCompetition;
-
-	const [inputs, setInputs] = useState({
-		title,
-		activity,
-		level,
-		score,
-		status,
-		proof,
-	});
+	const [inputs, setInputs] = useState({});
 	const [data, setData] = useState([]);
+	const [checked, setChecked] = useState({
+		activity: true,
+		level: true,
+		status: true,
+		score: true,
+	});
 
-	useEffect(() => {
-		getAdminOneCompetition(params.id);
-		getCompetitionActivities();
-		getCompetitionLevels();
-		console.log("competition ", activity);
-		index = activityMatch.lastIndexOf(activity);
-		setData(competitionLevels[index].level);
-	}, []);
-
-	const activityOptions = competitionActivities.map((item) => item.activity);
-	const activityMatch = competitionLevels.map((item) => item.activity);
+	const activityOptions = activities.map((item) => item.activity);
+	const activityMatch = levels.map((item) => item.activity);
 	let index;
 
 	const handleChange = (e) => {
@@ -58,8 +43,15 @@ const AdminCompetitionForm = (props) => {
 
 		if (e.target.name == "activity") {
 			index = activityMatch.lastIndexOf(e.target.value);
-			setData(competitionLevels[index].level);
+			setData(levels[index].level);
 		}
+	};
+
+	const handleClick = (e) => {
+		setChecked({
+			...checked,
+			[e.target.name]: !e.target.checked,
+		});
 	};
 
 	const levelOptions = data.map((item) => item.name);
@@ -67,70 +59,61 @@ const AdminCompetitionForm = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		inputs.id = params.id;
-		updateAdminCompetition(inputs);
-		navigate("/admin");
+		updateAdminCompetition(inputs, () => navigate("/admin"));
 	};
+
+	if (isLoading) {
+		return <Loading />;
+	}
+
 	return (
 		<div className="mt-5 p-10 card bg-base-200">
 			<form className="form-control" onSubmit={handleSubmit}>
 				<h1 className="text-center font-extrabold">Formulir Tinjauan</h1>
-				<div className="flex flex-col lg:flex-row justify-between">
+				<div className="flex flex-col md:flex-row justify-between">
 					<div className="flex flex-col">
 						<InputLabel label="Title" value={title} />
+						<InputLabel label="Activity" value={activity} />
+						<InputLabel label="Level" value={level} />
+						<InputLabel label="Score" value={score} />
+						<InputLabel label="Status" value={status} />
+						<InputLabel label="Proof" image={proof} />
+					</div>
 
-						<label className="label mt-2 font-bold block md:hidden">
-							<span className="label-text">Bukti</span>
-						</label>
-						<img
-							className="w-2/4 rounded-lg block md:hidden"
-							src={inputs.proof}
-							alt=""
-						/>
-
+					<div className="flex flex-col">
 						<FormSelect
 							name="activity"
-							label="Kategori Pencapaian"
-							defaultValue={inputs.activity}
+							label="Activity"
 							onChange={handleChange}
+							onClick={handleClick}
+							disabled={checked.activity}
 							options={activityOptions}
 						/>
 
 						<FormSelect
 							name="level"
-							label="Skala Pencapaian"
-							defaultValue={inputs.level}
+							label="Level"
 							onChange={handleChange}
+							onClick={handleClick}
+							disabled={checked.level}
 							options={levelOptions}
 						/>
-						<label className="label mt-2 font-bold">
-							<span className="label-text">Status</span>
-						</label>
-						<select
+						<FormSelect
 							name="status"
-							className="select w-full"
-							defaultValue={inputs.status}
-							onChange={handleChange}>
-							<option value="Pilih">Pilih</option>
-							<option value="Reviewed">Reviewed</option>
-							<option value="Rejected">Rejected</option>
-							<option value="Approved">Approved</option>
-						</select>
-						<label className="label mt-2 font-bold">
-							<span className="label-text">Score</span>
-						</label>
-						<input
-							type="number"
-							name="score"
-							placeholder={score}
-							className="input"
+							label="Status"
 							onChange={handleChange}
+							onClick={handleClick}
+							disabled={checked.status}
+							options={statusCategory}
+						/>
+						<FormInput
+							name="score"
+							label="Score"
+							onChange={handleChange}
+							onClick={handleClick}
+							disabled={checked.score}
 						/>
 					</div>
-					<img
-						className="w-2/4 rounded-lg hidden md:block"
-						src={proof}
-						alt=""
-					/>
 				</div>
 				<button className="btn btn-primary mt-4">Submit</button>
 			</form>

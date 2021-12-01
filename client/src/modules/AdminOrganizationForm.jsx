@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useStore } from "../store";
 import InputLabel from "../components/InputLabel";
@@ -22,14 +22,7 @@ const AdminOrganizationForm = ({
 		(state) => state.updateAdminOrganization
 	);
 
-	const [inputs, setInputs] = useState({
-		title,
-		activity,
-		level,
-		score,
-		status,
-		proof,
-	});
+	const [inputs, setInputs] = useState({});
 	const [data, setData] = useState([]);
 	const [checked, setChecked] = useState({
 		activity: true,
@@ -66,8 +59,7 @@ const AdminOrganizationForm = ({
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		inputs.id = params.id;
-		updateAdminOrganization(inputs);
-		navigate("/admin");
+		updateAdminOrganization(inputs, () => navigate("/admin"));
 	};
 
 	if (isLoading) {
