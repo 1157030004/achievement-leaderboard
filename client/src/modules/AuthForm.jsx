@@ -38,8 +38,10 @@ const AuthForm = ({ data }) => {
 						<>
 							{item.type != "select" && (
 								<FormInput
+									name={item.name}
 									key={item.id}
-									{...item}
+									label={item.label}
+									type={item.type}
 									value={inputs[item.name]}
 									onChange={handleChange}
 								/>

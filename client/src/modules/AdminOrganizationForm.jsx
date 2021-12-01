@@ -121,14 +121,6 @@ const AdminOrganizationForm = ({
 							onClick={handleClick}
 							disabled={checked.score}
 						/>
-						{/* <label className="mt-2 font-bold text-xs">Score</label>
-						<input
-							type="number"
-							name="score"
-							placeholder="Score"
-							className="input"
-							onChange={handleChange}
-						/> */}
 					</div>
 				</div>
 				<button className="btn btn-primary mt-4">Submit</button>

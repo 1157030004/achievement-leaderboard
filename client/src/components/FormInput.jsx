@@ -1,14 +1,33 @@
 import React, { useState } from "react";
 
 const FormInput = (props) => {
-	const { label, errorMessage, onChange, id, ...itemProps } = props;
+	const { name, key, label, type, value, disabled, onChange, onClick } = props;
 	return (
-		<>
-			<span className="label label-text" htmlFor="input-field">
+		<div className="w-full">
+			<span className="mt-2 font-bold text-xs" htmlFor="input-field">
 				{label}
 			</span>
-			<input {...itemProps} className="input" onChange={onChange} />
-		</>
+			<div className="flex items-center">
+				<input
+					className="input w-full"
+					key={key}
+					labal={label}
+					name={name}
+					type={type}
+					placeholder={label}
+					disabled={disabled}
+					onChange={onChange}
+				/>
+				{onClick && (
+					<input
+						className="checkbox checkbox-xs checkbox-secondary ml-2"
+						type="checkbox"
+						name={name}
+						onClick={onClick}
+					/>
+				)}
+			</div>
+		</div>
 	);
 };
 

@@ -15,7 +15,7 @@ const FormSelect = ({
 			<div className="flex  items-center">
 				<select
 					name={name}
-					className="select w-3/4 lg:w-full max-w-xs  mr-2"
+					className="select w-3/4 lg:w-full max-w-xs"
 					value={defaultValue}
 					onChange={onChange}
 					disabled={disabled}>
@@ -32,7 +32,7 @@ const FormSelect = ({
 					type="checkbox"
 					name={name}
 					onClick={onClick}
-					class="checkbox checkbox-xs checkbox-secondary"
+					className="checkbox checkbox-xs checkbox-secondary ml-2"
 				/>
 			</div>
 		</div>

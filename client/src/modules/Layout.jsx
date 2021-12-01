@@ -9,6 +9,7 @@ import { useAuthStore, useStore } from "../store";
 const Layout = () => {
 	const state = useAuthStore((state) => state);
 	const alert = useStore((state) => state.alert);
+
 	return (
 		<Main>
 			<Helmet>

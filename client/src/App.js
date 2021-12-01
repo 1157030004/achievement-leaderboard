@@ -23,7 +23,7 @@ function App() {
 		<Routes>
 			<Route path="/" element={<Layout />}>
 				<Route index element={<Home />} />
-				{/* <Route path="login" element={isLoggedIn ? <Home /> : <Login />} />
+				<Route path="login" element={isLoggedIn ? <Home /> : <Login />} />
 				<Route path="register" element={isLoggedIn ? <Home /> : <Register />} />
 				{isAdmin ? (
 					<>
@@ -70,7 +70,7 @@ function App() {
 						/>
 						<Route path="welldone" element={<Welldone />} />
 					</>
-				)} */}
+				)}
 				<Route path="*" element={<NoMatch />} />
 			</Route>
 		</Routes>

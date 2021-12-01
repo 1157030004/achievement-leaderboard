@@ -51,7 +51,7 @@ const AdminDetail = () => {
 
 	return (
 		<>
-			{/* <Helmet>
+			<Helmet>
 				<title>Admin Leaderboard Aktivis Salman - Detail Prestasi</title>
 				<meta
 					name="description"
@@ -69,7 +69,7 @@ const AdminDetail = () => {
 					levels={organizationLevels}
 					statusCategory={statusCategory}
 				/>
-			)} */}
+			)}
 		</>
 	);
 };
