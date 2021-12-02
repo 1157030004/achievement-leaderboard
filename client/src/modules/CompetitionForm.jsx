@@ -108,14 +108,12 @@ const CompetitionForm = ({ source }) => {
 					<FormSelect
 						name="activity"
 						label="Kategori Pencapaian"
-						defaultValue={"Pilih"}
 						onChange={handleChange}
 						options={activityOptions}
 					/>
 					<FormSelect
 						name="level"
 						label="Skala Pencapaian"
-						defaultValue={"Pilih"}
 						onChange={handleChange}
 						options={levelOptions}
 					/>
