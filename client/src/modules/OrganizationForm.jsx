@@ -110,15 +110,13 @@ const OrganizationForm = ({ source }) => {
 				<div className="flex flex-col md:flex-row w-auto">
 					<FormSelect
 						name="activity"
-						label="Kategori Pencapaian"
-						defaultValue={"Pilih"}
+						label="Activity"
 						onChange={handleChange}
 						options={activityOptions}
 					/>
 					<FormSelect
 						name="level"
 						label="Skala Pencapaian"
-						defaultValue={"Pilih"}
 						onChange={handleChange}
 						options={levelOptions}
 					/>

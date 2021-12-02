@@ -28,12 +28,14 @@ const FormSelect = ({
 						);
 					})}
 				</select>
-				<input
-					type="checkbox"
-					name={name}
-					onClick={onClick}
-					className="checkbox checkbox-xs checkbox-secondary ml-2"
-				/>
+				{onClick && (
+					<input
+						type="checkbox"
+						name={name}
+						onClick={onClick}
+						className="checkbox checkbox-xs checkbox-secondary ml-2"
+					/>
+				)}
 			</div>
 		</div>
 	);
