@@ -807,9 +807,7 @@ const createAdminAcademicSlice = (set, get) => ({
 			set(() => ({
 				isLoading: true,
 			}));
-			const res = await API.put(`${updateAdminAcademic}/${data.id}`, {
-				data,
-			});
+			const res = await API.put(`${updateAdminAcademic}/${data.id}`, data);
 			set((state) => ({
 				adminAcademics: state.adminAcademics.map((adminAcademic) =>
 					adminAcademic.id === data.id ? res.data : adminAcademic
@@ -898,9 +896,7 @@ const createAdminCompetitionSlice = (set, get) => ({
 			set(() => ({
 				isLoading: true,
 			}));
-			const res = await API.put(`${updateAdminCompetition}/${data.id}`, {
-				data,
-			});
+			const res = await API.put(`${updateAdminCompetition}/${data.id}`, data);
 			set((state) => ({
 				adminCompetitions: state.adminCompetitions.map((adminCompetition) =>
 					adminCompetition.id === data.id ? res.data : adminCompetition
@@ -991,9 +987,7 @@ const createAdminOrganizationSlice = (set, get) => ({
 			set(() => ({
 				isLoading: true,
 			}));
-			const res = await API.put(`${updateAdminOrganization}/${data.id}`, {
-				data,
-			});
+			const res = await API.put(`${updateAdminOrganization}/${data.id}`, data);
 			set((state) => ({
 				adminOrganizations: state.adminOrganizations.map((adminOrganization) =>
 					adminOrganization.id === data.id ? res.data : adminOrganization
