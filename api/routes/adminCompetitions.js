@@ -144,12 +144,11 @@ router.get("/", verify, async (req, res) => {
 			let query = Competition.find()
 				.skip(skip)
 				.sort({ createdAt: -1 })
-				.limit(pageSize)
 				.populate("owner", "-password -competitions -academics -organizations");
-
-			if (page > pages) {
-				return res.status(404).json("No page found");
-			}
+			// .limit(pageSize);
+			// if (page > pages) {
+			// 	return res.status(404).json("No page found");
+			// }
 
 			const result = title ? await Competition.find({ title }) : await query;
 

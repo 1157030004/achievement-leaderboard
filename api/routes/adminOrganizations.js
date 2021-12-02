@@ -143,12 +143,12 @@ router.get("/", verify, async (req, res) => {
 			let query = Organization.find()
 				.skip(skip)
 				.sort({ createdAt: -1 })
-				.limit(pageSize)
 				.populate("owner", "-password -competitions -academics -organizations");
+			// .limit(pageSize)
 
-			if (page > pages) {
-				return res.status(404).json("No page found");
-			}
+			// if (page > pages) {
+			// 	return res.status(404).json("No page found");
+			// }
 
 			const result = title ? await Organization.find({ title }) : await query;
 
