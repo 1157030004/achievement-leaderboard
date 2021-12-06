@@ -51,7 +51,7 @@ const AdminDetail = () => {
 	);
 	const getCompetitionLevels = useStore((state) => state.getCompetitionLevels);
 
-	const statusCategory = ["Pilih", "Reviewed", "Approved", "Rejected"];
+	const statusCategory = ["Pilih", "Waiting Approval", "Approved", "Rejected"];
 
 	useEffect(() => {
 		if (state.category === "academic") {

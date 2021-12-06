@@ -80,7 +80,7 @@ const AdminOrganizationForm = ({
 						<InputLabel label="Proof" image={proof} />
 					</div>
 
-					<div className="flex flex-col">
+					<div className="flex flex-col bg-indigo-400">
 						<FormSelect
 							name="activity"
 							label="Activity"

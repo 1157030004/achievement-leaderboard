@@ -19,7 +19,7 @@ const CompetitionSchema = new Schema(
 			type: Number,
 			default: 0,
 		},
-		status: { type: String, default: "Reviewed" },
+		status: { type: String, default: "Waiting Approval" },
 		owner: {
 			type: Schema.Types.ObjectId,
 			ref: "User",
