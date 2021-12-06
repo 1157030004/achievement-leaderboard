@@ -4,11 +4,19 @@ const Schema = mongoose.Schema;
 const CampusSchema = new Schema(
 	{
 		code: {
-			type: String,
+			type: Number,
 			required: true,
 			unique: true,
 		},
 		name: {
+			type: String,
+			required: true,
+		},
+		city: {
+			type: String,
+			required: true,
+		},
+		province: {
 			type: String,
 			required: true,
 		},
