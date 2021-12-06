@@ -79,7 +79,6 @@ const AcademicForm = ({ source }) => {
 	const handleUpload = (e) => {
 		e.preventDefault();
 		upload([{ file: file, label: "proof" }]);
-		console.log(inputs);
 	};
 
 	const handleSubmit = (e) => {
@@ -101,20 +100,23 @@ const AcademicForm = ({ source }) => {
 					name="title"
 					label="Pencapaian"
 					placeholder="Pencapaian"
+					defaultValue={source.title}
 					onChange={handleChange}
 				/>
 				<div className="flex flex-col md:flex-row w-full">
 					<FormSelect
 						name="activity"
 						label="Kategori Pencapaian"
-						onChange={handleChange}
 						options={activityOptions}
+						defaultValue={source.activity}
+						onChange={handleChange}
 					/>
 					<FormSelect
 						name="level"
 						label="Skala Pencapaian"
-						onChange={handleChange}
 						options={levelOptions}
+						defaultValue={source.level}
+						onChange={handleChange}
 					/>
 				</div>
 
@@ -123,6 +125,7 @@ const AcademicForm = ({ source }) => {
 					name="year"
 					label="Tanggal"
 					placeholder="tanggal"
+					defaultValue={source.year}
 					onChange={handleChange}
 				/>
 				<label className="label mt-2">

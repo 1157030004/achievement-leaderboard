@@ -4,8 +4,8 @@ const FormSelect = ({
 	name,
 	defaultValue,
 	label,
-	onChange,
 	options,
+	onChange,
 	disabled,
 	onClick,
 }) => {
@@ -27,7 +27,7 @@ const FormSelect = ({
 				<select
 					name={name}
 					className="select w-full "
-					value={defaultValue}
+					defaultValue={defaultValue}
 					onChange={onChange}
 					disabled={disabled}>
 					<option value="Pilih">Pilih</option>

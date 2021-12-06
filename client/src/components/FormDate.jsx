@@ -1,7 +1,8 @@
 import React from "react";
 
 const FormDate = (props) => {
-	const { name, key, label, type, value, disabled, onChange, onClick } = props;
+	const { name, key, label, type, defaultValue, disabled, onChange, onClick } =
+		props;
 	return (
 		<div className="w-full">
 			<span className="mt-2 font-bold text-xs" htmlFor="input-field">
@@ -24,6 +25,7 @@ const FormDate = (props) => {
 					labal={label}
 					name={name}
 					type={type}
+					defaultValue={defaultValue}
 					placeholder={label}
 					disabled={disabled}
 					onChange={onChange}

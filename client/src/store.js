@@ -332,7 +332,7 @@ const createCompetitionSlice = (set, get) => ({
 			});
 		}
 	},
-	addCompetition: async (data) => {
+	addCompetition: async (data, callback) => {
 		try {
 			set(() => ({
 				isLoading: true,
@@ -353,6 +353,7 @@ const createCompetitionSlice = (set, get) => ({
 					message: "Competition data has been successfully added",
 				},
 			}));
+			callback();
 		} catch (err) {
 			set({
 				alert: {
@@ -391,7 +392,7 @@ const createCompetitionSlice = (set, get) => ({
 			});
 		}
 	},
-	updateCompetition: async (data) => {
+	updateCompetition: async (data, callback) => {
 		try {
 			set(() => ({
 				isLoading: true,
@@ -414,6 +415,7 @@ const createCompetitionSlice = (set, get) => ({
 					message: "Competition data has been successfully updated",
 				},
 			}));
+			callback();
 		} catch (err) {
 			set({
 				alert: {
@@ -511,7 +513,7 @@ const createOrganizationSlice = (set, get) => ({
 			});
 		}
 	},
-	addOrganization: async (data) => {
+	addOrganization: async (data, callback) => {
 		try {
 			set(() => ({
 				isLoading: true,
@@ -532,6 +534,7 @@ const createOrganizationSlice = (set, get) => ({
 					message: "Organization data has been successfully added",
 				},
 			}));
+			callback();
 		} catch (err) {
 			set({
 				alert: {
@@ -570,7 +573,7 @@ const createOrganizationSlice = (set, get) => ({
 			});
 		}
 	},
-	updateOrganization: async (data) => {
+	updateOrganization: async (data, callback) => {
 		try {
 			set(() => ({
 				isLoading: true,
@@ -593,6 +596,7 @@ const createOrganizationSlice = (set, get) => ({
 					message: "Organization data has been successfully updated",
 				},
 			}));
+			callback();
 		} catch (err) {
 			set({
 				alert: {
@@ -669,7 +673,6 @@ const createAuthSlice = (set, get) => ({
 				campus: data.campus,
 				password: data.password,
 			});
-			console.log(res.data);
 			localStorage.setItem("token", res.data.token);
 			set((state) => ({
 				user: res.data,

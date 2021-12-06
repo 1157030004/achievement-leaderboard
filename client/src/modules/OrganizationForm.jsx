@@ -82,19 +82,17 @@ const OrganizationForm = ({ source }) => {
 	const handleUpload = (e) => {
 		e.preventDefault();
 		upload([{ file: file, label: "proof" }]);
-		console.log(inputs);
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!source) {
-			addOrganization(inputs);
+			addOrganization(inputs, () => navigate("/welldone"));
 		} else {
 			inputs.id = source._id;
 			// inputs.proof = source.proof;
-			updateOrganization(inputs);
+			updateOrganization(inputs, () => navigate("/welldone"));
 		}
-		navigate("/welldone");
 	};
 
 	return (
@@ -105,19 +103,22 @@ const OrganizationForm = ({ source }) => {
 					type="text"
 					name="title"
 					label="Pencapaian"
-					placeholder={"Pencapaian"}
+					defaultValue={source.title}
+					placeholder="Pencapaian"
 					onChange={handleChange}
 				/>
 				<div className="flex flex-col md:flex-row w-auto">
 					<FormSelect
 						name="activity"
 						label="Activity"
+						defaultValue={source.activity}
 						onChange={handleChange}
 						options={activityOptions}
 					/>
 					<FormSelect
 						name="level"
 						label="Skala Pencapaian"
+						defaultValue={source.level}
 						onChange={handleChange}
 						options={levelOptions}
 					/>
@@ -126,6 +127,7 @@ const OrganizationForm = ({ source }) => {
 					type="date"
 					name="year"
 					label="Tanggal"
+					defaultValue={source.year}
 					placeholder="tanggal"
 					onChange={handleChange}
 				/>

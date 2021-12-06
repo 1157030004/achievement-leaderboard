@@ -30,7 +30,6 @@ const Achievements = () => {
 			setData(organizations);
 		}
 	}, [state.category, academics.length]);
-	console.log(academics);
 
 	const handleChange = (e) => {
 		addCategory(e.target.name);

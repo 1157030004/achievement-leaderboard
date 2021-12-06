@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
 const FormInput = (props) => {
-	const { name, key, label, type, value, disabled, onChange, onClick } = props;
+	const { name, key, label, type, defaultValue, disabled, onChange, onClick } =
+		props;
 	return (
 		<div className="w-full">
 			<span className="mt-2 font-bold text-xs" htmlFor="input-field">
@@ -21,9 +22,10 @@ const FormInput = (props) => {
 				<input
 					className="input w-full"
 					key={key}
-					labal={label}
+					label={label}
 					name={name}
 					type={type}
+					defaultValue={defaultValue}
 					placeholder={label}
 					disabled={disabled}
 					onChange={onChange}

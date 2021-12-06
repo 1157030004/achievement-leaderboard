@@ -80,18 +80,16 @@ const CompetitionForm = ({ source }) => {
 	const handleUpload = (e) => {
 		e.preventDefault();
 		upload([{ file: file, label: "proof" }]);
-		console.log(inputs);
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!source) {
-			addCompetition(inputs);
+			addCompetition(inputs, () => navigate("/welldone"));
 		} else {
 			inputs.id = source._id;
-			updateCompetition(inputs);
+			updateCompetition(inputs, () => navigate("/welldone"));
 		}
-		navigate("/welldone");
 	};
 
 	return (
@@ -102,19 +100,22 @@ const CompetitionForm = ({ source }) => {
 					type="text"
 					name="title"
 					label="Pencapaian"
-					placeholder={"Pencapaian"}
+					defaultValue={source.title}
+					placeholder="Pencapaian"
 					onChange={handleChange}
 				/>
 				<div className="flex flex-col md:flex-row w-auto">
 					<FormSelect
 						name="activity"
 						label="Kategori Pencapaian"
+						defaultValue={source.activity}
 						onChange={handleChange}
 						options={activityOptions}
 					/>
 					<FormSelect
 						name="level"
 						label="Skala Pencapaian"
+						defaultValue={source.level}
 						onChange={handleChange}
 						options={levelOptions}
 					/>
@@ -124,6 +125,7 @@ const CompetitionForm = ({ source }) => {
 					name="year"
 					label="Tanggal"
 					placeholder="tanggal"
+					defaultValue={source.year}
 					onChange={handleChange}
 				/>
 				<label className="label mt-2">
