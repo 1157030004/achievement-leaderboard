@@ -22,6 +22,8 @@ const organizationRoute = require("./routes/organizations");
 const organizationActivitiesRoute = require("./routes/organizationActivities");
 const organizationLevelsRoute = require("./routes/organizationLevels");
 
+const campusRoute = require("./routes/campuses");
+
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -57,6 +59,8 @@ app.use("/api/admin/organizations", adminOrganizationRoute);
 app.use("/api/organizations", organizationRoute);
 app.use("/api/organization-activities", organizationActivitiesRoute);
 app.use("/api/organization-levels", organizationLevelsRoute);
+
+app.use("/api/campuses", campusRoute);
 
 const PORT = process.env.PORT || 3000;
 

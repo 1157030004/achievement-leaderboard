@@ -63,6 +63,8 @@ const getAdminOneOrganization = `${rootLink}api/admin/organizations`;
 const updateAdminOrganization = `${rootLink}api/admin/organizations`;
 const deleteAdminOrganization = `${rootLink}api/admin/organizations`;
 
+const getAllCampuses = `${rootLink}api/campuses`;
+
 export default instance;
 export {
 	register,
@@ -101,4 +103,5 @@ export {
 	getAdminOneOrganization,
 	updateAdminOrganization,
 	deleteAdminOrganization,
+	getAllCampuses,
 };

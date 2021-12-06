@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useStore } from "../store";
 import AuthForm from "../modules/AuthForm";
 
 const Register = () => {
+	const campuses = useStore((state) => state.campuses);
+	const getAllCampuses = useStore((state) => state.getAllCampuses);
 	const data = [
 		{
 			id: 1,
@@ -28,20 +31,7 @@ const Register = () => {
 			placeholder: "Campus",
 			errorMessage: "Please enter your campus",
 			label: "Campus",
-			options: [
-				{
-					value: "1",
-					label: "Institut Teknologi Bandung",
-				},
-				{
-					value: "2",
-					label: "Institut Teknologi Sepuluh Nopember",
-				},
-				{
-					value: "3",
-					label: "Universitas Pendidikan Indonesia",
-				},
-			],
+			options: campuses,
 			required: true,
 		},
 		{
@@ -55,6 +45,9 @@ const Register = () => {
 		},
 	];
 
+	useEffect(() => {
+		getAllCampuses();
+	}, []);
 	return (
 		<>
 			<AuthForm data={data} />

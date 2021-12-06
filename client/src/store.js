@@ -37,6 +37,7 @@ import API, {
 	getAdminOneOrganization,
 	updateAdminOrganization,
 	deleteAdminOrganization,
+	getAllCampuses,
 } from "./utils/api";
 
 const createUserSlice = (set, get) => ({
@@ -1017,6 +1018,42 @@ const createAdminOrganizationSlice = (set, get) => ({
 	},
 });
 
+const createCampusSlice = (set, get) => ({
+	campuses: [],
+	campus: {},
+	isLoading: false,
+	alert: {
+		isActive: false,
+		type: "",
+		message: "",
+	},
+	getAllCampuses: async () => {
+		try {
+			set(() => ({
+				isLoading: true,
+			}));
+			const res = await API.get(`${getAllCampuses}`);
+			set({
+				campuses: res.data.data,
+				isLoading: false,
+				alert: {
+					isActive: true,
+					type: "success",
+					message: "Successfully fetched all campuses",
+				},
+			});
+		} catch (err) {
+			set(() => ({
+				alert: {
+					isActive: true,
+					type: "error",
+					message: err.response.data,
+				},
+			}));
+		}
+	},
+});
+
 let store = (set, get) => ({
 	...createUserSlice(set, get),
 	...createAcademicSlice(set, get),
@@ -1026,6 +1063,7 @@ let store = (set, get) => ({
 	...createAdminAcademicSlice(set, get),
 	...createAdminCompetitionSlice(set, get),
 	...createAdminOrganizationSlice(set, get),
+	...createCampusSlice(set, get),
 });
 
 let authStore = (set, get) => ({
