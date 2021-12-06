@@ -10,34 +10,36 @@ const FormSelect = ({
 	onClick,
 }) => {
 	return (
-		<div className="flex flex-col w-full justify-between">
-			<div className="flex flex-row items-end">
-				<label className="mt-2 font-bold text-xs">{label}</label>
-				{onClick && (
-					<input
-						type="checkbox"
-						name={name}
-						onClick={onClick}
-						className="checkbox checkbox-xs checkbox-secondary mb-2"
-					/>
-				)}
-			</div>
+		<div className="flex flex-col">
+			<label className="mt-2 font-bold text-xs">{label}</label>
+			<div className="flex items-end">
+				<div className="">
+					{onClick && (
+						<input
+							type="checkbox"
+							name={name}
+							onClick={onClick}
+							className="checkbox checkbox-xs checkbox-secondary mb-2"
+						/>
+					)}
+				</div>
 
-			<select
-				name={name}
-				className="select w-3/4 lg:w-full max-w-xs"
-				value={defaultValue}
-				onChange={onChange}
-				disabled={disabled}>
-				<option value="Pilih">Pilih</option>
-				{options.map((option, index) => {
-					return (
-						<option key={index} value={option}>
-							{option}
-						</option>
-					);
-				})}
-			</select>
+				<select
+					name={name}
+					className="select w-full "
+					value={defaultValue}
+					onChange={onChange}
+					disabled={disabled}>
+					<option value="Pilih">Pilih</option>
+					{options.map((option, index) => {
+						return (
+							<option key={index} value={option}>
+								{option}
+							</option>
+						);
+					})}
+				</select>
+			</div>
 		</div>
 	);
 };

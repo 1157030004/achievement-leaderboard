@@ -8,6 +8,16 @@ const FormInput = (props) => {
 				{label}
 			</span>
 			<div className="flex items-center">
+				<div className="">
+					{onClick && (
+						<input
+							className="checkbox checkbox-xs checkbox-secondary"
+							type="checkbox"
+							name={name}
+							onClick={onClick}
+						/>
+					)}
+				</div>
 				<input
 					className="input w-full"
 					key={key}
@@ -18,14 +28,6 @@ const FormInput = (props) => {
 					disabled={disabled}
 					onChange={onChange}
 				/>
-				{onClick && (
-					<input
-						className="checkbox checkbox-xs checkbox-secondary ml-2"
-						type="checkbox"
-						name={name}
-						onClick={onClick}
-					/>
-				)}
 			</div>
 		</div>
 	);
