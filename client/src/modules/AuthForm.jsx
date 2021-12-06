@@ -27,7 +27,6 @@ const AuthForm = ({ data }) => {
 			inputs.campus = selected.label;
 			register(inputs, () => navigate("/login"));
 		}
-		console.log(inputs);
 	};
 
 	return (
