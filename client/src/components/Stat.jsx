@@ -40,19 +40,19 @@ const Stat = ({ handleChange, tab }) => {
 				className={style.a({ isActive1 })}
 				onClick={handleChange}
 				name="academic">
-				Akademik
+				Academic
 			</a>
 			<a
 				className={style.a({ isActive2 })}
 				onClick={handleChange}
 				name="competition">
-				Kompetisi
+				Competition
 			</a>
 			<a
 				className={style.a({ isActive3 })}
 				onClick={handleChange}
 				name="organization">
-				Organisasi
+				Organization
 			</a>
 		</div>
 	);
