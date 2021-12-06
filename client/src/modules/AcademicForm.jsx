@@ -1,6 +1,7 @@
 import { DocumentUpload } from "iconsax-react";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import FormDate from "../components/FormDate";
 import FormInput from "../components/FormInput";
 import FormSelect from "../components/FormSelect";
 import { useStore } from "../store";
@@ -84,13 +85,11 @@ const AcademicForm = ({ source }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!source) {
-			addAcademic(inputs);
+			addAcademic(inputs, () => navigate("/welldone"));
 		} else {
 			inputs.id = source._id;
-			updateAcademic(inputs);
+			updateAcademic(inputs, () => navigate("/welldone"));
 		}
-
-		navigate("/welldone");
 	};
 
 	return (
@@ -104,7 +103,7 @@ const AcademicForm = ({ source }) => {
 					placeholder="Pencapaian"
 					onChange={handleChange}
 				/>
-				<div className="flex flex-col md:flex-row w-auto">
+				<div className="flex flex-col md:flex-row w-full">
 					<FormSelect
 						name="activity"
 						label="Kategori Pencapaian"
@@ -118,11 +117,18 @@ const AcademicForm = ({ source }) => {
 						options={levelOptions}
 					/>
 				</div>
-				<FormInput
+				{/* <FormInput
 					type="number"
 					name="year"
 					label="Tahun"
 					placeholder="tahun"
+					onChange={handleChange}
+				/> */}
+				<FormDate
+					type="date"
+					name="year"
+					label="Tanggal"
+					placeholder="tanggal"
 					onChange={handleChange}
 				/>
 				<label className="label mt-2">

@@ -151,7 +151,7 @@ const createAcademicSlice = (set, get) => ({
 			});
 		}
 	},
-	addAcademic: async (data) => {
+	addAcademic: async (data, callback) => {
 		try {
 			set(() => ({
 				isLoading: true,
@@ -172,6 +172,7 @@ const createAcademicSlice = (set, get) => ({
 					message: "Academic data has been successfully added",
 				},
 			}));
+			callback();
 		} catch (err) {
 			set({
 				alert: {
@@ -210,7 +211,7 @@ const createAcademicSlice = (set, get) => ({
 			});
 		}
 	},
-	updateAcademic: async (data) => {
+	updateAcademic: async (data, callback) => {
 		try {
 			set(() => ({
 				isLoading: true,
@@ -233,6 +234,7 @@ const createAcademicSlice = (set, get) => ({
 					message: "Academic data has been successfully updated",
 				},
 			}));
+			callback();
 		} catch (err) {
 			set({
 				alert: {

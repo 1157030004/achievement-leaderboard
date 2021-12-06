@@ -10,7 +10,7 @@ const FormSelect = ({
 	onClick,
 }) => {
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col w-full">
 			<label className="mt-2 font-bold text-xs">{label}</label>
 			<div className="flex items-end">
 				<div className="">
