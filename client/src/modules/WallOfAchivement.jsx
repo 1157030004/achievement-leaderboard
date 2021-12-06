@@ -15,6 +15,7 @@ const WallOfAchivement = ({ source, tab }) => {
 						level={item.level}
 						score={item.score}
 						status={item.status}
+						year={item.year}
 						proof={item.proof}
 						tab={tab}
 					/>

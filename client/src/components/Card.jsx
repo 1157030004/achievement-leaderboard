@@ -4,7 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { useStore } from "../store";
 import Popup from "./Popup";
 
-const Card = ({ id, title, activity, level, score, status, proof, tab }) => {
+const Card = ({
+	id,
+	title,
+	activity,
+	level,
+	score,
+	status,
+	year,
+	proof,
+	tab,
+}) => {
 	const addCategory = useStore((state) => state.addCategory);
 	const deleteAcademic = useStore((state) => state.deleteAcademic);
 	const deleteCompetition = useStore((state) => state.deleteCompetition);
@@ -52,6 +62,7 @@ const Card = ({ id, title, activity, level, score, status, proof, tab }) => {
 							</span>
 							<span className="text-2xs lg:text-sm font-thin">{activity}</span>
 							<span className="text-2xs lg:text-sm font-thin">{level}</span>
+							<span className="text-2xs lg:text-sm font-thin">{year}</span>
 						</div>
 
 						<div className="flex flex-col items-center w-24 p-2 bg-base-100 text-base-content rounded-lg">

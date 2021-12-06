@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import FormDate from "../components/FormDate";
 import FormInput from "../components/FormInput";
 import FormSelect from "../components/FormSelect";
 import { useStore } from "../store";
@@ -118,11 +119,11 @@ const CompetitionForm = ({ source }) => {
 						options={levelOptions}
 					/>
 				</div>
-				<FormInput
-					type="number"
+				<FormDate
+					type="date"
 					name="year"
-					label="Tahun"
-					placeholder={"Tahun"}
+					label="Tanggal"
+					placeholder="tanggal"
 					onChange={handleChange}
 				/>
 				<label className="label mt-2">

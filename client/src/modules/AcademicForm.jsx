@@ -117,13 +117,7 @@ const AcademicForm = ({ source }) => {
 						options={levelOptions}
 					/>
 				</div>
-				{/* <FormInput
-					type="number"
-					name="year"
-					label="Tahun"
-					placeholder="tahun"
-					onChange={handleChange}
-				/> */}
+
 				<FormDate
 					type="date"
 					name="year"
