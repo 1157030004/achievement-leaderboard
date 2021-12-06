@@ -2,7 +2,17 @@ import React from "react";
 import Select from "react-select";
 
 const FormSearchSelect = (props) => {
-	const { label, errorMessage, onChange, id, ...itemProps } = props;
+	const { id, label, options, errorMessage, onChange } = props;
+
+	let campuses = [];
+
+	for (let i = 0; i < options.length; i++) {
+		campuses.push({
+			value: options[i].name,
+			label: options[i].name,
+		});
+	}
+
 	const customStyles = {
 		menu: (provided, state) => ({
 			...provided,
@@ -31,9 +41,9 @@ const FormSearchSelect = (props) => {
 				<span className="label-text">Perguruan Tinggi</span>
 			</label>
 			<Select
-				{...itemProps}
 				className=" w-full h-12 rounded-full p-0"
 				styles={customStyles}
+				options={campuses}
 				onChange={onChange}
 			/>
 		</>
