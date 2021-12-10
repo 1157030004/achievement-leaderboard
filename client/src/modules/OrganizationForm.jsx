@@ -6,7 +6,9 @@ import FormSelect from "../components/FormSelect";
 import { useStore } from "../store";
 import storage from "../utils/firebase";
 
-const OrganizationForm = ({ source }) => {
+const OrganizationForm = (props) => {
+	const { source } = props;
+
 	const navigate = useNavigate();
 	const organizationActivities = useStore(
 		(state) => state.organizationActivities
@@ -100,10 +102,11 @@ const OrganizationForm = ({ source }) => {
 			<h1 className="text-center font-extrabold">Formulir Pencapaian</h1>
 			<form className="form-control" onSubmit={handleSubmit}>
 				<FormInput
+					key={Math.random()}
 					type="text"
 					name="title"
 					label="Pencapaian"
-					defaultValue={source.title}
+					defaultValue={source.title || ""}
 					placeholder="Pencapaian"
 					onChange={handleChange}
 				/>

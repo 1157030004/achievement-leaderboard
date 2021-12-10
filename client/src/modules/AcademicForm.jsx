@@ -7,7 +7,8 @@ import FormSelect from "../components/FormSelect";
 import { useStore } from "../store";
 import storage from "../utils/firebase";
 
-const AcademicForm = ({ source }) => {
+const AcademicForm = (props) => {
+	const { source } = props;
 	const navigate = useNavigate();
 	const academicActivities = useStore((state) => state.academicActivities);
 	const academicLevels = useStore((state) => state.academicLevels);

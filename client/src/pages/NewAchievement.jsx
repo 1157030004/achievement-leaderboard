@@ -6,14 +6,19 @@ import { useStore } from "../store";
 
 const NewAchievement = (props) => {
 	const category = useStore((state) => state.category);
+	const [source, setSource] = React.useState({
+		title: "",
+		activity: "",
+		level: "",
+	});
 	return (
 		<div>
 			{category === "academic" ? (
-				<AcademicForm {...props} />
+				<AcademicForm source={source} />
 			) : category === "competition" ? (
-				<CompetitionForm {...props} />
+				<CompetitionForm source={source} />
 			) : (
-				<OrganizationForm {...props} />
+				<OrganizationForm source={source} />
 			)}
 		</div>
 	);
