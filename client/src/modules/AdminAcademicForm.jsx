@@ -7,6 +7,7 @@ import Loading from "../components/Loading";
 import FormInput from "../components/FormInput";
 
 const AdminAcademicForm = ({ source, activities, levels, statusCategory }) => {
+	console.log(source)
 	const { title, activity, level, score, status, proof } = source;
 	const navigate = useNavigate();
 	const params = useParams();

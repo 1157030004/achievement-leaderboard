@@ -13,6 +13,7 @@ const AcademicSchema = new Schema(
 			default: 0,
 		},
 		status: { type: String, default: "Waiting Approval" },
+		comment: { type: String, default: "" },
 		owner: {
 			type: Schema.Types.ObjectId,
 			ref: "User",

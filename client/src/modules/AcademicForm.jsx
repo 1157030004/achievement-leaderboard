@@ -41,7 +41,7 @@ const AcademicForm = (props) => {
 			[e.target.name]: e.target.value,
 		});
 
-		if (e.target.name == "activity") {
+		if (e.target.name === "activity") {
 			index = activityMatch.lastIndexOf(e.target.value);
 			setData(academicLevels[index].level);
 		}
