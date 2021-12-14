@@ -10,6 +10,7 @@ const CompetitionForm = (props) => {
 	const { source } = props;
 
 	const navigate = useNavigate();
+	const path = window.location.pathname
 	const competitionActivities = useStore(
 		(state) => state.competitionActivities
 	);
@@ -86,7 +87,7 @@ const CompetitionForm = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (!source) {
+		if (path === "/achievements/new") {
 			addCompetition(inputs, () => navigate("/welldone"));
 		} else {
 			inputs.id = source._id;
@@ -99,7 +100,6 @@ const CompetitionForm = (props) => {
 			<h1 className="text-center font-extrabold">Formulir Pencapaian</h1>
 			<form className="form-control" onSubmit={handleSubmit}>
 				<FormInput
-					key={Math.random()}
 					type="text"
 					name="title"
 					label="Pencapaian"

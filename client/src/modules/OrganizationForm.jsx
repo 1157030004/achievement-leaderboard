@@ -10,6 +10,7 @@ const OrganizationForm = (props) => {
 	const { source } = props;
 
 	const navigate = useNavigate();
+	const path = window.location.pathname
 	const organizationActivities = useStore(
 		(state) => state.organizationActivities
 	);
@@ -44,7 +45,7 @@ const OrganizationForm = (props) => {
 			[e.target.name]: e.target.value,
 		});
 
-		if (e.target.name == "activity") {
+		if (e.target.name === "activity") {
 			index = activityMatch.lastIndexOf(e.target.value);
 			setData(organizationLevels[index].level);
 		}
@@ -88,7 +89,7 @@ const OrganizationForm = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (!source) {
+		if (path === "/achievements/new") {
 			addOrganization(inputs, () => navigate("/welldone"));
 		} else {
 			inputs.id = source._id;
@@ -102,7 +103,6 @@ const OrganizationForm = (props) => {
 			<h1 className="text-center font-extrabold">Formulir Pencapaian</h1>
 			<form className="form-control" onSubmit={handleSubmit}>
 				<FormInput
-					key={Math.random()}
 					type="text"
 					name="title"
 					label="Pencapaian"

@@ -10,6 +10,7 @@ import storage from "../utils/firebase";
 const AcademicForm = (props) => {
 	const { source } = props;
 	const navigate = useNavigate();
+	const path = window.location.pathname
 	const academicActivities = useStore((state) => state.academicActivities);
 	const academicLevels = useStore((state) => state.academicLevels);
 	const getAcademicActivities = useStore(
@@ -82,9 +83,10 @@ const AcademicForm = (props) => {
 		upload([{ file: file, label: "proof" }]);
 	};
 
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (!source) {
+		if (path === "/achievements/new") {
 			addAcademic(inputs, () => navigate("/welldone"));
 		} else {
 			inputs.id = source._id;

@@ -70,9 +70,9 @@ const Card = ({
 							<span className="text-2xs lg:text-sm font-bold">{score}</span>
 						</div>
 					</div>
-					<div className="flex items-center text-primary-content text-2xs lg:text-xs absolute right-8 top-1">
-						{status === "Reviewed" ? (
-							<span className="bg-info p-1 rounded-lg">{status}</span>
+					<div className="flex items-center text-primary-content text-2xs lg:text-xs absolute right-8 top-2">
+						{status === "Waiting Approval" ? (
+							<span className="bg-warning p-1 rounded-lg">{status}</span>
 						) : status === "Approved" ? (
 							<span className=" bg-success p-1 rounded-lg">{status}</span>
 						) : status === "Rejected" ? (
