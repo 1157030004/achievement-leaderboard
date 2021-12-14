@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Card from "../components/Card";
 import NoAchievement from "../components/NoAchievement";
 
@@ -16,6 +16,7 @@ const WallOfAchivement = ({ source, tab }) => {
 						score={item.score}
 						status={item.status}
 						year={item.year}
+						comment={item.comment}
 						proof={item.proof}
 						tab={tab}
 					/>

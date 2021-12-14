@@ -2,7 +2,6 @@ import { Edit, Trash } from "iconsax-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../store";
-import Popup from "./Popup";
 
 const Card = ({
 	id,
@@ -12,6 +11,7 @@ const Card = ({
 	score,
 	status,
 	year,
+	comment,
 	proof,
 	tab,
 }) => {
@@ -51,7 +51,7 @@ const Card = ({
 		<>
 			<div className="card m-2 w-full  shadow-2xl lg:card-side bg-neutral-content">
 				<div className=" card-body ">
-					<div className="flex flex-row items-center relative">
+					<div className="flex flex-col md:flex-row items-center relative">
 						<div className=" w-2/5 lg:w-1/5 mr-2 rounded-lg">
 							<img src={proof} className="bg-base-100 rounded-lg" alt="proof" />
 						</div>
@@ -65,8 +65,17 @@ const Card = ({
 							<span className="text-2xs lg:text-sm font-thin">{year}</span>
 						</div>
 
+						{
+							comment ? (
+								<div className="w-full mt-5 md:mr-10 flex flex-col">
+									<span className="text-2xs font-bold">Admin's Note</span>
+									<p className="text-2xs ">{comment}</p>
+								</div>
+							) : null
+						}
+
 						<div className="flex flex-col items-center w-24 p-2 bg-base-100 text-base-content rounded-lg">
-							<span className="text-2xs lg:text-sm font-light">Skor</span>
+							<span className="text-2xs lg:text-sm font-light">Score</span>
 							<span className="text-2xs lg:text-sm font-bold">{score}</span>
 						</div>
 					</div>
