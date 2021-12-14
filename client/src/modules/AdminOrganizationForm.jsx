@@ -5,6 +5,7 @@ import InputLabel from "../components/InputLabel";
 import FormSelect from "../components/FormSelect";
 import Loading from "../components/Loading";
 import FormInput from "../components/FormInput";
+import FormTextArea from "../components/FormTextArea";
 
 const AdminOrganizationForm = ({
 	source,
@@ -29,6 +30,7 @@ const AdminOrganizationForm = ({
 		level: true,
 		status: true,
 		score: true,
+		comment: true,
 	});
 
 	const activityOptions = activities.map((item) => item.activity);
@@ -112,6 +114,13 @@ const AdminOrganizationForm = ({
 							onChange={handleChange}
 							onClick={handleClick}
 							disabled={checked.score}
+						/>
+						<FormTextArea
+							name="comment"
+							label="Comment"
+							onChange={handleChange}
+							onClick={handleClick}
+							disabled={checked.comment}
 						/>
 					</div>
 				</div>

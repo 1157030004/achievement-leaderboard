@@ -5,9 +5,9 @@ import InputLabel from "../components/InputLabel";
 import FormSelect from "../components/FormSelect";
 import Loading from "../components/Loading";
 import FormInput from "../components/FormInput";
+import FormTextArea from "../components/FormTextArea";
 
 const AdminAcademicForm = ({ source, activities, levels, statusCategory }) => {
-	console.log(source)
 	const { title, activity, level, score, status, proof } = source;
 	const navigate = useNavigate();
 	const params = useParams();
@@ -23,6 +23,7 @@ const AdminAcademicForm = ({ source, activities, levels, statusCategory }) => {
 		level: true,
 		status: true,
 		score: true,
+		comment: true,
 	});
 
 	const activityOptions = activities.map((item) => item.activity);
@@ -106,6 +107,13 @@ const AdminAcademicForm = ({ source, activities, levels, statusCategory }) => {
 							onChange={handleChange}
 							onClick={handleClick}
 							disabled={checked.score}
+						/>
+						<FormTextArea
+							name="comment"
+							label="Comment"
+							onChange={handleChange}
+							onClick={handleClick}
+							disabled={checked.comment}
 						/>
 					</div>
 				</div>
