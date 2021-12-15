@@ -6,7 +6,7 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { useAuthStore, useStore } from "../store";
 import Loading from "./Loading";
 
-const Table = ({ source }) => {
+const Table = () => {
   const state = useStore((state) => state);
   const isAdmin = useAuthStore((state) => state.user.isAdmin);
   const rank = useStore((state) => state.rank);
@@ -27,12 +27,21 @@ const Table = ({ source }) => {
       },
     },
     {
+      headerName: "Email",
+      field: "email",
+      flex: 2,
+      sortable: true,
+      resizable: true,
+      hide: !isAdmin && true,
+    },
+    {
       headerName: "Academic",
       field: "academicScore",
       flex: 1,
       sortable: true,
       resizable: true,
     },
+
     {
       headerName: "Competition",
       field: "competitionScore",
@@ -102,6 +111,7 @@ const Table = ({ source }) => {
         onGridReady={onGridReady}
       >
         <AgGridColumn field="name" headerName="Name" />
+        <AgGridColumn field="email" headerName="Email" />
         <AgGridColumn field="academicScore" headerName="Academic Score" />
         <AgGridColumn field="competitionScore" headerName="Competition Score" />
         <AgGridColumn
